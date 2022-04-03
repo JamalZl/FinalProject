@@ -387,3 +387,5 @@ C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug
 C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\FinalProjectBack-Front.genruntimeconfig.cache
 C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
 C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Views\Account\ForgotPassword.cshtml.g.cs
+C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Views\Account\ResetPassword.cshtml.g.cs

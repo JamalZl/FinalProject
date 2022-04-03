@@ -148,5 +148,87 @@ namespace FinalProjectBack_Front.Controllers
             return RedirectToAction("index", "home");
 
         }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(AccountVM accountVM)
+        {
+            AppUser appUser = await _userManager.FindByEmailAsync(accountVM.AppUser.Email);
+
+            if (appUser == null) return BadRequest();
+            string token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+            string link = Url.Action(nameof(ResetPassword), "Account", new { email = appUser.Email, token }, Request.Scheme, Request.Host.ToString());
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress("czeynalli00@gmail.com", "Gecko");
+            mail.To.Add(new MailAddress(appUser.Email));
+
+            mail.Subject = "Reset Password";
+            string body = string.Empty;
+
+            using (StreamReader reader = new StreamReader("wwwroot/assets/template/ForgotPassword.html"))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            string aboutText = $"Welcome <strong>{appUser.Name + " " + appUser.Surname}</strong> to our website ,please click the link down below to verify your account";
+            body = body.Replace("{{link}}", link);
+            mail.Body = body.Replace("{{aboutText}}", aboutText);
+            mail.IsBodyHtml = true;
+
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.EnableSsl = true;
+
+            smtp.Credentials = new NetworkCredential("czeynalli00@gmail.com", "sendmaillesssecureapps0078");
+            smtp.Send(mail);
+            TempData["Forgot"] = true;
+
+            return RedirectToAction("index", "home");
+        }
+
+        public async Task<IActionResult> ResetPassword(string email,string token)
+        {
+            AppUser user = await _userManager.FindByEmailAsync(email);
+            if (user == null) return BadRequest();
+            AccountVM model = new AccountVM
+            {
+                AppUser = user,
+                Token = token
+            };
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(AccountVM account)
+        {
+            AppUser user = await _userManager.FindByEmailAsync(account.AppUser.Email);
+            AccountVM model = new AccountVM
+            {
+                AppUser = user,
+                Token = account.Token
+            };
+
+            if (!ModelState.IsValid) return View(model);
+            IdentityResult result = await _userManager.ResetPasswordAsync(user, account.Token, account.Password);
+            if (!result.Succeeded)
+            {
+                foreach (IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                    return View();
+                }
+                return View(model);
+            }
+            TempData["Reset"] = true;
+            return RedirectToAction("index", "home");
+        }
     }
+
+   
 }

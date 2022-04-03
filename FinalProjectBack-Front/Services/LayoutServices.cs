@@ -11,7 +11,6 @@ namespace FinalProjectBack_Front.Services
     public class LayoutServices
     {
         private readonly AppDbContext _context;
-        public RegisterVM RegisterVM { get; set; }
         public LayoutServices(AppDbContext context)
         {
             _context = context;
