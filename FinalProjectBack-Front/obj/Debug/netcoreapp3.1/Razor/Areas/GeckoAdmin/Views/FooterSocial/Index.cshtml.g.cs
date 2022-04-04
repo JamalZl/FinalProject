@@ -26,8 +26,15 @@ using FinalProjectBack_Front.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\Areas\GeckoAdmin\Views\_ViewImports.cshtml"
+using FinalProjectBack_Front.ViewModels;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8665876c3af6430de9f48c7d06573401fa3a77c8", @"/Areas/GeckoAdmin/Views/FooterSocial/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"df45c3f7aced78e5aaf525cf84f185f3727f4bd7", @"/Areas/GeckoAdmin/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"05d3603fef94bdb14b3d92d803ead7e2cc6bb707", @"/Areas/GeckoAdmin/Views/_ViewImports.cshtml")]
     public class Areas_GeckoAdmin_Views_FooterSocial_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<FooterSocial>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("href", new global::Microsoft.AspNetCore.Html.HtmlString("~/admin/assets/extrapages/material-dashboard.css"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -83,7 +90,7 @@ using FinalProjectBack_Front.Models;
             WriteLiteral("\n");
             DefineSection("AdminCSS", async() => {
                 WriteLiteral("\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "8665876c3af6430de9f48c7d06573401fa3a77c89873", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "8665876c3af6430de9f48c7d06573401fa3a77c810109", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -180,7 +187,7 @@ WriteAttributeValue("", 2745, media.SocialUrl, 2745, 16, false);
 #line hidden
 #nullable disable
             WriteLiteral("\n                                            </div>\n                                        </td>\n                                        <td>\n                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8665876c3af6430de9f48c7d06573401fa3a77c815944", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8665876c3af6430de9f48c7d06573401fa3a77c816181", async() => {
                 WriteLiteral("\n                                                <i style=\"color: orange; font-size: 25px;\" class=\"bi bi-pencil-square\"></i>\n                                            ");
             }
             );
@@ -214,7 +221,7 @@ WriteAttributeValue("", 2745, media.SocialUrl, 2745, 16, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\n                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8665876c3af6430de9f48c7d06573401fa3a77c818722", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8665876c3af6430de9f48c7d06573401fa3a77c818959", async() => {
                 WriteLiteral("\n                                                <i style=\"color: red; font-size: 25px;\" class=\"bi bi-trash3\"></i>\n                                            ");
             }
             );
@@ -257,7 +264,7 @@ WriteAttributeValue("", 2745, media.SocialUrl, 2745, 16, false);
 #line hidden
 #nullable disable
             WriteLiteral("                            </tbody>\n                        </table>\n                    </div>\n                </div>\n            </div>\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8665876c3af6430de9f48c7d06573401fa3a77c822069", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8665876c3af6430de9f48c7d06573401fa3a77c822306", async() => {
                 WriteLiteral("Create");
             }
             );
@@ -301,7 +308,7 @@ WriteAttributeValue(" ", 4609, ViewBag.Currentpage == 1 ? "disabled" : "", 4610,
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8665876c3af6430de9f48c7d06573401fa3a77c824950", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8665876c3af6430de9f48c7d06573401fa3a77c825187", async() => {
                 WriteLiteral("Previous");
             }
             );
@@ -368,7 +375,7 @@ WriteAttributeValue(" ", 5196, ViewBag.CurrentPage == i ? "none" : "", 5197, 41,
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8665876c3af6430de9f48c7d06573401fa3a77c829293", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8665876c3af6430de9f48c7d06573401fa3a77c829530", async() => {
 #nullable restore
 #line 78 "C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\Areas\GeckoAdmin\Views\FooterSocial\Index.cshtml"
                                                                                                                                                                                                                                                                                                                                                                                                                     Write(i);
@@ -428,7 +435,7 @@ WriteAttributeValue(" ", 5567, ViewBag.CurrentPage == ViewBag.TotalPage ? "disab
 #nullable disable
             EndWriteAttribute();
             WriteLiteral(">\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8665876c3af6430de9f48c7d06573401fa3a77c833624", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8665876c3af6430de9f48c7d06573401fa3a77c833861", async() => {
                 WriteLiteral("Next");
             }
             );

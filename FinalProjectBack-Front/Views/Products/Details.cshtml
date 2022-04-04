@@ -1,7 +1,7 @@
-﻿
-@{
-    ViewData["Title"] = "Details";
-}
+﻿@model Product
+@{ ViewData["Title"] = "Details";
+
+    }
 @section CSS{
     <link rel="stylesheet" href="~/assets/homeowlcarousel/owl.carousel.min.css">
     <link rel="stylesheet" href="~/assets/homeowlcarousel/owl.theme.default.min.css">
@@ -13,43 +13,42 @@
             <div class="images col-lg-6 col-md-6">
                 <div class="row detailsRowBigImage">
                     <div class="bigImage">
-                        <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/4_a00b8fb0-5dd2-4ea8-8f3d-d458b9f72a18_720x.jpg?v=1605081140"
+                        <img src="~/assets/images/@Model.ProductImages.FirstOrDefault().Image"
                              alt="">
                     </div>
                 </div>
                 <div class="row detailsRowSmallImage">
                     <div class="smallImages">
-                        <div class="image img1">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/4_a00b8fb0-5dd2-4ea8-8f3d-d458b9f72a18_720x.jpg?v=1605081140"
-                                 alt="">
-                        </div>
-                        <div class="image">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/8_bba25afa-c02d-44d0-9929-5f7297260795_720x.jpg?v=1605081140"
-                                 alt="">
-                        </div>
-                        <div class="image">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/11_a90c335a-b212-4f3d-87e6-06c7efff31f7_720x.jpg?v=1605081140"
-                                 alt="">
-                        </div>
-                        <div class="image">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_5cba8588-668f-4f83-9b4d-820fff2cb58f_720x.jpg?v=1605081140"
-                                 alt="">
-                        </div>
+                        @foreach (var img in Model.ProductImages)
+                        {
+                            <div class="image img1">
+                                <img src="~/assets/images/@img.Image"
+                                     alt="">
+                            </div>
+                        }
+
                     </div>
                 </div>
             </div>
             <div class="info col-lg-6 col-md-6">
                 <div class="row titleRow">
                     <div class="title">
-                        <span>Nike Court Air Max Volley</span>
+                        <span>@Model.Name</span>
                     </div>
                 </div>
                 <div class="row priceRow">
                     <ul>
                         <li>
-                            <span class="price">$329.00</span>
+                            <span class="price">$ @Model.Price</span>
                         </li>
-                        <li><span class="in-outStock">In Stock</span></li>
+                        @if (Model.InStock)
+                        {
+                            <li><span class="in-outStock">In Stock</span></li>
+                        }
+                        else
+                        {
+                            <li><span class="in-outStock">Out Of Stock</span></li>
+                        }
                     </ul>
                 </div>
                 <div class="row reviewRow">
@@ -66,39 +65,29 @@
                 </div>
                 <div class="row descRow">
                     <p>
-                        Description Finally—a white sneaker for the rest of your life. Whether you’re walking,
-                        working, or simply kicking it, the versatile and understated Royale Blanco is going to
-                        get you where you
+                      @Model.Description.Substring(0,190)...
                     </p>
                 </div>
                 <div class="row colorRow">
-                    <p class="colorVal">SIZE: <span>BLUE</span></p>
+                    <p class="colorVal">COLOR: <span>@Model.ProductColors.FirstOrDefault().Color.Name</span></p>
                     <ul class="color">
-                        <li id="firstColorLi" class="colorLi isSelectedColor" data-value="Blue">
-                            <a style="background-color: rgb(74,165,199);" href=""></a>
-                        </li>
-                        <li class="colorLi" data-value="Orange">
-                            <a style="background-color: rgb(255,122,1)"
-                               href=""></a>
-                        </li>
-                        <li class="colorLi" data-value="Yellow">
-                            <a style="background-color: rgb(225,235,121);"
-                               href=""></a>
-                        </li>
-                        <li class="colorLi" data-value="Grey">
-                            <a style="background-color: rgb(130,130,130)"
-                               href=""></a>
-                        </li>
+
+                        @foreach (var color in Model.ProductColors)
+                        {
+                             <li id="firstColorLi" class="colorLi isSelectedColor" data-value="@color.Color.Name">
+                                <a style="background-color: @color.Color.Value;" href=""></a>
+                             </li>
+                        }
                     </ul>
                 </div>
                 <div class="row sizeRow">
-                    <p class="sizeVal">SIZE: <span>40</span></p>
+                    <p class="sizeVal">SIZE: <span>@Model.ProductSizes.FirstOrDefault().Size.Value</span></p>
                     <ul class="size">
-                        <li id="firstSizeLi" class="sizeLi isSelectedSize" data-value="40"><span>40</span></li>
-                        <li class="sizeLi" data-value="41"><span>41</span></li>
-                        <li class="sizeLi" data-value="42"><span>42</span></li>
-                        <li class="sizeLi" data-value="43"><span>43</span></li>
-                        <li class="sizeLi" data-value="44"><span>44</span></li>
+                        @foreach (var size in Model.ProductSizes)
+                        {
+                            <li id="firstSizeLi" class="sizeLi isSelectedSize" data-value="@size.Size.Value"><span>@size.Size.Value</span></li>
+                        }
+
                     </ul>
                 </div>
                 <div class="row addToCardRow">
@@ -122,9 +111,12 @@
                     </button>
                 </div>
                 <div class="row categoryRow">
-                    <span class="name">Brand:<span class="content">Nike</span></span>
-                    <span class="name">Category:<span class="content">Running</span></span>
-                    <span class="name">Gender:<span class="content">Men</span></span>
+                    <span class="name">Brand:<span class="content">@Model.Brand.Name</span></span>
+                    <span class="name">Category:<span class="content">@foreach (var item in Model.ProductCategories)
+                    {
+                        @item.Category.Name <span>  </span>
+                    }</span></span>
+                    <span class="name">Tag:<span class="content">@Model.Tag.Name</span></span>
                 </div>
             </div>
         </div>
@@ -146,29 +138,18 @@
             <div class="descContent">
                 <span>DESCRIPTION</span>
                 <p>
-                    Finally—a white sneaker for the rest of your life. Whether you’re walking, working, or
-                    simply kicking it, the versatile and understated Royale Blanco is going to get you where
-                    you need to go. It might even help you feel better about where you are right now. Every
-                    great outfit is built from the ground up.
-
-                    The light, stable Nike Renew In-Season TR 10 Premium features a comfortable foam sole
-                    for great cushioning and energy return during circuit training and cardio-heavy
-                    routines. It locks your midfoot down to keep you feeling supported during your most
-                    intense workouts.
-
-                    Get Free Standard Delivery On All Orders!
+                    @Model.Description
                 </p>
             </div>
             <div class="row descImage">
-                <img class="col-lg-4 col-md-12"
-                     src="https://cdn.shopify.com/s/files/1/0332/6420/5963/products/p28-2_540x.jpg?v=1581901925"
-                     alt="">
-                <img class="col-lg-4  col-md-12"
-                     src="https://cdn.shopify.com/s/files/1/0332/6420/5963/products/p28-3_540x.jpg?v=1581901925"
-                     alt="">
-                <img class="col-lg-4  col-md-12"
-                     src="https://cdn.shopify.com/s/files/1/0332/6420/5963/products/p28-4_540x.jpg?v=1581901925"
-                     alt="">
+                @foreach (var item in Model.ProductImages.Take(3))
+                {
+                    <img class="col-lg-4 col-md-12"
+                         src="~/assets/images/@item.Image"
+                         alt="">
+                }
+
+
             </div>
         </div>
         <div class="row detailsTitleRow tab d-none" id="commentsTab">

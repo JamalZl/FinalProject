@@ -11,6 +11,7 @@ namespace FinalProjectBack_Front.Services
     public class LayoutServices
     {
         private readonly AppDbContext _context;
+        //public List<FooterSocial> FooterSocials { get; set; }
         public LayoutServices(AppDbContext context)
         {
             _context = context;
@@ -21,10 +22,11 @@ namespace FinalProjectBack_Front.Services
             Setting data = _context.Settings.FirstOrDefault();
             return data;
         }
-        public FooterSocial GetFooterSocialData()
+        
+        public List<FooterSocial> GetSocials()
         {
-            FooterSocial footerSocialData = _context.FooterSocials.FirstOrDefault();
-            return footerSocialData;
+            List<FooterSocial> footerSocials = _context.FooterSocials.ToList();
+            return footerSocials;
         }
     }
 }

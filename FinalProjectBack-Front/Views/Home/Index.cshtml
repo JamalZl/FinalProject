@@ -31,7 +31,7 @@
                 <div class="menu animate__animated">
                     <div class="menuTxt-closeIcon">
                         <span class="menuTxt">MENU</span>
-                        <span class="closeIcon"><i class="las la-times"></i></span>
+                        <span class="closeIcon">@Html.Raw(Model.Setting.CloseIcon)</span>
                     </div>
                     <ul class="menuLinks">
                         <li><a href="">Home</a></li>
@@ -63,25 +63,25 @@
                         <li><a href="">Contact</a></li>
                         <li>
                             <a href="#" class="searchIcon">
-                                <i class="bi bi-search nav-search"></i>
+                                @Html.Raw(Model.Setting.SearchIcon)
                                 <span>Search</span>
                             </a>
                         </li>
                         <li>
                             <a class="userIcon" href="#">
-                                <i class="bi bi-person nav-user"></i>
+                                @Html.Raw(Model.Setting.UserIcon)
                                 <span>Login/Register</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="wishlist">
-                                <i class="bi bi-heart nav-wishlist"></i>
+                                @Html.Raw(Model.Setting.WhishlistIcon)
                                 <span>Whishlist</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="basket">
-                                <i class="bi bi-cart2 nav-basket"></i>
+                                @Html.Raw(Model.Setting.BasketIcon)
                                 <span>Basket</span>
                             </a>
                         </li>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="links-logo-icons">
                     <div class="nav-links col-lg-5  col-md-1 col-sm-2 col-xs-4">
-                        <i class="fa-solid fa-bars menuIcon mx-2"></i>
+                        @Html.Raw(Model.Setting.MenuIcon)
                         <ul class="navLinkElements">
                             <li><a href="">Home</a></li>
                             <li class="shopLi">
@@ -126,13 +126,13 @@
                     </div>
                     <div class="logo col-lg-3 col-md-7 col-sm-5 col-xs-12">
                         <a href="">
-                            <img src="~/assets/images/Logo-img_38c63be0-fb31-4328-b860-cedd88ea4232_225x.webp"
+                            <img src="~/assets/images/@Model.Setting.Logo"
                                  alt="logo">
                         </a>
                     </div>
                     <div class="icons col-lg-4  col-md-4 col-sm-5 col-xs-6">
                         <a class="searchIcon" href="#">
-                            <i class="bi bi-search nav-search"></i>
+                            @Html.Raw(Model.Setting.SearchIcon)
                         </a>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -144,14 +144,14 @@
                         else
                         {
             <a class="userIcon" asp-controller="account" asp-action="register">
-                <i class="bi bi-person nav-user"></i>
+                @Html.Raw(Model.Setting.UserIcon)
             </a>}
                         <a href="#" class="wishlist">
-                            <i class="bi bi-heart nav-wishlist"></i>
+                            @Html.Raw(Model.Setting.WhishlistIcon)
                             <span class="wishlistCount">0</span>
                         </a>
                         <a href="#" class="basket">
-                            <i class="bi bi-cart2 nav-basket"></i>
+                            @Html.Raw(Model.Setting.BasketIcon)
                             <span class="basketCount">0</span>
                         </a>
                     </div>
@@ -266,18 +266,18 @@
     <main>
         @if (TempData["Forgot"] != null)
         {
-    <input type="hidden" id="forgotJS" />}
+<input type="hidden" id="forgotJS" />}
         @if (TempData["Reset"] != null)
         {
-    <input type="hidden" id="resetJS" />}
+<input type="hidden" id="resetJS" />}
         @if (TempData["Verify"] != null)
         {
-    <input type="hidden" id="verifyJS" />}
+<input type="hidden" id="verifyJS" />}
 
 
         @if (TempData["Verified"] != null)
         {
-    <input type="hidden" id="verifiedJS" />}
+<input type="hidden" id="verifiedJS" />}
 
         <section class="owl-carousel owl-theme myOwl">
             <div class="image-text">
@@ -346,13 +346,13 @@
                         <div class="row imagesRow">
                             <div class="row bigImageRow col-lg-6 col-md-12 col-sm-12">
                                 <div class="bigImage">
-                                    <div style="background-image: url(https://cdn.shopify.com/s/files/1/1385/4931/files/Product-Banner-1_720x.jpg?v=1604995599);"
+                                    <div
                                          class="image">
-                                        <img alt="">
+                                        <img alt="" src="~/assets/images/@Model.Setting.HandpickedImage">
                                     </div>
                                     <div class="content">
-                                        <div class="discount">Sale Up to 50% off</div>
-                                        <div class="saleStatus">ON SALE</div>
+                                        <div class="discount">@Model.Setting.HandpickedSale</div>
+                                        <div class="saleStatus">@Model.Setting.HandpickedSaleTitle</div>
                                         <a class="goToProducts" href="">SEE PRODUCTS</a>
                                     </div>
                                 </div>
@@ -499,10 +499,10 @@
         <section id="newArrival">
             <div class="row">
                 <div class="image-content">
-                    <div style="background-image: url(https://cdn.shopify.com/s/files/1/1385/4931/files/Sub-Banner_0bbcd124-38e5-4d3e-b1dc-27f636a375cf_1950x.jpg?v=1604993439); "
+                    <div
                          class="image">
                         <a href="">
-                            <img alt="">
+                            <img alt="" src="~/assets/images/@Model.Setting.NewArrivalImage">
                         </a>
                     </div>
                     <div class="content">
@@ -677,32 +677,20 @@
                     </div>
                 </div>
                 <div class="row brandImagesRow">
-                    <div class="brand animate__animated">
-                        <a href=""><img src="~/assets/images/brandNike.webp" alt=""></a>
-                    </div>
-                    <div class="brand animate__animated">
-                        <a href=""><img src="~/assets/images/brandPuma.webp" alt=""></a>
-                    </div>
-                    <div class="brand animate__animated">
-                        <a href=""><img src="~/assets/images/brandAdidas.webp" alt=""></a>
-                    </div>
-                    <div class="brand animate__animated">
-                        <a href=""><img src="~/assets/images/brandConverse.webp" alt=""></a>
-                    </div>
-                    <div class="brand animate__animated">
-                        <a href=""><img src="~/assets/images/brandVans.webp" alt=""></a>
-                    </div>
-                    <div class="brand animate__animated">
-                        <a href=""><img src="~/assets/images/brandNB.webp" alt=""></a>
-                    </div>
+                    @foreach (var brand in Model.Brands)
+                    {
+                        <div class="brand animate__animated">
+                            <a href=""><img src="~/assets/images/@brand.Image" alt=""></a>
+                        </div>
+                    }
                 </div>
             </div>
         </section>
         <section id="exploreMore">
             <div class="row">
                 <div class="image-content">
-                    <div style="background-image: url(https://cdn.shopify.com/s/files/1/1385/4931/files/Parallex_Banner_1950x.jpg?v=1604993321); "
-                         class="image"><a href=""><img alt=""></a></div>
+                    <div
+                         class="image"><a href=""><img alt="" src="~/assets/images/@Model.Setting.FunImage"></a></div>
                     <div class="content">
                         <div class="productExplain">
                             <p>No Fun Standing Still</p>
@@ -868,9 +856,9 @@
                             </div>
                             <div class="row bigImageRow col-lg-6 col-md-12 col-sm-12">
                                 <div class="bigImage">
-                                    <div style="background-image: url(https://cdn.shopify.com/s/files/1/1385/4931/files/Product-Banner-2_720x.jpg?v=1604997520);"
+                                    <div
                                          class="image">
-                                        <img alt="">
+                                        <img alt="" src="~/assets/images/@Model.Setting.UpliftedImage">
                                     </div>
                                     <div class="content">
                                         <div class="discount">Lighter, Bouncier, Asic</div>
@@ -887,13 +875,12 @@
         <section id="subscribe">
             <div class="row">
                 <div class="image-content">
-                    <div style="background-image: url(https://cdn.shopify.com/s/files/1/1385/4931/files/Newsletter-Parallex-2_1950x.jpg?v=1604993859);"
-                         class="image"><img alt=""></div>
+                    <div
+                         class="image"><img alt="" src="~/assets/images/@Model.Setting.SubscribeImage"></div>
                     <div class="content">
                         <div class="text">
                             <p>
-                                Daily Update Of Exclusive <br>
-                                Deals & New Shoes
+                                @Html.Raw(Model.Setting.SubscribeTitle)
                             </p>
                         </div>
                         <form class="form" action="">
@@ -916,30 +903,30 @@
                         <div class="info col-lg-3 col-md-6 col-sm-12">
                             <div class="logo">
                                 <a href="">
-                                    <img src="https://cdn.shopify.com/s/files/1/1385/4931/files/Logo-img_38c63be0-fb31-4328-b860-cedd88ea4232_170x.png?v=1604980222"
+                                    <img src="~/assets/images/@Model.Setting.Logo"
                                          alt="">
                                 </a>
                             </div>
                             <div class="location">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span>184 Main Rd E, St Albans</span>
+                                @Html.Raw(Model.Setting.FooterAdressIcon)
+                                <span>@Model.Setting.FooterAddress</span>
                             </div>
                             <div class="mail">
-                                <i class="fa-solid fa-envelope"></i>
-                                <a href="mailto:zeynalli6603.7@gmail.com">zeynalli6603.7@gmail.com</a>
+                                @Html.Raw(Model.Setting.FooterEmailIcon)
+                                <a href="mailto:@Model.Setting.FooterEmail">@Model.Setting.FooterEmail</a>
                             </div>
                             <div class="number">
-                                <i class="fa-solid fa-phone"></i>
-                                <span>+994556436755</span>
+                                @Html.Raw(Model.Setting.FooterNumberIcon)
+                                <span>@Model.Setting.FooterNumber</span>
                             </div>
                             <div class="socials">
-                                <a class="fb" href=""><i class="fa-brands fa-facebook-f"></i></a>
-                                <a class="tw" href=""><i class="fa-brands fa-twitter"></i></a>
-                                <a class="ig" href=""><i class="fa-brands fa-instagram"></i></a>
-                                <a class="yt" href=""><i class="fa-brands fa-youtube"></i></a>
+                                @foreach (var item in Model.FooterSocials)
+                                {
+                                    <a href="@item.SocialUrl">@Html.Raw(item.SocialIcon)</a>
+                                }
                             </div>
                         </div>
-                        <div class="links col-lg-9 col-md-6 col-sm-12 ">
+                        <div class="links col-lg-9 col-md-6 col-sm-12">
                             <ul class="linkUl">
                                 <li class="footerBrands">
                                     <p class="fullWidthBrand">BRANDS</p>
@@ -989,7 +976,7 @@
                         </a>
                     </div>
                     <div class="payment col-lg-6 col-md-6 col-sm-12">
-                        <img src="https://cdn.shopify.com/s/files/1/1385/4931/files/Payment_6fab6c8d-348e-4917-8e34-4f59a881f1f2.png?v=1604980656"
+                        <img src="~/assets/images/@Model.Setting.FooterPaymentImage"
                              alt="">
                     </div>
                 </div>
@@ -1095,4 +1082,4 @@
 
 </html>
 
-    
+

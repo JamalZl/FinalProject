@@ -1,0 +1,38 @@
+﻿@model List<Product>
+@foreach (var product in Model)
+{
+    <div class="smallImage col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="image">
+            <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" class="mainImage">
+                <img src="~/assets/images/@product.ProductImages.FirstOrDefault().Image"
+                     alt="">
+                <div class="icons">
+                    <a href="" class="whishlist"><i class="bi bi-heart"></i></a>
+                    <a href="" class="view"><i class="bi bi-eye"></i></a>
+                </div>
+
+            </a>
+            <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" class="secondImage" >
+                <img src="~/assets//images/@product.ProductImages.Skip(1).FirstOrDefault().Image"
+                     alt="">
+            </a>
+            <div class="addToCard">
+                <div class="increase-number-decrease">
+                    <a class="minus" href="">
+                        <i class="fa-solid fa-minus"></i>
+                    </a>
+                    <span id="inputNumber">1</span>
+                    <a class="plus" href="">
+                        <i class="fa-solid fa-plus"></i>
+                    </a>
+                </div>
+                <a href="" class="toCard">ADD TO CART</a>
+            </div>
+        </div>
+        <div class="name-price">
+            <div class="name"><a asp-controller="products" asp-action="details" asp-route-id="@product.Id">@product.Name</a></div>
+            <div class="price">£ @product.Price</div>
+        </div>
+    </div>
+
+}

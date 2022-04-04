@@ -34,7 +34,7 @@
                 <div class="menu animate__animated">
                     <div class="menuTxt-closeIcon">
                         <span class="menuTxt">MENU</span>
-                        <span class="closeIcon"><i class="las la-times"></i></span>
+                        <span class="closeIcon">@Html.Raw(layoutService.GetSettingData().CloseIcon)</span>
                     </div>
                     <ul class="menuLinks">
                         <li><a href="">Home</a></li>
@@ -66,25 +66,25 @@
                         <li><a href="">Contact</a></li>
                         <li>
                             <a class="searchIcon" href="#">
-                                <i class="bi bi-search nav-search"></i>
+                                @Html.Raw(layoutService.GetSettingData().SearchIcon)
                                 <span>Search</span>
                             </a>
                         </li>
                         <li>
                             <a class="userIcon" href="#">
-                                <i class="bi bi-person nav-user"></i>
+                                @Html.Raw(layoutService.GetSettingData().UserIcon)
                                 <span>Login/Register</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="wishlist">
-                                <i class="bi bi-heart nav-wishlist"></i>
+                                @Html.Raw(layoutService.GetSettingData().WhishlistIcon)
                                 <span>Whishlist</span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="basket">
-                                <i class="bi bi-cart2 nav-basket"></i>
+                                @Html.Raw(layoutService.GetSettingData().BasketIcon)
                                 <span>Basket</span>
                             </a>
                         </li>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="links-logo-icons">
                     <div class="nav-links col-lg-5  col-md-1 col-sm-2 col-xs-4">
-                        <i class="fa-solid fa-bars menuIcon"></i>
+                        @Html.Raw(layoutService.GetSettingData().MenuIcon)
                         <ul class="navLinkElements">
                             <li><a href="">Home</a></li>
                             <li class="shopLi">
@@ -129,35 +129,36 @@
                     </div>
                     <div class="logo col-lg-3 col-md-7 col-sm-5 col-xs-12">
                         <a href="">
-                            <img src="~/assets/images/Logo-img_38c63be0-fb31-4328-b860-cedd88ea4232_225x.webp"
+                            <img src="~/assets/images/@layoutService.GetSettingData().Logo"
                                  alt="logo">
                         </a>
                     </div>
                     <div class="icons col-lg-4  col-md-4 col-sm-5 col-xs-6">
                         <a class="searchIcon" href="#">
-                            <i class="bi bi-search nav-search"></i>
+                            @Html.Raw(layoutService.GetSettingData().SearchIcon)
                         </a>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a class="userIcon" asp-controller="account" asp-action="edit">
-                                <i class="bi bi-person nav-user"></i>
+                            <a  asp-controller="account" asp-action="edit">
+                               @User.Identity.Name
                             </a>
                              <a asp-controller="account" asp-action="logout" >Logout</a>
 
                         }
                         else
                         {
-                             <a class="userIcon" asp-controller="account" asp-action="register">
-                                 <span>@User.Identity.Name</span>
-                             </a>
+                             <a class="userIcon" asp-controller="account" asp-action="login">
+                                @Html.Raw(layoutService.GetSettingData().UserIcon)
+                            </a>
+                             
                         }
                        
                         <a href="#" class="wishlist">
-                            <i class="bi bi-heart nav-wishlist"></i>
+                            @Html.Raw(layoutService.GetSettingData().WhishlistIcon)
                             <span class="wishlistCount">0</span>
                         </a>
                         <a href="#" class="basket">
-                            <i class="bi bi-cart2 nav-basket"></i>
+                            @Html.Raw(layoutService.GetSettingData().BasketIcon)
                             <span class="basketCount">0</span>
                         </a>
                     </div>
@@ -283,27 +284,27 @@
                         <div class="info col-lg-3 col-md-6 col-sm-12">
                             <div class="logo">
                                 <a href="">
-                                    <img src="https://cdn.shopify.com/s/files/1/1385/4931/files/Logo-img_38c63be0-fb31-4328-b860-cedd88ea4232_170x.png?v=1604980222"
+                                    <img src="~/assets/images/@layoutService.GetSettingData().Logo"
                                          alt="">
                                 </a>
                             </div>
                             <div class="location">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span>184 Main Rd E, St Albans</span>
+                                @Html.Raw(layoutService.GetSettingData().FooterAdressIcon)
+                                <span>@layoutService.GetSettingData().FooterAddress</span>
                             </div>
                             <div class="mail">
-                                <i class="fa-solid fa-envelope"></i>
-                                <a href="mailto:zeynalli6603.7@gmail.com">zeynalli6603.7@gmail.com</a>
+                                @Html.Raw(layoutService.GetSettingData().FooterEmailIcon)
+                                <a href="mailto:@layoutService.GetSettingData().FooterEmail">@layoutService.GetSettingData().FooterEmail</a>
                             </div>
                             <div class="number">
-                                <i class="fa-solid fa-phone"></i>
-                                <span>+994556436755</span>
+                                @Html.Raw(layoutService.GetSettingData().FooterNumberIcon)
+                                <span>@layoutService.GetSettingData().FooterNumber</span>
                             </div>
                             <div class="socials">
-                                <a class="fb" href=""><i class="fa-brands fa-facebook-f"></i></a>
-                                <a class="tw" href=""><i class="fa-brands fa-twitter"></i></a>
-                                <a class="ig" href=""><i class="fa-brands fa-instagram"></i></a>
-                                <a class="yt" href=""><i class="fa-brands fa-youtube"></i></a>
+                                @foreach (var social in layoutService.GetSocials())
+                                {
+                                    <a href="@social.SocialUrl">@Html.Raw(social.SocialIcon)</a>
+                                }
                             </div>
                         </div>
                         <div class="links col-lg-9 col-md-6 col-sm-12 ">
@@ -356,7 +357,7 @@
                         </a>
                     </div>
                     <div class="payment col-lg-6 col-md-6 col-sm-12">
-                        <img src="https://cdn.shopify.com/s/files/1/1385/4931/files/Payment_6fab6c8d-348e-4917-8e34-4f59a881f1f2.png?v=1604980656"
+                        <img src="~/assets/images/@layoutService.GetSettingData().FooterPaymentImage"
                              alt="">
                     </div>
                 </div>

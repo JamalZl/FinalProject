@@ -1,5 +1,6 @@
 ﻿using FinalProjectBack_Front.Models;
 using FinalProjectBack_Front.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -149,6 +150,82 @@ namespace FinalProjectBack_Front.Controllers
 
         }
 
+        [Authorize]
+        public async Task<IActionResult> Edit()
+        {
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            EditUserVM editedUser = new EditUserVM
+            {
+                Name = user.Name,
+                Surname = user.Surname,
+                Username = user.UserName,
+                Email = user.Email,
+                Age = user.Age,
+                TelephoneNumber = user.PhoneNumber
+            };
+            return View(editedUser);
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(EditUserVM editedUser)
+        {
+            if (!ModelState.IsValid) return View();
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+            EditUserVM userEdit = new EditUserVM
+            {
+                Name = user.Name,
+                Surname = user.Surname,
+                Username = user.UserName,
+                Email = user.Email,
+                Age = user.Age,
+                TelephoneNumber = user.PhoneNumber
+            };
+
+            if (user.UserName != editedUser.Username && await _userManager.FindByNameAsync(editedUser.Username) != null)
+            {
+                ModelState.AddModelError("UserName", $"{editedUser.Username} has already taken");
+                return View(userEdit);
+            }
+
+            if (string.IsNullOrWhiteSpace(editedUser.CurrentPassword))
+            {
+                user.UserName = editedUser.Username;
+                user.Email = editedUser.Email;
+                user.Name = editedUser.Name;
+                user.Surname = editedUser.Surname;
+                user.Age = editedUser.Age;
+                user.PhoneNumber = editedUser.TelephoneNumber;
+                await _userManager.UpdateAsync(user);
+                await _signInManager.SignInAsync(user, true);
+            }
+            else
+            {
+                user.UserName = editedUser.Username;
+                user.Email = editedUser.Email;
+                user.Name = editedUser.Name;
+                user.Surname = editedUser.Surname;
+                user.Age = editedUser.Age;
+                user.PhoneNumber = editedUser.TelephoneNumber;
+
+                IdentityResult result = await _userManager.ChangePasswordAsync(user, editedUser.CurrentPassword, editedUser.Password);
+
+                if (!result.Succeeded)
+                {
+                    foreach (IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+
+                    return View(userEdit);
+                }
+
+                await _signInManager.PasswordSignInAsync(user, editedUser.Password, true, true);
+            }
+
+            return RedirectToAction("index", "home");
+        }
         public IActionResult ForgotPassword()
         {
             return View();
@@ -161,7 +238,7 @@ namespace FinalProjectBack_Front.Controllers
             AppUser appUser = await _userManager.FindByEmailAsync(accountVM.AppUser.Email);
 
             if (appUser == null) return BadRequest();
-            string token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+            string token = await _userManager.GeneratePasswordResetTokenAsync(appUser);
             string link = Url.Action(nameof(ResetPassword), "Account", new { email = appUser.Email, token }, Request.Scheme, Request.Host.ToString());
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("czeynalli00@gmail.com", "Gecko");
@@ -192,7 +269,7 @@ namespace FinalProjectBack_Front.Controllers
             return RedirectToAction("index", "home");
         }
 
-        public async Task<IActionResult> ResetPassword(string email,string token)
+        public async Task<IActionResult> ResetPassword(string email, string token)
         {
             AppUser user = await _userManager.FindByEmailAsync(email);
             if (user == null) return BadRequest();
@@ -221,7 +298,6 @@ namespace FinalProjectBack_Front.Controllers
                 foreach (IdentityError error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
-                    return View();
                 }
                 return View(model);
             }
@@ -230,5 +306,5 @@ namespace FinalProjectBack_Front.Controllers
         }
     }
 
-   
+
 }

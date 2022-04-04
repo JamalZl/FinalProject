@@ -999,6 +999,7 @@ ul {
   position: relative;
   top: 27px;
   display: none;
+  margin-left: 12px;
 }
 
 #homeNavBar .row .links-logo-icons .nav-links .navLinkElements {
@@ -1331,12 +1332,13 @@ ul {
 }
 
 #handpickedItems .handpickedRow .bigImageRow .bigImage .image {
-  background-position: center;
   width: 100%;
   height: auto;
 }
 
 #handpickedItems .handpickedRow .bigImageRow .bigImage .image img {
+  -o-object-position: center;
+     object-position: center;
   width: 100%;
   height: 100%;
 }
@@ -1653,12 +1655,15 @@ ul {
 }
 
 #newArrival .row .image-content .image {
-  background-position: center;
   width: 100%;
   height: auto;
 }
 
 #newArrival .row .image-content .image img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   width: 100%;
   height: 930px;
 }
@@ -2038,12 +2043,15 @@ ul {
 }
 
 #exploreMore .row .image-content .image {
-  background-position: center;
   width: 100%;
   height: auto;
 }
 
 #exploreMore .row .image-content .image img {
+  -o-object-position: center;
+     object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
   width: 100%;
   height: 930px;
 }
@@ -2159,6 +2167,8 @@ ul {
 }
 
 #bestSeller .bigImageRow .bigImage .image img {
+  -o-object-position: center;
+     object-position: center;
   width: 100%;
   height: 100%;
 }
@@ -2482,6 +2492,10 @@ ul {
 }
 
 #subscribe .row .image-content .image img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: left center;
+     object-position: left center;
   width: 100%;
   height: 850px;
 }
@@ -2598,52 +2612,52 @@ footer #topFooter .info-links .info .socials {
   color: white;
 }
 
-footer #topFooter .info-links .info .socials .fb i {
+footer #topFooter .info-links .info .socials .fb {
   color: white;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
-footer #topFooter .info-links .info .socials .fb i:hover {
+footer #topFooter .info-links .info .socials .fb:hover {
   -webkit-transform: translateY(-5px);
           transform: translateY(-5px);
   color: #0e8ef2;
 }
 
-footer #topFooter .info-links .info .socials .tw i {
+footer #topFooter .info-links .info .socials .tw {
   color: white;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   margin-left: 22px;
 }
 
-footer #topFooter .info-links .info .socials .tw i:hover {
+footer #topFooter .info-links .info .socials .tw:hover {
   -webkit-transform: translateY(-5px);
           transform: translateY(-5px);
   color: #1d9bf0;
 }
 
-footer #topFooter .info-links .info .socials .ig i {
+footer #topFooter .info-links .info .socials .ig {
   color: white;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   margin-left: 22px;
 }
 
-footer #topFooter .info-links .info .socials .ig i:hover {
+footer #topFooter .info-links .info .socials .ig:hover {
   -webkit-transform: translateY(-5px);
           transform: translateY(-5px);
   color: blueviolet;
 }
 
-footer #topFooter .info-links .info .socials .yt i {
+footer #topFooter .info-links .info .socials .yt {
   color: white;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   margin-left: 22px;
 }
 
-footer #topFooter .info-links .info .socials .yt i:hover {
+footer #topFooter .info-links .info .socials .yt:hover {
   -webkit-transform: translateY(-5px);
           transform: translateY(-5px);
   color: red;
@@ -5116,10 +5130,9 @@ footer #bottomFooter .row .payment {
   .container {
     max-width: 980px;
   }
-  #newArrival .row .image-content .image {
-    background-size: cover;
-  }
   #newArrival .row .image-content .image img {
+    -o-object-fit: cover;
+       object-fit: cover;
     height: 700px;
   }
   #NavBar nav .links-logo-icons {
@@ -5235,11 +5248,12 @@ footer #bottomFooter .row .payment {
   }
   #bestSeller .bestSellerRow .itemsTitle .imagesRow .bigImageRow .bigImage .image {
     height: 500px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
   }
   #bestSeller .bestSellerRow .itemsTitle .imagesRow .bigImageRow .bigImage .image img {
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
     height: 100%;
   }
   #bestSeller .bestSellerRow .itemsTitle .imagesRow .bigImageRow .bigImage .content .discount {
@@ -5288,11 +5302,12 @@ footer #bottomFooter .row .payment {
   }
   #handpickedItems .handpickedRow .itemsTitle .imagesRow .bigImageRow .bigImage .image {
     height: 500px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
   }
   #handpickedItems .handpickedRow .itemsTitle .imagesRow .bigImageRow .bigImage .image img {
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
     height: 100%;
   }
   #handpickedItems .handpickedRow .itemsTitle .imagesRow .bigImageRow .bigImage .content .discount {
@@ -5319,13 +5334,14 @@ footer #bottomFooter .row .payment {
             justify-content: center;
     width: 50%;
   }
-  #exploreMore .row .image-content .image {
-    background-size: cover;
-  }
   #exploreMore .row .image-content .image img {
+    -o-object-fit: cover;
+       object-fit: cover;
     height: 700px;
   }
   #subscribe .image-content .image img {
+    -o-object-fit: cover;
+       object-fit: cover;
     height: 821px !important;
   }
   #contactUs .contactInfoRow {
@@ -5449,10 +5465,9 @@ footer #bottomFooter .row .payment {
     height: 30px;
     font-size: 11px;
   }
-  #newArrival .image-content .image {
-    background-size: cover;
-  }
   #newArrival .image-content .image img {
+    -o-object-fit: cover;
+       object-fit: cover;
     height: 460px !important;
   }
   #newArrival .image-content .content {
@@ -5507,11 +5522,12 @@ footer #bottomFooter .row .payment {
   }
   #bestSeller .bestSellerRow .itemsTitle .imagesRow .bigImageRow .bigImage .image {
     height: 350px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
   }
   #bestSeller .bestSellerRow .itemsTitle .imagesRow .bigImageRow .bigImage .image img {
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
     height: 100%;
   }
   #bestSeller .bestSellerRow .itemsTitle .imagesRow .bigImageRow .bigImage .content {
@@ -5556,11 +5572,12 @@ footer #bottomFooter .row .payment {
   }
   #handpickedItems .handpickedRow .itemsTitle .imagesRow .bigImageRow .bigImage .image {
     height: 350px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
   }
   #handpickedItems .handpickedRow .itemsTitle .imagesRow .bigImageRow .bigImage .image img {
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
     height: 100%;
   }
   #handpickedItems .handpickedRow .itemsTitle .imagesRow .bigImageRow .bigImage .content {
@@ -5576,10 +5593,9 @@ footer #bottomFooter .row .payment {
         -ms-flex-pack: center;
             justify-content: center;
   }
-  #exploreMore .image-content .image {
-    background-size: cover;
-  }
   #exploreMore .image-content .image img {
+    -o-object-fit: cover;
+       object-fit: cover;
     height: 460px !important;
   }
   #exploreMore .image-content .content {
@@ -5597,10 +5613,9 @@ footer #bottomFooter .row .payment {
     height: 35px !important;
     font-size: 13px !important;
   }
-  #subscribe .image-content .image {
-    background-size: cover;
-  }
   #subscribe .image-content .image img {
+    -o-object-fit: cover;
+       object-fit: cover;
     height: 521px !important;
   }
   #subscribe .image-content .content .text p {
@@ -5817,11 +5832,12 @@ footer #bottomFooter .row .payment {
   }
   #handpickedItems .handpickedRow .itemsTitle .imagesRow .bigImageRow .bigImage .image {
     height: 500px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
   }
   #handpickedItems .handpickedRow .itemsTitle .imagesRow .bigImageRow .bigImage .image img {
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
     height: 100%;
   }
   #handpickedItems .handpickedRow .itemsTitle .imagesRow .bigImageRow .bigImage .content .discount {
@@ -5972,11 +5988,12 @@ footer #bottomFooter .row .payment {
   }
   #handpickedItems .handpickedRow .itemsTitle .imagesRow .bigImageRow .bigImage .image {
     height: 500px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
   }
   #handpickedItems .handpickedRow .itemsTitle .imagesRow .bigImageRow .bigImage .image img {
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
     height: 100%;
   }
   #handpickedItems .handpickedRow .itemsTitle .imagesRow .bigImageRow .bigImage .content .discount {
