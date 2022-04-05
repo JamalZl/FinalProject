@@ -1,6 +1,8 @@
 ﻿using FinalProjectBack_Front.DAL;
+using FinalProjectBack_Front.Models;
 using FinalProjectBack_Front.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +24,17 @@ namespace FinalProjectBack_Front.Controllers
             {
                 FooterSocials = _context.FooterSocials.ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
-                Brands = _context.Brands.ToList()
+                Brands = _context.Brands.ToList(),
+                Products = _context.Products.Include(p => p.ProductImages).Take(4).ToList()
             };
 
             return View(homeVM);
+        }
+
+        public IActionResult Search(string keyword)
+        {
+            List<Product> products = _context.Products.Include(p => p.ProductImages).Include(p=>p.Brand).Where(p => p.Name.Trim().ToLower().Contains(keyword.Trim().ToLower())  || p.Brand.Name.ToLower().Trim().Contains(keyword.Trim().ToLower())).ToList();
+            return PartialView("_SearchPartialView", products);
         }
     }
 }

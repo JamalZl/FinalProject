@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model ProductVM
 @{ ViewData["Title"] = "Details";
 
     }
@@ -13,15 +13,15 @@
             <div class="images col-lg-6 col-md-6">
                 <div class="row detailsRowBigImage">
                     <div class="bigImage">
-                        <img src="~/assets/images/@Model.ProductImages.FirstOrDefault().Image"
+                        <img src="~/assets/images/@Model.Product.ProductImages.FirstOrDefault().Image"
                              alt="">
                     </div>
                 </div>
                 <div class="row detailsRowSmallImage">
                     <div class="smallImages">
-                        @foreach (var img in Model.ProductImages)
+                        @foreach (var img in Model.Product.ProductImages)
                         {
-                            <div class="image img1">
+                            <div class="image">
                                 <img src="~/assets/images/@img.Image"
                                      alt="">
                             </div>
@@ -33,21 +33,21 @@
             <div class="info col-lg-6 col-md-6">
                 <div class="row titleRow">
                     <div class="title">
-                        <span>@Model.Name</span>
+                        <span>@Model.Product.Name</span>
                     </div>
                 </div>
                 <div class="row priceRow">
                     <ul>
                         <li>
-                            <span class="price">$ @Model.Price</span>
+                            <span class="price">$ @Model.Product.Price</span>
                         </li>
-                        @if (Model.InStock)
+                        @if (Model.Product.InStock)
                         {
                             <li><span class="in-outStock">In Stock</span></li>
                         }
                         else
                         {
-                            <li><span class="in-outStock">Out Of Stock</span></li>
+                            <li><span class="in-outStock" style="color: rgb(203, 3, 29);">Out Of Stock</span></li>
                         }
                     </ul>
                 </div>
@@ -64,28 +64,37 @@
                     </a>
                 </div>
                 <div class="row descRow">
-                    <p>
-                      @Model.Description.Substring(0,190)...
-                    </p>
+                    @if (Model.Product.Description.Length <= 190)
+                    {
+                        <p>
+                            @Model.Product.Description
+                        </p>
+                    }
+                    else if(Model.Product.Description.Length >= 190)
+                    {
+                        <p>
+                            @Model.Product.Description.Substring(0, 190)...
+                        </p>
+                    }
                 </div>
                 <div class="row colorRow">
-                    <p class="colorVal">COLOR: <span>@Model.ProductColors.FirstOrDefault().Color.Name</span></p>
+                    <p class="colorVal">COLOR: <span></span></p>
                     <ul class="color">
 
-                        @foreach (var color in Model.ProductColors)
+                        @foreach (var color in Model.Product.ProductColors)
                         {
-                             <li id="firstColorLi" class="colorLi isSelectedColor" data-value="@color.Color.Name">
+                             <li class="colorLi" data-value="@color.Color.Name">
                                 <a style="background-color: @color.Color.Value;" href=""></a>
                              </li>
                         }
                     </ul>
                 </div>
                 <div class="row sizeRow">
-                    <p class="sizeVal">SIZE: <span>@Model.ProductSizes.FirstOrDefault().Size.Value</span></p>
+                    <p class="sizeVal">SIZE: <span></span></p>
                     <ul class="size">
-                        @foreach (var size in Model.ProductSizes)
+                        @foreach (var size in Model.Product.ProductSizes.OrderBy(ps=>ps.Size.Value))
                         {
-                            <li id="firstSizeLi" class="sizeLi isSelectedSize" data-value="@size.Size.Value"><span>@size.Size.Value</span></li>
+                            <li  class="sizeLi" data-value="@size.Size.Value"><span>@size.Size.Value</span></li>
                         }
 
                     </ul>
@@ -111,12 +120,12 @@
                     </button>
                 </div>
                 <div class="row categoryRow">
-                    <span class="name">Brand:<span class="content">@Model.Brand.Name</span></span>
-                    <span class="name">Category:<span class="content">@foreach (var item in Model.ProductCategories)
+                    <span class="name">Brand:<span class="content">@Model.Product.Brand.Name</span></span>
+                    <span class="name">Category:<span class="content">@foreach (var item in Model.Product.ProductCategories)
                     {
                         @item.Category.Name <span>  </span>
                     }</span></span>
-                    <span class="name">Tag:<span class="content">@Model.Tag.Name</span></span>
+                    <span class="name">Tag:<span class="content">@Model.Product.Tag.Name</span></span>
                 </div>
             </div>
         </div>
@@ -138,11 +147,11 @@
             <div class="descContent">
                 <span>DESCRIPTION</span>
                 <p>
-                    @Model.Description
+                    @Model.Product.Description
                 </p>
             </div>
             <div class="row descImage">
-                @foreach (var item in Model.ProductImages.Take(3))
+                @foreach (var item in Model.Product.DescriptionImages)
                 {
                     <img class="col-lg-4 col-md-12"
                          src="~/assets/images/@item.Image"
@@ -255,138 +264,7 @@
         </div>
         <div class="row">
             <div class="related owl-carousel owl-theme">
-                <div class="smallImage">
-                    <div class="image">
-                        <a class="mainImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_e195f63f-79e4-436a-a065-ee9fb5895c9d_360x.jpg?v=1604995044"
-                                 alt="">
-                            <div class="icons">
-                                <a href="" class="whishlist"><i class="bi bi-heart"></i></a>
-                                <a href="" class="view"><i class="bi bi-eye"></i></a>
-                            </div>
-
-                        </a>
-                        <a class="secondImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/3_f793aa93-354e-4b50-8b86-d2ebe46e30a5_360x.jpg?v=1605080943"
-                                 alt="">
-                        </a>
-                        <div class="addToCard">
-                            <div class="increase-number-decrease">
-                                <a class="minus" href="">
-                                    <i class="fa-solid fa-minus"></i>
-                                </a>
-                                <span id="inputNumber">1</span>
-                                <a class="plus" href="">
-                                    <i class="fa-solid fa-plus"></i>
-                                </a>
-                            </div>
-                            <a href="" class="toCard">ADD TO CART</a>
-                        </div>
-                    </div>
-                    <div class="name-price">
-                        <div class="name"><a href="">Nike Zoom Pegasus</a></div>
-                        <div class="price">£270.00</div>
-                    </div>
-                </div>
-                <div class="smallImage">
-                    <div class="image">
-                        <a class="mainImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_e195f63f-79e4-436a-a065-ee9fb5895c9d_360x.jpg?v=1604995044"
-                                 alt="">
-                            <div class="icons">
-                                <a href="" class="whishlist"><i class="bi bi-heart"></i></a>
-                                <a href="" class="view"><i class="bi bi-eye"></i></a>
-                            </div>
-
-                        </a>
-                        <a class="secondImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/3_f793aa93-354e-4b50-8b86-d2ebe46e30a5_360x.jpg?v=1605080943"
-                                 alt="">
-                        </a>
-                        <div class="addToCard">
-                            <div class="increase-number-decrease">
-                                <a class="minus" href="">
-                                    <i class="fa-solid fa-minus"></i>
-                                </a>
-                                <span id="inputNumber">1</span>
-                                <a class="plus" href="">
-                                    <i class="fa-solid fa-plus"></i>
-                                </a>
-                            </div>
-                            <a href="" class="toCard">ADD TO CART</a>
-                        </div>
-                    </div>
-                    <div class="name-price">
-                        <div class="name"><a href="">Nike Zoom Pegasus</a></div>
-                        <div class="price">£270.00</div>
-                    </div>
-                </div>
-                <div class="smallImage">
-                    <div class="image">
-                        <a class="mainImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_e195f63f-79e4-436a-a065-ee9fb5895c9d_360x.jpg?v=1604995044"
-                                 alt="">
-                            <div class="icons">
-                                <a href="" class="whishlist"><i class="bi bi-heart"></i></a>
-                                <a href="" class="view"><i class="bi bi-eye"></i></a>
-                            </div>
-
-                        </a>
-                        <a class="secondImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/3_f793aa93-354e-4b50-8b86-d2ebe46e30a5_360x.jpg?v=1605080943"
-                                 alt="">
-                        </a>
-                        <div class="addToCard">
-                            <div class="increase-number-decrease">
-                                <a class="minus" href="">
-                                    <i class="fa-solid fa-minus"></i>
-                                </a>
-                                <span id="inputNumber">1</span>
-                                <a class="plus" href="">
-                                    <i class="fa-solid fa-plus"></i>
-                                </a>
-                            </div>
-                            <a href="" class="toCard">ADD TO CART</a>
-                        </div>
-                    </div>
-                    <div class="name-price">
-                        <div class="name"><a href="">Nike Zoom Pegasus</a></div>
-                        <div class="price">£270.00</div>
-                    </div>
-                </div>
-                <div class="smallImage">
-                    <div class="image">
-                        <a class="mainImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_e195f63f-79e4-436a-a065-ee9fb5895c9d_360x.jpg?v=1604995044"
-                                 alt="">
-                            <div class="icons">
-                                <a href="" class="whishlist"><i class="bi bi-heart"></i></a>
-                                <a href="" class="view"><i class="bi bi-eye"></i></a>
-                            </div>
-
-                        </a>
-                        <a class="secondImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/3_f793aa93-354e-4b50-8b86-d2ebe46e30a5_360x.jpg?v=1605080943"
-                                 alt="">
-                        </a>
-                        <div class="addToCard">
-                            <div class="increase-number-decrease">
-                                <a class="minus" href="">
-                                    <i class="fa-solid fa-minus"></i>
-                                </a>
-                                <span id="inputNumber">1</span>
-                                <a class="plus" href="">
-                                    <i class="fa-solid fa-plus"></i>
-                                </a>
-                            </div>
-                            <a href="" class="toCard">ADD TO CART</a>
-                        </div>
-                    </div>
-                    <div class="name-price">
-                        <div class="name"><a href="">Nike Zoom Pegasus</a></div>
-                        <div class="price">£270.00</div>
-                    </div>
-                </div>
+                @await Html.PartialAsync("_ProductPartialView",Model.Products)
             </div>
         </div>
     </div>
@@ -398,138 +276,7 @@
         </div>
         <div class="row">
             <div class="recently owl-carousel owl-theme">
-                <div class="smallImage">
-                    <div class="image">
-                        <a class="mainImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_e195f63f-79e4-436a-a065-ee9fb5895c9d_360x.jpg?v=1604995044"
-                                 alt="">
-                            <div class="icons">
-                                <a href="" class="whishlist"><i class="bi bi-heart"></i></a>
-                                <a href="" class="view"><i class="bi bi-eye"></i></a>
-                            </div>
-
-                        </a>
-                        <a class="secondImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/3_f793aa93-354e-4b50-8b86-d2ebe46e30a5_360x.jpg?v=1605080943"
-                                 alt="">
-                        </a>
-                        <div class="addToCard">
-                            <div class="increase-number-decrease">
-                                <a class="minus" href="">
-                                    <i class="fa-solid fa-minus"></i>
-                                </a>
-                                <span id="inputNumber">1</span>
-                                <a class="plus" href="">
-                                    <i class="fa-solid fa-plus"></i>
-                                </a>
-                            </div>
-                            <a href="" class="toCard">ADD TO CART</a>
-                        </div>
-                    </div>
-                    <div class="name-price">
-                        <div class="name"><a href="">Nike Zoom Pegasus</a></div>
-                        <div class="price">£270.00</div>
-                    </div>
-                </div>
-                <div class="smallImage">
-                    <div class="image">
-                        <a class="mainImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_e195f63f-79e4-436a-a065-ee9fb5895c9d_360x.jpg?v=1604995044"
-                                 alt="">
-                            <div class="icons">
-                                <a href="" class="whishlist"><i class="bi bi-heart"></i></a>
-                                <a href="" class="view"><i class="bi bi-eye"></i></a>
-                            </div>
-
-                        </a>
-                        <a class="secondImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/3_f793aa93-354e-4b50-8b86-d2ebe46e30a5_360x.jpg?v=1605080943"
-                                 alt="">
-                        </a>
-                        <div class="addToCard">
-                            <div class="increase-number-decrease">
-                                <a class="minus" href="">
-                                    <i class="fa-solid fa-minus"></i>
-                                </a>
-                                <span id="inputNumber">1</span>
-                                <a class="plus" href="">
-                                    <i class="fa-solid fa-plus"></i>
-                                </a>
-                            </div>
-                            <a href="" class="toCard">ADD TO CART</a>
-                        </div>
-                    </div>
-                    <div class="name-price">
-                        <div class="name"><a href="">Nike Zoom Pegasus</a></div>
-                        <div class="price">£270.00</div>
-                    </div>
-                </div>
-                <div class="smallImage">
-                    <div class="image">
-                        <a class="mainImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_e195f63f-79e4-436a-a065-ee9fb5895c9d_360x.jpg?v=1604995044"
-                                 alt="">
-                            <div class="icons">
-                                <a href="" class="whishlist"><i class="bi bi-heart"></i></a>
-                                <a href="" class="view"><i class="bi bi-eye"></i></a>
-                            </div>
-
-                        </a>
-                        <a class="secondImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/3_f793aa93-354e-4b50-8b86-d2ebe46e30a5_360x.jpg?v=1605080943"
-                                 alt="">
-                        </a>
-                        <div class="addToCard">
-                            <div class="increase-number-decrease">
-                                <a class="minus" href="">
-                                    <i class="fa-solid fa-minus"></i>
-                                </a>
-                                <span id="inputNumber">1</span>
-                                <a class="plus" href="">
-                                    <i class="fa-solid fa-plus"></i>
-                                </a>
-                            </div>
-                            <a href="" class="toCard">ADD TO CART</a>
-                        </div>
-                    </div>
-                    <div class="name-price">
-                        <div class="name"><a href="">Nike Zoom Pegasus</a></div>
-                        <div class="price">£270.00</div>
-                    </div>
-                </div>
-                <div class="smallImage">
-                    <div class="image">
-                        <a class="mainImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_e195f63f-79e4-436a-a065-ee9fb5895c9d_360x.jpg?v=1604995044"
-                                 alt="">
-                            <div class="icons">
-                                <a href="" class="whishlist"><i class="bi bi-heart"></i></a>
-                                <a href="" class="view"><i class="bi bi-eye"></i></a>
-                            </div>
-
-                        </a>
-                        <a class="secondImage" href="">
-                            <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/3_f793aa93-354e-4b50-8b86-d2ebe46e30a5_360x.jpg?v=1605080943"
-                                 alt="">
-                        </a>
-                        <div class="addToCard">
-                            <div class="increase-number-decrease">
-                                <a class="minus" href="">
-                                    <i class="fa-solid fa-minus"></i>
-                                </a>
-                                <span id="inputNumber">1</span>
-                                <a class="plus" href="">
-                                    <i class="fa-solid fa-plus"></i>
-                                </a>
-                            </div>
-                            <a href="" class="toCard">ADD TO CART</a>
-                        </div>
-                    </div>
-                    <div class="name-price">
-                        <div class="name"><a href="">Nike Zoom Pegasus</a></div>
-                        <div class="price">£270.00</div>
-                    </div>
-                </div>
+                @await Html.PartialAsync("_ProductPartialView",Model.Products)
             </div>
         </div>
     </div>

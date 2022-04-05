@@ -30,5 +30,6 @@ namespace FinalProjectBack_Front.DAL
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }
+        public DbSet<ProductDescriptionImage> DescriptionImages { get; set; }
     }
 }

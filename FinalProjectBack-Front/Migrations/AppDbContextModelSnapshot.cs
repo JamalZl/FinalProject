@@ -315,6 +315,26 @@ namespace FinalProjectBack_Front.Migrations
                     b.ToTable("ProductColors");
                 });
 
+            modelBuilder.Entity("FinalProjectBack_Front.Models.ProductDescriptionImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("DescriptionImages");
+                });
+
             modelBuilder.Entity("FinalProjectBack_Front.Models.ProductImage", b =>
                 {
                     b.Property<int>("Id")
@@ -689,6 +709,15 @@ namespace FinalProjectBack_Front.Migrations
 
                     b.HasOne("FinalProjectBack_Front.Models.Product", "Product")
                         .WithMany("ProductColors")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FinalProjectBack_Front.Models.ProductDescriptionImage", b =>
+                {
+                    b.HasOne("FinalProjectBack_Front.Models.Product", "Product")
+                        .WithMany("DescriptionImages")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

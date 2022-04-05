@@ -120,12 +120,12 @@
                                 {
                                     @if (item.Image.Contains("https://"))
                                     {
-                                        <img style="width:140px;height:75px;" src="@item.Image" alt="product image" />
+                                        <img style="width:140px;height:140px;" src="@item.Image" alt="product image" />
                                         <input type="hidden" name="ImageIds" value="@item.Id" />
                                     }
                                     else
                                     {
-                                        <img style="width:140px;height:75px;" src="~/assets/images/@item.Image" alt="product image" />
+                                        <img  style="width:140px;height:140px; margin-left:10px;" src="~/assets/images/@item.Image" alt="product image" />
                                         <input type="hidden" name="ImageIds" value="@item.Id" />
                                     }
 
@@ -136,6 +136,33 @@
                             <label asp-for="@Model.ImageFiles" class="font-weight-600">Enter images</label>
                             <input asp-for="@Model.ImageFiles" accept="image/*" class="form-control">
                             <span style="margin-top:10px; display:inline-block" class="text text-danger" asp-validation-for="@Model.ImageFiles"></span>
+                        </div>
+
+                        <div class="px-1 mb-4">
+                            <p>
+                                Current images
+                            </p>
+                            <div class="d-flex">
+                                @foreach (var item in Model.DescriptionImages)
+                                {
+                                    @if (item.Image.Contains("https://"))
+                                    {
+                                        <img style="width:140px;height:140px;" src="@item.Image" alt="product image" />
+                                        <input type="hidden" name="DescImageIds" value="@item.Id" />
+                                    }
+                                    else
+                                    {
+                                        <img  style="width:140px;height:140px; margin-left:10px;" src="~/assets/images/@item.Image" alt="product image" />
+                                        <input type="hidden" name="DescImageIds" value="@item.Id" />
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <label asp-for="@Model.DescImageFiles" class="font-weight-600">Enter images</label>
+                            <input asp-for="@Model.DescImageFiles" accept="image/*" class="form-control">
+                            <span style="margin-top:10px; display:inline-block" class="text text-danger" asp-validation-for="@Model.DescImageFiles"></span>
                         </div>
                         <button type="submit" class="btn btn-success">Submit</button>
                         <a asp-controller="product" asp-action="index" class="btn btn-dark mx-3">Go back</a>

@@ -41,11 +41,11 @@
                                         <div class="d-flex">
                                             @if (product.ProductImages.FirstOrDefault().Image.Contains("https://"))
                                             {
-                                                <img style="width:140px;height:75px;" src="@product.ProductImages.FirstOrDefault().Image" alt="product image" />
+                                                <img style="width:140px;height:140px;" src="@product.ProductImages.FirstOrDefault().Image" alt="product image" />
                                             }
                                             else
                                             {
-                                                <img style="width:140px;height:75px;" src="~/assets/images/@product.ProductImages.FirstOrDefault().Image" alt="product image" />
+                                                <img style="width:140px;height:140px;" src="~/assets/images/@product.ProductImages.FirstOrDefault().Image" alt="product image" />
                                             }
                                         </div>
                                     </td>

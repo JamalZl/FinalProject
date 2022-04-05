@@ -170,49 +170,12 @@
                     </div>
                     <div class="searchInputArea">
                         <form action="post">
-                            <input class="searchInput" type="search" autocomplete="off" placeholder="Search for products">
+                            <input class="searchInput" type="search" autocomplete="off" placeholder="Search for product name or brand name" id="product-search">
                         </form>
                     </div>
-                    <div class="searchResultArea">
-                        <div class="serachResult">
-                            <div class="image">
-                                <a href="">
-                                    <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_e195f63f-79e4-436a-a065-ee9fb5895c9d_360x.jpg?v=1604995044" alt="">
-                                </a>
-                            </div>
-                            <div class="name-price">
-                                <div class="name">
-                                    <a href="">Nike Zoom Pegasus</a>
-                                </div>
-                                <div class="price">
-                                    <span>
-                                        $350.00
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="serachResult">
-                            <div class="image">
-                                <a href="">
-                                    <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_e195f63f-79e4-436a-a065-ee9fb5895c9d_360x.jpg?v=1604995044" alt="">
-                                </a>
-                            </div>
-                            <div class="name-price">
-                                <div class="name">
-                                    <a href="">Nike Zoom Pegasus</a>
-                                </div>
-                                <div class="price">
-                                    <span>
-                                        $350.00
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="searchResultArea d-none" id="searchResultsAjax">
+                        @await Html.PartialAsync("_SearchPartialView",layoutService.GetProducts())
                     </div>
-                    <a href="" class="viewAll">
-                        View all(2)
-                        <i class="fa-solid fa-arrow-right-long"></i>
-                    </a>
                 </div>
                 <div class="basketArea animate__animated">
                     <div class="basketTxt-closeIcon">
@@ -371,6 +334,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
             integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).on('keyup', `#product-search`, function () {
+
+            $("#searchResultsAjax").empty()
+            if ($(this).val().length > 0) {
+                $.ajax({
+                    url: `/Home/Search`,
+                    data: {
+                        "keyword": $(this).val(),
+                    },
+                    type: "Get",
+                    success: function (res) {
+
+                        $("#searchResultsAjax").append(res)
+                        $("#searchResultsAjax").removeClass("d-none")
+                    }
+                })
+            }
+            else {
+
+            }
+
+        })
+    </script>
     @RenderSection("Scripts",required:false)
     <script src="~/assets/Js/main.js"></script>
 </body>

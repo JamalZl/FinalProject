@@ -1,6 +1,7 @@
 ﻿using FinalProjectBack_Front.DAL;
 using FinalProjectBack_Front.Models;
 using FinalProjectBack_Front.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,6 @@ namespace FinalProjectBack_Front.Services
     public class LayoutServices
     {
         private readonly AppDbContext _context;
-        //public List<FooterSocial> FooterSocials { get; set; }
         public LayoutServices(AppDbContext context)
         {
             _context = context;
@@ -27,6 +27,11 @@ namespace FinalProjectBack_Front.Services
         {
             List<FooterSocial> footerSocials = _context.FooterSocials.ToList();
             return footerSocials;
+        }
+        public List<Product> GetProducts()
+        {
+            List<Product> products = _context.Products.Include(p => p.ProductImages).ToList();
+            return products;
         }
     }
 }

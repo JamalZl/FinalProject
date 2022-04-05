@@ -24,6 +24,7 @@ namespace FinalProjectBack_Front.Models
         public List<ProductSize> ProductSizes { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
         public List<ProductImage> ProductImages { get; set; }
+        public List<ProductDescriptionImage> DescriptionImages { get; set; }
         public Brand Brand { get; set; }
         public int BrandId { get; set; }
         public Campaign Campaign { get; set; }
@@ -33,6 +34,8 @@ namespace FinalProjectBack_Front.Models
         [NotMapped]
         public List<IFormFile> ImageFiles { get; set; }
         [NotMapped]
+        public List<IFormFile> DescImageFiles { get; set; }
+        [NotMapped]
         public List<int> CategoryIds { get; set; }
         [NotMapped]
         public List<int> ColorIds { get; set; }
@@ -40,6 +43,8 @@ namespace FinalProjectBack_Front.Models
         public List<int> SizeIds { get; set; }
         [NotMapped]
         public List<int> ImageIds { get; set; }
+        [NotMapped]
+        public List<int> DescImageIds { get; set; }
 
 
 

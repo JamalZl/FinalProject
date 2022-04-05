@@ -58,6 +58,7 @@ namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
             product.ProductColors = new List<ProductColor>();
             product.ProductSizes = new List<ProductSize>();
             product.ProductImages = new List<ProductImage>();
+            product.DescriptionImages = new List<ProductDescriptionImage>();
 
             if (product.CategoryIds == null)
             {
@@ -106,9 +107,9 @@ namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
                 ModelState.AddModelError("ImageFiles", "Please dont leave empty images area");
                 return View();
             }
-            if (product.ImageFiles.Count < 3)
+            if (product.ImageFiles.Count > 5)
             {
-                ModelState.AddModelError("ImageFiles", "You have to choose at least 4 image");
+                ModelState.AddModelError("ImageFiles", "You can choose maximum 4 images");
                 return View();
             }
             foreach (var img in product.ImageFiles)
@@ -133,6 +134,39 @@ namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
                 };
                 product.ProductImages.Add(pImage);
             }
+
+            if (product.DescImageFiles==null)
+            {
+                ModelState.AddModelError("DescImageFiles", "Please dont leave empty images area");
+                return View();
+            }
+            if (product.DescImageFiles.Count!=3)
+            {
+                ModelState.AddModelError("DescImageFiles", "You have to choose 3 images");
+                return View();
+            }
+            foreach (var descImg in product.DescImageFiles)
+            {
+                if (!descImg.IsImage())
+                {
+                    ModelState.AddModelError("DescImageFiles", "Please insert a valid image type such as jpg,png,jpeg etc");
+                    return View();
+                }
+                if (!descImg.IsSizeOkay(2))
+                {
+                    ModelState.AddModelError("DescImageFiles", "Image size can not be more than 2MB");
+                    return View();
+                }
+            }
+            foreach (var descImg in product.DescImageFiles)
+            {
+                ProductDescriptionImage descImage = new ProductDescriptionImage
+                {
+                    Image = descImg.SaveImg(_env.WebRootPath, "assets/images"),
+                    Product = product
+                };
+                product.DescriptionImages.Add(descImage);
+            }
             _context.Products.Add(product);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
@@ -146,7 +180,7 @@ namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
             ViewBag.Sizes = _context.Sizes.ToList();
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.Tags = _context.Tags.ToList();
-            Product product = _context.Products.Include(p=>p.ProductImages).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).FirstOrDefault(p => p.Id == id);
+            Product product = _context.Products.Include(p=>p.ProductImages).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p=>p.DescriptionImages).FirstOrDefault(p => p.Id == id);
             if (product == null) return NotFound();
             return View(product);
         }
@@ -160,14 +194,15 @@ namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
             ViewBag.Sizes = _context.Sizes.ToList();
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.Tags = _context.Tags.ToList();
-            Product existedProduct = _context.Products.Include(p=>p.ProductImages).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).FirstOrDefault(p => p.Id == product.Id);
+            Product existedProduct = _context.Products.Include(p=>p.ProductImages).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p=>p.DescriptionImages).FirstOrDefault(p => p.Id == product.Id);
             if (!ModelState.IsValid) return View();
             if (existedProduct == null) return NotFound();
+
             if (product.ImageFiles != null)
             {
-                if (product.ImageFiles.Count < 3)
+                if (product.ImageFiles.Count > 5)
                 {
-                    ModelState.AddModelError("ImageFiles", "You have to choose at least 4 image");
+                    ModelState.AddModelError("ImageFiles", "You can choose maximum 4 images");
                     return View(existedProduct);
                 }
                 foreach (var img in product.ImageFiles)
@@ -200,6 +235,46 @@ namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
                         ProductId = existedProduct.Id
                     };
                     existedProduct.ProductImages.Add(pImage);
+                }
+
+            }
+            if (product.DescImageFiles != null)
+            {
+                if (product.DescImageFiles.Count != 3)
+                {
+                    ModelState.AddModelError("ImageFiles", "You have to choose  3 images");
+                    return View(existedProduct);
+                }
+                foreach (var img in product.DescImageFiles)
+                {
+                    if (!img.IsImage())
+                    {
+                        ModelState.AddModelError("DescImageFiles", "Please insert a valid image type such as jpg,png,jpeg etc");
+                        return View(existedProduct);
+                    }
+                    if (!img.IsSizeOkay(2))
+                    {
+                        ModelState.AddModelError("DescImageFiles", "Image size can not be more than 2MB");
+                        return View(existedProduct);
+                    }
+                }
+                List<ProductDescriptionImage> removableImages = existedProduct.DescriptionImages.Where(di => product.DescImageIds.Contains(di.Id)).ToList();
+
+                existedProduct.DescriptionImages.RemoveAll(di => removableImages.Any(ri => ri.Id == di.Id));
+
+                foreach (var rImage in removableImages)
+                {
+                    Helpers.Helper.DeleteImg(_env.WebRootPath, "assets/images", rImage.Image);
+                }
+
+                foreach (var img in product.ImageFiles)
+                {
+                    ProductDescriptionImage dImage = new ProductDescriptionImage
+                    {
+                        Image = img.SaveImg(_env.WebRootPath, "assets/images"),
+                        ProductId = existedProduct.Id
+                    };
+                    existedProduct.DescriptionImages.Add(dImage);
                 }
 
             }

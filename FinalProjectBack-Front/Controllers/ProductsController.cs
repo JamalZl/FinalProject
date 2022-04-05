@@ -29,8 +29,13 @@ namespace FinalProjectBack_Front.Controllers
         }
         public  IActionResult Details(int id)
         {
-            Product product = _context.Products.Include(p=>p.ProductImages).Include(p=>p.ProductSizes).ThenInclude(ps=>ps.Size).Include(p=>p.ProductColors).ThenInclude(pc=>pc.Color).Include(p=>p.Brand).Include(p=>p.Tag).Include(p=>p.ProductCategories).ThenInclude(p=>p.Category).FirstOrDefault(p=>p.Id ==id);
-            return View(product);
+
+            ProductVM productVM = new ProductVM
+            {
+                Product = _context.Products.Include(p => p.ProductImages).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.Brand).Include(p => p.Tag).Include(p => p.ProductCategories).ThenInclude(p => p.Category).Include(p => p.DescriptionImages).FirstOrDefault(p => p.Id == id),
+                Products = _context.Products.Include(p => p.ProductImages).ToList()
+            };
+            return View(productVM);
         }
     }
 }
