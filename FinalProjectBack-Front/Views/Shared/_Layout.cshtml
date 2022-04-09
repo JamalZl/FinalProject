@@ -1,4 +1,5 @@
 ﻿@inject FinalProjectBack_Front.Services.LayoutServices layoutService
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -124,7 +125,7 @@
                             <li><a href="">Man</a></li>
                             <li><a href="">Woman</a></li>
                             <li><a href="">Kid</a></li>
-                            <li><a href="">Contact</a></li>
+                            <li><a asp-controller="contact" asp-action="index">Contact</a></li>
                         </ul>
                     </div>
                     <div class="logo col-lg-3 col-md-7 col-sm-5 col-xs-12">
@@ -139,20 +140,20 @@
                         </a>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a  asp-controller="account" asp-action="edit">
-                               @User.Identity.Name
-                            </a>
-                             <a asp-controller="account" asp-action="logout" >Logout</a>
+            <a asp-controller="account" asp-action="edit">
+                @User.Identity.Name
+            </a>
+                            <a asp-controller="account" asp-action="logout">Logout</a>
 
                         }
                         else
                         {
-                             <a class="userIcon" asp-controller="account" asp-action="login">
+                            <a class="userIcon" asp-controller="account" asp-action="login">
                                 @Html.Raw(layoutService.GetSettingData().UserIcon)
                             </a>
-                             
+
                         }
-                       
+
                         <a href="#" class="wishlist">
                             @Html.Raw(layoutService.GetSettingData().WhishlistIcon)
                             <span class="wishlistCount">0</span>
@@ -174,7 +175,7 @@
                         </form>
                     </div>
                     <div class="searchResultArea d-none" id="searchResultsAjax">
-                        @await Html.PartialAsync("_SearchPartialView",layoutService.GetProducts())
+                        @await Html.PartialAsync("_SearchPartialView", layoutService.GetProducts())
                     </div>
                 </div>
                 <div class="basketArea animate__animated">
@@ -193,31 +194,37 @@
                     </div>
                     <div class="basketProductsArea">
                         <div class="products">
-                            <div class="basketProduct">
-                                <div class="basketProductImage">
-                                    <a href="">
-                                        <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/9_b244f435-8ba1-4547-ac06-9d5dd5f0a134_360x.jpg?v=1604999525" alt="">
-                                    </a>
-                                </div>
-                                <div class="basketContent">
-                                    <div class="productName">
-                                        <a href="">
-                                            Nike Joyride Dual Run
-                                        </a>
-                                    </div>
-                                    <span class="productPrice">
-                                        $650
-                                    </span>
-                                    <div class="removeItem">
-                                        <i class="bi bi-trash"></i>
-                                    </div>
-                                </div>
-                            </div>
+                            @foreach (var item in layoutService.ShowBasket().BasketItems)
+                            {
+
+                <div class="basketProduct">
+                    <div class="basketProductImage">
+                        <a href="">
+                            <img src="~/assets/images/@item.Product.ProductImages.FirstOrDefault().Image" alt="">
+                        </a>
+                    </div>
+                    <div class="basketContent">
+                        <div class="productName">
+                            <a href="">
+                                @item.Product.Name
+                            </a>
+                        </div>
+                        <span class="productPrice">
+                            $ @item.Price
+                        </span>
+                        <span>
+                            @item.Count
+                        </span>
+                        <div class="removeItem">
+                            <i class="bi bi-trash"></i>
+                        </div>
+                    </div>
+                </div>}
                         </div>
                         <div class="subtotal">
                             <div class="title">
                                 <span class="subtotalTitle">Subtotal</span>
-                                <span class="subtotalPrice">$650</span>
+                                <span class="subtotalPrice">$ @layoutService.ShowBasket().TotalPrice</span>
                             </div>
                             <div class="desc">
                                 <p>Taxes, shipping and discounts codes calculated at checkout</p>
@@ -266,8 +273,7 @@
                             <div class="socials">
                                 @foreach (var social in layoutService.GetSocials())
                                 {
-                                    <a href="@social.SocialUrl">@Html.Raw(social.SocialIcon)</a>
-                                }
+                    <a href="@social.SocialUrl">@Html.Raw(social.SocialIcon)</a>}
                             </div>
                         </div>
                         <div class="links col-lg-9 col-md-6 col-sm-12 ">
@@ -358,7 +364,24 @@
 
         })
     </script>
-    @RenderSection("Scripts",required:false)
+    @*<script>
+        $(document).ready(function () {
+            $(".toCard").on("click", function () {
+                $.ajax({
+
+                    url: "/products/addbasket",
+                    success: function (data) {
+                        console.log(data)
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                })
+            })
+        })
+
+    </script>*@
+    @RenderSection("Scripts", required: false)
     <script src="~/assets/Js/main.js"></script>
 </body>
 </html>

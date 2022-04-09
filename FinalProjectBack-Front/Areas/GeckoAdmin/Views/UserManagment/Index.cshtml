@@ -1,0 +1,97 @@
+﻿@model List<AppUser>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section AdminCSS{
+    <link href="~/admin/assets/extrapages/material-dashboard.css" rel="stylesheet">
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div style="background-color: rgb(55,160,0)" class="shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">User managment</h6>
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Fullname</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">UserName</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Email</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Age</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Setting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (AppUser user in Model)
+                                {
+                                    <tr>
+                                        <td class="px-1">
+                                            <div class="d-flex">
+                                                <h6 class="mb-0 text-sm mx-1">@user.Name @user.Surname</h6>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <div class="d-flex">
+                                                <h6 class="mb-0 text-sm mx-1">@user.UserName</h6>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <div class="d-flex">
+                                                <h6 class="mb-0 text-sm mx-1">@user.Email</h6>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <div class="d-flex">
+                                                <h6 class="mb-0 text-sm mx-1">@user.Age</h6>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @if (user.IsAdmin)
+                                            {
+                                                <a asp-controller="usermanagment" asp-action="RoleChanger" asp-route-id="@user.Id">
+                                                    <i style="font-size:30px;color:red;" class="far fa-times-circle"></i>
+
+                                                </a> }
+                                            else
+                                            {
+                                                <a asp-controller="usermanagment" asp-action="RoleChanger" asp-route-id="@user.Id">
+                                                    <i style="font-size:30px;color:green;" class="far fa-check-square"></i>
+                                                </a>}
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4 @(Model.Count == 0 ? "d-none" : "")">
+            <nav aria-label="...">
+                <ul class="pagination" style="justify-content:center">
+
+                    <li class="page-item @(ViewBag.Currentpage == 1 ? "disabled" : "")">
+                        <a onMouseOver="this.style.color='rgb(55,160,0)'" onMouseOut="this.style.color='grey'" style="width:70px;height:30px; font-size:12px; border-radius:2px!important;" class="page-link" asp-controller="usermanagment" asp-action="index" asp-route-page="@(ViewBag.CurrentPage-1)">Previous</a>
+                    </li>
+
+                    @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                    {
+                        <li class="page-item  @(ViewBag.CurrentPage == i ? "active" : "")" style="pointer-events: @(ViewBag.CurrentPage == i ? "none" : "")"><a style="width: 30px; height: 30px; font-size: 12px; border-radius: 2px !important; background-color: rgb(55,160,0); border: 1px solid rgb(55,160,0); color:white;" class="page-link" asp-controller="usermanagment" asp-action="index" asp-route-page="@i">@i</a></li>
+                    }
+
+                    <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPage ? "disabled" : "")">
+                        <a onMouseOver="this.style.color='rgb(55,160,0)'" onMouseOut="this.style.color='grey'" style="width:70px;height:30px; font-size:12px; border-radius:2px!important;" class="page-link" asp-controller="usermanagment" asp-action="index" asp-route-page="@(ViewBag.CurrentPage +1)">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+

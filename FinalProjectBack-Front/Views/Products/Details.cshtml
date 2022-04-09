@@ -110,9 +110,9 @@
                             <i class="bi bi-heart whishListIcon"></i>
                         </a>
                     </div>
-                    <button class="addCard col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                    <a style="text-decoration:none;" asp-controller="products" asp-action="addbasket" asp-route-id="@Model.Product.Id" class="addCard col-lg-4 col-md-12 col-sm-12 col-xs-12">
                         ADD TO CARD
-                    </button>
+                    </a>
                 </div>
                 <div class="row buyItRow col-lg-7 col-md-12 col-sm-12 col-xs-12">
                     <button>

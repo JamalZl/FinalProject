@@ -3,6 +3,7 @@ using FinalProjectBack_Front.Models;
 using FinalProjectBack_Front.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,5 +38,70 @@ namespace FinalProjectBack_Front.Controllers
             };
             return View(productVM);
         }
+
+        public IActionResult AddBasket(int id)
+        {
+            Product product = _context.Products.Include(p=>p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
+
+            string basket = HttpContext.Request.Cookies["Basket"];
+
+            if (basket==null)
+            {
+                List<BasketCookieItemVM> basketCookieItems = new List<BasketCookieItemVM>();
+
+                basketCookieItems.Add(new BasketCookieItemVM
+                {
+                    Id=product.Id,
+                    Count=0
+                });
+
+                string basketStr = JsonConvert.SerializeObject(basketCookieItems);
+
+                HttpContext.Response.Cookies.Append("Basket", basketStr);
+            }
+            else
+            {
+                List<BasketCookieItemVM> basketCookieItems = JsonConvert.DeserializeObject<List<BasketCookieItemVM>>(basket);
+
+                BasketCookieItemVM cookieItem = basketCookieItems.FirstOrDefault(b=>b.Id == product.Id);
+
+                if (cookieItem==null)
+                {
+                    cookieItem = new BasketCookieItemVM
+                    {
+                        Id = product.Id,
+                        Count = 0
+                    };
+                    basketCookieItems.Add(cookieItem);
+                }
+                else
+                {
+                    cookieItem.Count++;
+                }
+
+                string basketStr = JsonConvert.SerializeObject(basketCookieItems);
+
+                HttpContext.Response.Cookies.Append("Basket", basketStr);
+            }
+
+            return RedirectToAction("index", "products");
+        }
+
+        //public IActionResult Delete(int id)
+        //{
+        //    //Product product = _context.Products.Include(p => p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
+
+        //    string basket = HttpContext.Request.Cookies["Basket"];
+        //    List<BasketCookieItemVM> basketCookieItems = JsonConvert.DeserializeObject<List<BasketCookieItemVM>>(basket);
+
+
+        //    if (cookieStr==null)
+        //    {
+        //        return NotFound();
+        //    }
+
+            
+            
+        //}
     }
 }

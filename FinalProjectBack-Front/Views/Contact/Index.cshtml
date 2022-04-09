@@ -1,4 +1,4 @@
-﻿
+﻿@model ContactVM
 @{
     ViewData["Title"] = "Index";
 }
@@ -6,8 +6,8 @@
 <section id="contactEntrance">
     <div class="row contactRow">
         <div class="contactImage-Content">
-            <div style="background-image: url(https://cdn.shopify.com/s/files/1/0437/1913/1293/files/about-bg_1950x.jpg?v=1600933977);"
-                 class="contactImage"><img alt=""></div>
+            <div
+                 class="contactImage"><img src="~/assets/images/@Model.Contact.Image" alt=""></div>
             <div class="contactContent">
                 <span>Contact Us</span>
             </div>
@@ -21,16 +21,16 @@
                 <div class="title">
                     <span>DROP US A LINE</span>
                 </div>
-                <form class="contactForm" action="">
+                <form asp-controller="contactmsg" asp-action="message" class="contactForm" method="post">
                     <label for="contactName">Your Name (required)</label><br>
-                    <input type="text" id="contactName" required><br><br>
+                    <input type="text" name="fullname" id="contactName" required><br><br>
                     <label for="contactMail">Your Email (required)</label><br>
-                    <input type="email" id="contactMail" required><br><br>
+                    <input type="email" name="email" id="contactMail" required><br><br>
                     <label for="contactTel">Your Phone Number</label><br>
-                    <input type="tel" id="contactTel"><br><br>
+                    <input type="text" name="number" id="contactTel" required><br><br>
                     <label for="contactTextArea">Your Message</label><br>
-                    <textarea name="" id="contactTextArea" cols="30" rows="10"></textarea><br><br>
-                    <button class="contactButton">Send</button>
+                    <textarea name="message" id="contactTextArea" cols="30" rows="10" required></textarea><br><br>
+                    <button type="submit" class="contactButton">Send</button>
                 </form>
             </div>
             <div class="row contactInfoRow col-lg-6">
@@ -38,14 +38,10 @@
                     <p>CONTACT INFORMATION</p>
                 </div>
                 <div class="contactWrapper col-lg-3">
-                    <p class="contactInfoDescription">
-                        We love to hear from you on our customer service,
-                        merchandise, website or any topics you want to share with us. Your comments and
-                        suggestions will be appreciated. Please complete the form below.
-                    </p>
-                    <p class="contactInfoAdresss">Baku,Nasimi,Jeyhun Salimov 7</p>
-                    <p class="contactInfoMail">jamalaz@code.edu.az</p>
-                    <p class="contactInfoWorkTime">Everyday 09:00-18:00</p>
+                    <p class="contactInfoDescription">@Model.Contact.Description</p>
+                    <p class="contactInfoAdresss">@Model.Contact.Address</p>
+                    <p class="contactInfoMail">@Model.Contact.Email</p>
+                    <p class="contactInfoWorkTime">@Model.Contact.WorkingHours</p>
                 </div>
             </div>
         </div>

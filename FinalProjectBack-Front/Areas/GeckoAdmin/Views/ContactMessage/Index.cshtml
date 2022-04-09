@@ -1,0 +1,121 @@
+﻿@model List<ContactMessage>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section AdminCSS{
+    <link href="~/admin/assets/extrapages/material-dashboard.css" rel="stylesheet">
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div style="background-color: rgb(55,160,0)" class="shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">User messages</h6>
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">#</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Fullname</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Email</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Message</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Number</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Send date</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (ContactMessage msg in Model)
+                                {
+                                <tr>
+                                    <td class="px-1">
+                                        <div class="d-flex">
+                                            <h6 class="mb-0 text-sm mx-1">@msg.Id</h6>
+                                        </div>
+                                    </td>
+                                    <td class="px-1">
+                                        <div class="d-flex">
+                                            <h6 class="mb-0 text-sm mx-1">@msg.Fullname</h6>
+                                        </div>
+                                    </td>
+                                    <td class="px-1">
+                                        <div class="d-flex">
+                                            <h6 class="mb-0 text-sm mx-1">@msg.Email</h6>
+                                        </div>
+                                    </td>
+                                    @if (msg.Message.Length < 50)
+                                    {
+                                        <td class="px-1">
+                                            <div class="d-flex">
+                                                <h6 class="mb-0 text-sm mx-1">@msg.Message</h6>
+                                            </div>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td data-toggle="tooltip"  data-placement="bottom" class="px-1">
+                                            <div class="d-flex">
+                                                <h6 class="mb-0 text-sm mx-1">@msg.Message.Substring(0,50)</h6>
+                                            </div>
+                                        </td>
+                                    }
+                                    <td class="px-1">
+                                        <div class="d-flex">
+                                            <h6 class="mb-0 text-sm mx-1">@msg.Number</h6>
+                                        </div>
+                                    </td>
+                                    <td class="px-1">
+                                        <div class="d-flex">
+                                            <h6 class="mb-0 text-sm mx-1">@msg.SendDate.ToString("dddd, dd MMMM yyyy HH:mm")</h6>
+                                        </div>
+                                    </td>
+                                    <td>
+
+                                        <a style="text-decoration:none;" class="delete-item mx-2" asp-controller="contactmessage" asp-action="delete" asp-route-id="@msg.Id">
+                                            <i style="color: red; font-size: 25px;" class="bi bi-trash3"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4 @(Model.Count == 0 ? "d-none" : "")">
+            <nav aria-label="...">
+                <ul class="pagination" style="justify-content:center">
+
+                    <li class="page-item @(ViewBag.Currentpage == 1 ? "disabled" : "")">
+                        <a onMouseOver="this.style.color='rgb(55,160,0)'" onMouseOut="this.style.color='grey'" style="width:70px;height:30px; font-size:12px; border-radius:2px!important;" class="page-link" asp-controller="contactmessage" asp-action="index" asp-route-page="@(ViewBag.CurrentPage-1)">Previous</a>
+                    </li>
+
+                    @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                    {
+                        <li class="page-item  @(ViewBag.CurrentPage == i ? "active" : "")" style="pointer-events: @(ViewBag.CurrentPage == i ? "none" : "")"><a style="width: 30px; height: 30px; font-size: 12px; border-radius: 2px !important; background-color: rgb(55,160,0); border: 1px solid rgb(55,160,0); color:white;" class="page-link" asp-controller="contactmessage" asp-action="index" asp-route-page="@i">@i</a></li>
+                    }
+
+                    <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPage ? "disabled" : "")">
+                        <a onMouseOver="this.style.color='rgb(55,160,0)'" onMouseOut="this.style.color='grey'" style="width:70px;height:30px; font-size:12px; border-radius:2px!important;" class="page-link" asp-controller="contactmessage" asp-action="index" asp-route-page="@(ViewBag.CurrentPage +1)">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@section AdminScripts{
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })</script>
+
+}
+

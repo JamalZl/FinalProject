@@ -393,3 +393,5 @@ C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug
 C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Areas\GeckoAdmin\Views\Account\Login.cshtml.g.cs
 C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ProductPartialView.cshtml.g.cs
 C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_SearchPartialView.cshtml.g.cs
+C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Areas\GeckoAdmin\Views\UserManagment\Index.cshtml.g.cs
+C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Areas\GeckoAdmin\Views\ContactMessage\Index.cshtml.g.cs
