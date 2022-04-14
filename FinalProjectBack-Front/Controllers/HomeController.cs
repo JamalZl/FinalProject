@@ -23,9 +23,12 @@ namespace FinalProjectBack_Front.Controllers
             HomeVM homeVM = new HomeVM
             {
                 FooterSocials = _context.FooterSocials.ToList(),
+                Categories = _context.Categories.ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
                 Brands = _context.Brands.ToList(),
-                Products = _context.Products.Include(p => p.ProductImages).Take(4).ToList()
+                Products = _context.Products.Include(p => p.ProductImages).Take(4).ToList(),
+                Tags=_context.Tags.ToList(),
+                Sliders=_context.Sliders.ToList()
             };
 
             return View(homeVM);
@@ -33,7 +36,7 @@ namespace FinalProjectBack_Front.Controllers
 
         public IActionResult Search(string keyword)
         {
-            List<Product> products = _context.Products.Include(p => p.ProductImages).Include(p=>p.Brand).Where(p => p.Name.Trim().ToLower().Contains(keyword.Trim().ToLower())  || p.Brand.Name.ToLower().Trim().Contains(keyword.Trim().ToLower())).ToList();
+            List<Product> products = _context.Products.Include(p => p.ProductImages).Include(p => p.Brand).Where(p => p.Name.Trim().ToLower().Contains(keyword.Trim().ToLower()) || p.Brand.Name.ToLower().Trim().Contains(keyword.Trim().ToLower())).ToList();
             return PartialView("_SearchPartialView", products);
         }
     }

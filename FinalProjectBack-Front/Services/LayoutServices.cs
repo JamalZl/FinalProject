@@ -39,6 +39,24 @@ namespace FinalProjectBack_Front.Services
             return products;
         }
 
+        public List<Brand> GetBrands()
+        {
+            List<Brand> brands = _context.Brands.ToList();
+            return brands;
+        }
+
+        public List<Category> GetCategories()
+        {
+            List<Category> categories = _context.Categories.ToList();
+            return categories;
+        }
+
+        public List<Tag> GetTags()
+        {
+            List<Tag> tags = _context.Tags.ToList();
+                return tags;
+        }
+
         public BasketVM ShowBasket()
         {
             string basket = _httpContextAccessor.HttpContext.Request.Cookies["Basket"];

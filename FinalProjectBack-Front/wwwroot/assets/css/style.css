@@ -132,6 +132,34 @@ ul {
   list-style: none;
 }
 
+.menu .menuLinks .userIconLi {
+  width: 100%;
+}
+
+.menu .menuLinks .userIconLi .userIcon span {
+  font-family: JostRegular;
+}
+
+.menu .menuLinks .userIconLi .userIcon .userIconMenuLoginStatus .userIconMenuLoginStatusUl {
+  display: none;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.menu .menuLinks .userIconLi .userIcon .userIconMenuLoginStatus .userIconMenuLoginStatusUl li {
+  margin-left: 10px;
+  margin-bottom: 0;
+  padding-left: 10px;
+  display: block !important;
+  width: 50%;
+  min-height: 5px !important;
+  border-bottom: none !important;
+}
+
+.menu .menuLinks .userIconLi .userIcon .userIconMenuLoginStatus .userIconMenuLoginStatusUl li a {
+  font-size: 12px;
+}
+
 .menu .menuLinks .menuShopLi {
   width: 100%;
   display: block !important;
@@ -836,7 +864,7 @@ ul {
 
 .basketArea .basketProductsArea {
   overflow-y: scroll;
-  max-height: 400px;
+  max-height: 450px;
 }
 
 .basketArea .basketProductsArea .products .basketProduct {
@@ -1135,6 +1163,7 @@ ul {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  height: 100%;
 }
 
 #homeNavBar .row .links-logo-icons .icons a {
@@ -1147,8 +1176,70 @@ ul {
   color: white;
 }
 
-#homeNavBar .row .links-logo-icons .icons a .nav-user {
+#homeNavBar .row .links-logo-icons .icons .userIcon {
+  margin-right: 10px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  cursor: pointer;
+}
+
+#homeNavBar .row .links-logo-icons .icons .userIcon .nav-user {
   font-size: 26px;
+}
+
+#homeNavBar .row .links-logo-icons .icons .userIcon .userLoginStatus {
+  display: none;
+}
+
+#homeNavBar .row .links-logo-icons .icons .userIcon .userLoginStatus .userLoginStatusUl {
+  list-style: none;
+}
+
+#homeNavBar .row .links-logo-icons .icons .userIcon .userLoginStatus .userLoginStatusUl li a {
+  text-decoration: none;
+}
+
+#homeNavBar .row .links-logo-icons .icons .userIcon:hover .userLoginStatus {
+  display: block;
+  width: 150px;
+  height: 100px;
+  padding: 10px 0 10px 10px;
+  background-color: white;
+  border-radius: 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: absolute;
+  top: 80px;
+  right: 120px;
+  overflow-x: scroll;
+}
+
+#homeNavBar .row .links-logo-icons .icons .userIcon:hover .userLoginStatus li a {
+  color: grey;
+  -webkit-transition: 0.3;
+  transition: 0.3;
+}
+
+#homeNavBar .row .links-logo-icons .icons .userIcon:hover .userLoginStatus li:hover a {
+  color: #ba0e1c;
+}
+
+#homeNavBar .row .links-logo-icons .icons .userIcon:hover .userLoginStatus::-webkit-scrollbar {
+  width: 2px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+#homeNavBar .row .links-logo-icons .icons .userIcon:hover .userLoginStatus::-webkit-scrollbar-thumb {
+  border-radius: 7px;
+  background-color: #c5c0c0;
+  outline: 1px solid #c5c0c0;
 }
 
 #homeNavBar .row .links-logo-icons .icons .wishlist .wishlistCount {
@@ -3045,6 +3136,7 @@ footer #bottomFooter .row .payment {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  height: 100%;
 }
 
 .navBarRow .links-logo-icons .icons a {
@@ -3057,8 +3149,70 @@ footer #bottomFooter .row .payment {
   color: white;
 }
 
-.navBarRow .links-logo-icons .icons a .nav-user {
+.navBarRow .links-logo-icons .icons .userIcon {
+  margin-right: 10px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  cursor: pointer;
+}
+
+.navBarRow .links-logo-icons .icons .userIcon .nav-user {
   font-size: 26px;
+}
+
+.navBarRow .links-logo-icons .icons .userIcon .userLoginStatus {
+  display: none;
+}
+
+.navBarRow .links-logo-icons .icons .userIcon .userLoginStatus .userLoginStatusUl {
+  list-style: none;
+}
+
+.navBarRow .links-logo-icons .icons .userIcon .userLoginStatus .userLoginStatusUl li a {
+  text-decoration: none;
+}
+
+.navBarRow .links-logo-icons .icons .userIcon:hover .userLoginStatus {
+  display: block;
+  width: 150px;
+  height: 100px;
+  padding: 10px 0 10px 10px;
+  background-color: white;
+  border-radius: 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: absolute;
+  top: 80px;
+  right: 120px;
+  overflow-x: scroll;
+}
+
+.navBarRow .links-logo-icons .icons .userIcon:hover .userLoginStatus li a {
+  color: grey;
+  -webkit-transition: 0.3;
+  transition: 0.3;
+}
+
+.navBarRow .links-logo-icons .icons .userIcon:hover .userLoginStatus li:hover a {
+  color: #ba0e1c;
+}
+
+.navBarRow .links-logo-icons .icons .userIcon:hover .userLoginStatus::-webkit-scrollbar {
+  width: 2px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+.navBarRow .links-logo-icons .icons .userIcon:hover .userLoginStatus::-webkit-scrollbar-thumb {
+  border-radius: 7px;
+  background-color: #c5c0c0;
+  outline: 1px solid #c5c0c0;
 }
 
 .navBarRow .links-logo-icons .icons .wishlist .wishlistCount {
@@ -3068,6 +3222,7 @@ footer #bottomFooter .row .payment {
   border-radius: 50%;
   background-color: white;
   font-size: 12px;
+  color: black;
   text-align: center;
 }
 
@@ -3077,6 +3232,7 @@ footer #bottomFooter .row .payment {
   height: 18px;
   border-radius: 50%;
   background-color: white;
+  color: black;
   font-size: 12px;
   text-align: center;
 }
@@ -3360,7 +3516,7 @@ footer #bottomFooter .row .payment {
 }
 
 #products {
-  margin-bottom: 5%;
+  margin-bottom: 15%;
 }
 
 #products .smallImage {

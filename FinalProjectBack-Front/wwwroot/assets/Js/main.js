@@ -24,11 +24,11 @@ $(document).ready(function () {
         $(".menu").addClass("animate__slideOutLeft")
         $(".menu").removeClass("animate__slideInLeft")
     })
-    $(".menuShopLi").click(function (e) {
+    $(".menuShopLi .menuShopLiA").click(function (e) {
         e.preventDefault()
         $(".menuShopUl").slideToggle()
     })
-    $(".menuProductsLi").click(function (e) {
+    $(".menuProductsLi .menuProductsLiA").click(function (e) {
         e.preventDefault()
         $(".menuProductsUl").slideToggle()
     })
@@ -57,10 +57,10 @@ $(document).ready(function () {
             alert("Number of the products can't be lower than 1")
         }
     })
-    $(".productsLi a").click(function (e) {
+    $(".productsLi .productsLiA").click(function (e) {
         e.preventDefault()
     })
-    $(".shopLi a").click(function (e) {
+    $(".shopLi .shopLiA").click(function (e) {
         e.preventDefault()
     })
 

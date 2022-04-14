@@ -28,7 +28,7 @@ namespace FinalProjectBack_Front.Controllers
             };
             return View(productVM);
         }
-        public  IActionResult Details(int id)
+        public IActionResult Details(int id)
         {
 
             ProductVM productVM = new ProductVM
@@ -39,20 +39,21 @@ namespace FinalProjectBack_Front.Controllers
             return View(productVM);
         }
 
+
         public IActionResult AddBasket(int id)
         {
-            Product product = _context.Products.Include(p=>p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
+            Product product = _context.Products.Include(p => p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
 
             string basket = HttpContext.Request.Cookies["Basket"];
 
-            if (basket==null)
+            if (basket == null)
             {
                 List<BasketCookieItemVM> basketCookieItems = new List<BasketCookieItemVM>();
 
                 basketCookieItems.Add(new BasketCookieItemVM
                 {
-                    Id=product.Id,
-                    Count=0
+                    Id = product.Id,
+                    Count = 0
                 });
 
                 string basketStr = JsonConvert.SerializeObject(basketCookieItems);
@@ -63,9 +64,9 @@ namespace FinalProjectBack_Front.Controllers
             {
                 List<BasketCookieItemVM> basketCookieItems = JsonConvert.DeserializeObject<List<BasketCookieItemVM>>(basket);
 
-                BasketCookieItemVM cookieItem = basketCookieItems.FirstOrDefault(b=>b.Id == product.Id);
+                BasketCookieItemVM cookieItem = basketCookieItems.FirstOrDefault(b => b.Id == product.Id);
 
-                if (cookieItem==null)
+                if (cookieItem == null)
                 {
                     cookieItem = new BasketCookieItemVM
                     {
@@ -100,8 +101,37 @@ namespace FinalProjectBack_Front.Controllers
         //        return NotFound();
         //    }
 
-            
-            
+
+
         //}
+
+        public IActionResult GetBrands(int id)
+        {
+            ProductVM productVM = new ProductVM
+            {
+                ProductByBrands = _context.Products.Include(p => p.ProductImages).Include(p => p.Brand).Where(p => p.BrandId == id).ToList()
+            };
+
+            return View(productVM);
+        }
+        public IActionResult GetCategories(int id)
+        {
+            ViewBag.Categories = _context.ProductCategories.Include(pc => pc.Category).FirstOrDefault(pc => pc.CategoryId == id);
+            ProductVM productVM = new ProductVM
+            {
+                ProductByCategories = _context.Products.Include(p => p.ProductImages).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Where(p => p.ProductCategories.Any(pc => pc.CategoryId == id)).ToList()
+            };
+            return View(productVM);
+        }
+
+        public IActionResult GetTags(int id)
+        {
+            ProductVM productVM = new ProductVM
+            {
+                ProductByTags=_context.Products.Include(p=>p.ProductImages).Include(p=>p.Tag).Where(p=>p.TagId==id).ToList()
+            };
+            return View(productVM);
+        }
+
     }
 }

@@ -9,6 +9,9 @@ namespace FinalProjectBack_Front.ViewModels
     public class ProductVM
     {
         public List<Product> Products { get; set; }
+        public List<Product> ProductByBrands { get; set; }
+        public List<Product> ProductByCategories { get; set; }
+        public List<Product> ProductByTags { get; set; }
         public Product Product { get; set; }
     }
 }

@@ -38,32 +38,28 @@
                         <span class="closeIcon">@Html.Raw(layoutService.GetSettingData().CloseIcon)</span>
                     </div>
                     <ul class="menuLinks">
-                        <li><a href="">Home</a></li>
+                        <li><a asp-controller="home" asp-action="index">Home</a></li>
                         <li class="menuShopLi">
-                            <a href="">Shop</a>
+                            <a class="menuShopLiA">Shop</a>
                             <ul class="menuShopUl">
-                                <li><a href="">Nike</a></li>
-                                <li><a href="">Adidas</a></li>
-                                <li><a href="">Puma</a></li>
-                                <li><a href="">New Balance</a></li>
-                                <li><a href="">Converse</a></li>
-                                <li><a href="">Vans</a></li>
+                                @foreach (var brand in layoutService.GetBrands())
+                                {
+                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
                             </ul>
                         </li>
                         <li class="menuProductsLi">
-                            <a href="">Products</a>
+                            <a class="menuProductsLiA">Products</a>
                             <ul class="menuProductsUl">
-                                <li><a href="">All products</a></li>
-                                <li><a href="">Running</a></li>
-                                <li><a href="">LifeStyle</a></li>
-                                <li><a href="">Jordan</a></li>
-                                <li><a href="">Football</a></li>
-                                <li><a href="">Basketball</a></li>
+                                <li><a asp-controller="products" asp-action="index">All products</a></li>
+                                @foreach (var item in layoutService.GetCategories())
+                                {
+                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
                             </ul>
                         </li>
-                        <li><a href="">Man</a></li>
-                        <li><a href="">Woman</a></li>
-                        <li><a href="">Kid</a></li>
+                        @foreach (var tag in layoutService.GetTags())
+                        {
+                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
+                        }
                         <li><a href="">Contact</a></li>
                         <li>
                             <a class="searchIcon" href="#">
@@ -97,39 +93,36 @@
                         <ul class="navLinkElements">
                             <li><a href="">Home</a></li>
                             <li class="shopLi">
-                                <a href="">Shop</a>
+                                <a class="shopLiA">Shop</a>
                                 <div class="shop">
                                     <ul class="shopElements">
-                                        <li><a href="">Nike</a></li>
-                                        <li><a href="">Adidas</a></li>
-                                        <li><a href="">Puma</a></li>
-                                        <li><a href="">New Balance</a></li>
-                                        <li><a href="">Converse</a></li>
-                                        <li><a href="">Vans</a></li>
+                                        @foreach (var brand in layoutService.GetBrands())
+                                        {
+                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
                                     </ul>
                                 </div>
                             </li>
                             <li class="productsLi">
-                                <a href="">Products</a>
+                                <a class="productsLiA">Products</a>
                                 <div class="products">
                                     <ul class="productElements">
-                                        <li><a href="">All products</a></li>
-                                        <li><a href="">Running</a></li>
-                                        <li><a href="">Lifestyle</a></li>
-                                        <li><a href="">Jordan</a></li>
-                                        <li><a href="">Football</a></li>
-                                        <li><a href="">Basketball</a></li>
+                                        <li><a asp-controller="products" asp-action="index">All products</a></li>
+                                        @foreach (var category in layoutService.GetCategories())
+                                        {
+                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@category.Id">@category.Name</a></li>}
                                     </ul>
                                 </div>
                             </li>
-                            <li><a href="">Man</a></li>
-                            <li><a href="">Woman</a></li>
-                            <li><a href="">Kid</a></li>
+
+                            @foreach (var item in layoutService.GetTags())
+                            {
+                                <li><a asp-controller="products" asp-action="gettags" asp-route-id="@item.Id">@item.Name</a></li>
+                            }
                             <li><a asp-controller="contact" asp-action="index">Contact</a></li>
                         </ul>
                     </div>
                     <div class="logo col-lg-3 col-md-7 col-sm-5 col-xs-12">
-                        <a href="">
+                        <a asp-controller="home" asp-action="index">
                             <img src="~/assets/images/@layoutService.GetSettingData().Logo"
                                  alt="logo">
                         </a>
@@ -140,9 +133,9 @@
                         </a>
                         @if (User.Identity.IsAuthenticated)
                         {
-            <a asp-controller="account" asp-action="edit">
-                @User.Identity.Name
-            </a>
+                                <a asp-controller="account" asp-action="edit">
+                                    @User.Identity.Name
+                                 </a>
                             <a asp-controller="account" asp-action="logout">Logout</a>
 
                         }

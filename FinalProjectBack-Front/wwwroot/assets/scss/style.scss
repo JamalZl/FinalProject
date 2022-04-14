@@ -113,6 +113,35 @@ ul {
             }
         }
 
+        .userIconLi{
+            width: 100%;
+            .userIcon{
+                span{
+                    font-family: JostRegular;
+                }
+                .userIconMenuLoginStatus{
+                    .userIconMenuLoginStatusUl{
+                        display: none;
+                        margin-bottom: 5px;
+                        width: 100%;
+                        li{
+                            margin-left: 10px;
+                            margin-bottom: 0;
+                            padding-left: 10px;
+                            display: block !important;
+                            width: 50%;
+                            min-height: 5px !important;
+                            border-bottom: none !important;
+        
+                            a {
+                                font-size: 12px;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
         .menuShopLi {
             width: 100%;
             display: block !important;
@@ -162,6 +191,8 @@ ul {
                 }
             }
         }
+
+        
     }
 }
 .searchArea{
@@ -645,7 +676,7 @@ ul {
     
     .basketProductsArea{
             overflow-y: scroll;
-            max-height: 400px;
+            max-height: 450px;
         .products{      
         .basketProduct{
             display: flex;
@@ -904,6 +935,7 @@ ul {
                 display: flex;
                 justify-content: end;
                 align-items: center;
+                height: 100%;
 
                 a {
                     text-decoration: none;
@@ -914,10 +946,69 @@ ul {
                         color: white;
                     }
 
+                    
+                }
+
+               
+                .userIcon{
+                    margin-right: 10px;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    color: white;
+                    cursor: pointer;
                     .nav-user {
                         font-size: 26px;
                     }
+                    .userLoginStatus{
+                        display: none;
+                        .userLoginStatusUl{
+                            list-style: none;
+                            li{
+                                a{
+                                    text-decoration: none;
+                                }
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        .userLoginStatus{
+                            display: block;
+                            width: 150px;
+                            height: 100px;
+                            padding: 10px 0 10px 10px;
+                            background-color: white;
+                            border-radius: 5px;
+                            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                            position: absolute;
+                            top: 80px;
+                            right: 120px;
+                            overflow-x: scroll;
+                            li{
+                                a{
+                                    color: grey;
+                                    transition: 0.3;
+                                }
+                                &:hover a{
+                                    color: rgb(186, 14, 28);
+                                }
+                            }
+                            &::-webkit-scrollbar {
+                                width: 2px;
+                                height: 4px;
+                                border-radius: 50%;
+                              }
+                               
+                              &::-webkit-scrollbar-thumb {
+                                border-radius: 7px;
+                                background-color: rgb(197, 192, 192);
+                                outline: 1px solid rgb(197, 192, 192);
+                              }
+                        }
+                    }
                 }
+                
 
                 .wishlist {
                     .wishlistCount {
@@ -2694,9 +2785,9 @@ footer {
             display: flex;
             justify-content: end;
             align-items: center;
+            height: 100%;
 
             a {
-                // margin-right: 20px;
                 text-decoration: none;
                 margin-right: 10px;
 
@@ -2705,10 +2796,69 @@ footer {
                     color: white;
                 }
 
+                
+            }
+
+           
+            .userIcon{
+                margin-right: 10px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                color: white;
+                cursor: pointer;
                 .nav-user {
                     font-size: 26px;
                 }
+                .userLoginStatus{
+                    display: none;
+                    .userLoginStatusUl{
+                        list-style: none;
+                        li{
+                            a{
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+
+                &:hover {
+                    .userLoginStatus{
+                        display: block;
+                        width: 150px;
+                        height: 100px;
+                        padding: 10px 0 10px 10px;
+                        background-color: white;
+                        border-radius: 5px;
+                        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                        position: absolute;
+                        top: 80px;
+                        right: 120px;
+                        overflow-x: scroll;
+                        li{
+                            a{
+                                color: grey;
+                                transition: 0.3;
+                            }
+                            &:hover a{
+                                color: rgb(186, 14, 28);
+                            }
+                        }
+                        &::-webkit-scrollbar {
+                            width: 2px;
+                            height: 4px;
+                            border-radius: 50%;
+                          }
+                           
+                          &::-webkit-scrollbar-thumb {
+                            border-radius: 7px;
+                            background-color: rgb(197, 192, 192);
+                            outline: 1px solid rgb(197, 192, 192);
+                          }
+                    }
+                }
             }
+            
 
             .wishlist {
                 .wishlistCount {
@@ -2718,6 +2868,7 @@ footer {
                     border-radius: 50%;
                     background-color: white;
                     font-size: 12px;
+                    color: black;
                     text-align: center;
                 }
             }
@@ -2729,6 +2880,7 @@ footer {
                     height: 18px;
                     border-radius: 50%;
                     background-color: white;
+                    color: black;
                     font-size: 12px;
                     text-align: center;
                 }
@@ -2994,7 +3146,7 @@ footer {
 }
 
 #products {
-    margin-bottom: 5%;
+    margin-bottom: 15%;
 
     .smallImage {
         position: relative;

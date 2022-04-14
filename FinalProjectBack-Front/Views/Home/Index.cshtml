@@ -34,44 +34,50 @@
                         <span class="closeIcon">@Html.Raw(Model.Setting.CloseIcon)</span>
                     </div>
                     <ul class="menuLinks">
-                        <li><a href="">Home</a></li>
+                        <li><a asp-controller="home" asp-action="index">Home</a></li>
                         <li class="menuShopLi">
-                            <a href="">Shop</a>
+                            <a class="menuShopLiA">Shop</a>
                             <ul class="menuShopUl">
-                                <li><a href="">Nike</a></li>
-                                <li><a href="">Adidas</a></li>
-                                <li><a href="">Puma</a></li>
-                                <li><a href="">New Balance</a></li>
-                                <li><a href="">Converse</a></li>
-                                <li><a href="">Vans</a></li>
+                                @foreach (var item in Model.Brands)
+                                {
+                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
+}
                             </ul>
                         </li>
                         <li class="menuProductsLi">
-                            <a href="">Products</a>
+                            <a class="menuProductsLiA">Products</a>
                             <ul class="menuProductsUl">
-                                <li><a href="">All products</a></li>
-                                <li><a href="">Running</a></li>
-                                <li><a href="">LifeStyle</a></li>
-                                <li><a href="">Jordan</a></li>
-                                <li><a href="">Football</a></li>
-                                <li><a href="">Basketball</a></li>
+                                <li><a asp-controller="products" asp-action="index">All products</a></li>
+                                @foreach (var item in Model.Categories)
+                                {
+                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
+}
                             </ul>
                         </li>
-                        <li><a href="">Man</a></li>
-                        <li><a href="">Woman</a></li>
-                        <li><a href="">Kid</a></li>
-                        <li><a href="">Contact</a></li>
+                        @foreach (var tag in Model.Tags)
+                        {
+                    <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
+                        <li><a asp-controller="contact" asp-action="index">Contact</a></li>
                         <li>
                             <a href="#" class="searchIcon">
                                 @Html.Raw(Model.Setting.SearchIcon)
                                 <span>Search</span>
                             </a>
                         </li>
-                        <li>
-                            <a class="userIcon" href="#">
+                        <li class="userIconLi">
+                            <div class="userIcon">
                                 @Html.Raw(Model.Setting.UserIcon)
-                                <span>Login/Register</span>
-                            </a>
+                                <span>
+                                    User
+                                </span>
+                                <div class="userIconMenuLoginStatus">
+                                    <ul class="userIconMenuLoginStatusUl">
+                                        <li><a href="">Username</a></li>
+                                        <li><a href="">Edit your profile</a></li>
+                                        <li><a href="">Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </li>
                         <li>
                             <a href="#" class="wishlist">
@@ -91,41 +97,39 @@
                     <div class="nav-links col-lg-5  col-md-1 col-sm-2 col-xs-4">
                         @Html.Raw(Model.Setting.MenuIcon)
                         <ul class="navLinkElements">
-                            <li><a href="">Home</a></li>
+                            <li><a asp-controller="home" asp-action="index">Home</a></li>
                             <li class="shopLi">
-                                <a href="">Shop</a>
+                                <a class="shopLiA">Shop</a>
                                 <div class="shop">
                                     <ul class="shopElements">
-                                        <li><a href="">Nike</a></li>
-                                        <li><a href="">Adidas</a></li>
-                                        <li><a href="">Puma</a></li>
-                                        <li><a href="">New Balance</a></li>
-                                        <li><a href="">Converse</a></li>
-                                        <li><a href="">Vans</a></li>
+                                        @foreach (var item in Model.Brands)
+                                        {
+                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
+}
                                     </ul>
                                 </div>
                             </li>
                             <li class="productsLi">
-                                <a href="">Products</a>
+                                <a class="productsLiA">Products</a>
                                 <div class="products">
                                     <ul class="productElements">
-                                        <li><a href="">All products</a></li>
-                                        <li><a href="">Running</a></li>
-                                        <li><a href="">Lifestyle</a></li>
-                                        <li><a href="">Jordan</a></li>
-                                        <li><a href="">Football</a></li>
-                                        <li><a href="">Basketball</a></li>
+                                        <li><a asp-controller="products" asp-action="index">All products</a></li>
+                                        @foreach (var item in Model.Categories)
+                                        {
+                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
                                     </ul>
                                 </div>
                             </li>
-                            <li><a href="">Man</a></li>
-                            <li><a href="">Woman</a></li>
-                            <li><a href="">Kid</a></li>
-                            <li><a href="">Contact</a></li>
+
+                            @foreach (var tag in Model.Tags)
+                            {
+                                <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
+                            }
+                            <li><a asp-controller="contact" asp-action="index">Contact</a></li>
                         </ul>
                     </div>
                     <div class="logo col-lg-3 col-md-7 col-sm-5 col-xs-12">
-                        <a href="">
+                        <a asp-controller="home" asp-action="index">
                             <img src="~/assets/images/@Model.Setting.Logo"
                                  alt="logo">
                         </a>
@@ -134,18 +138,28 @@
                         <a class="searchIcon" href="#">
                             @Html.Raw(Model.Setting.SearchIcon)
                         </a>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-
-            <a class="userIcon" asp-controller="account" asp-action="edit">
-                <span>@User.Identity.Name</span>
-            </a>
-                            <a asp-controller="account" asp-action="logout">Logout</a> }
-                        else
-                        {
-            <a class="userIcon" asp-controller="account" asp-action="register">
-                @Html.Raw(Model.Setting.UserIcon)
-            </a>}
+                        <div class="userIcon" href="#">
+                            <i class="bi bi-person nav-user"></i>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="userLoginStatus">
+                                    <ul class="userLoginStatusUl">
+                                        <li><a href="">@User.Identity.Name</a></li>
+                                        <li><a asp-controller="account" asp-action="Edit">Edit your profile</a></li>
+                                        <li><a asp-controller="account" asp-action="logout">Logout</a></li>
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="userLoginStatus">
+                                    <ul class="userLoginStatusUl">
+                                        <li><a asp-controller="account" asp-action="login">Login</a></li>
+                                        <li><a asp-controller="account" asp-action="register">Register</a></li>
+                                    </ul>
+                                </div>
+                            }
+                        </div>
                         <a href="#" class="wishlist">
                             @Html.Raw(Model.Setting.WhishlistIcon)
                             <span class="wishlistCount">0</span>
@@ -242,21 +256,23 @@
         {
 <input type="hidden" id="verifiedJS" />}
 
-        <section class="owl-carousel owl-theme myOwl">
+    <section class="owl-carousel owl-theme myOwl">
+        @foreach (var slider in Model.Sliders)
+        {
             <div class="image-text">
                 <div class="image">
-                    <img src="https://cdn.shopify.com/s/files/1/1385/4931/files/Main-Banner-1_76dc069c-c855-4f8b-ab7c-9f6fc71d1f91_1950x.jpg?v=1604979659"
+                    <img src="~/assets/images/@slider.Image"
                          alt="image">
                 </div>
                 <div class="textDiv">
                     <div class="text">
                         <div class="discount">
                             <p>
-                                Sale Up to 50% Off
+                                @slider.Description
                             </p>
                         </div>
                         <div class="title">
-                            <p>RED NIKE</p>
+                            <p>@slider.Title</p>
                         </div>
                         <div class="mybtnDiv">
                             <a class="myButton" href="">
@@ -266,30 +282,8 @@
                     </div>
                 </div>
             </div>
-            <div class="image-text">
-                <div class="image">
-                    <img src="https://cdn.shopify.com/s/files/1/1385/4931/files/Main-Banner-2_1bf02fd2-ba2d-4559-8de6-26cdbe2b97a7_1950x.jpg?v=1604979659"
-                         alt="image">
-                </div>
-                <div class="textDiv">
-                    <div class="text">
-                        <div class="discount">
-                            <p>
-                                30% Membership Discount
-                            </p>
-                        </div>
-                        <div class="title">
-                            <p>FINAL CLEARANCE</p>
-                        </div>
-                        <div class="mybtnDiv">
-                            <a class="myButton" href="">
-                                ALL PRODUCTS
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        }
+    </section>
         <section id="handpickedItems">
             <div class="container">
                 <div class="row handpickedRow">
@@ -309,8 +303,7 @@
                         <div class="row imagesRow">
                             <div class="row bigImageRow col-lg-6 col-md-12 col-sm-12">
                                 <div class="bigImage">
-                                    <div
-                                         class="image">
+                                    <div class="image">
                                         <img alt="" src="~/assets/images/@Model.Setting.HandpickedImage">
                                     </div>
                                     <div class="content">
@@ -331,8 +324,7 @@
         <section id="newArrival">
             <div class="row">
                 <div class="image-content">
-                    <div
-                         class="image">
+                    <div class="image">
                         <a href="">
                             <img alt="" src="~/assets/images/@Model.Setting.NewArrivalImage">
                         </a>
@@ -357,12 +349,12 @@
                             <p>Featured Products</p>
                         </div>
                         <div class="seeAllProducts">
-                            <a href="">VIEW ALL PRODUCTS</a>
+                            <a asp-controller="products" asp-action="index">VIEW ALL PRODUCTS</a>
                         </div>
                     </div>
                     <div class="slider">
                         <div class="featured owl-carousel owl-theme">
-                            @await Html.PartialAsync("_ProductPartialView",Model.Products)
+                            @await Html.PartialAsync("_ProductPartialView", Model.Products)
                         </div>
                     </div>
                 </div>
@@ -380,18 +372,16 @@
                 <div class="row brandImagesRow">
                     @foreach (var brand in Model.Brands)
                     {
-                        <div class="brand animate__animated">
-                            <a href=""><img src="~/assets/images/@brand.Image" alt=""></a>
-                        </div>
-                    }
+        <div class="brand animate__animated">
+            <a href=""><img src="~/assets/images/@brand.Image" alt=""></a>
+        </div>}
                 </div>
             </div>
         </section>
         <section id="exploreMore">
             <div class="row">
                 <div class="image-content">
-                    <div
-                         class="image"><a href=""><img alt="" src="~/assets/images/@Model.Setting.FunImage"></a></div>
+                    <div class="image"><a href=""><img alt="" src="~/assets/images/@Model.Setting.FunImage"></a></div>
                     <div class="content">
                         <div class="productExplain">
                             <p>No Fun Standing Still</p>
@@ -422,12 +412,11 @@
                         </div>
                         <div class="row imagesRow">
                             <div class="row smallImageRow col-lg-6 col-md-12 col-sm-12">
-                                @await Html.PartialAsync("_ProductPartialView",Model.Products)
+                                @await Html.PartialAsync("_ProductPartialView", Model.Products)
                             </div>
                             <div class="row bigImageRow col-lg-6 col-md-12 col-sm-12">
                                 <div class="bigImage">
-                                    <div
-                                         class="image">
+                                    <div class="image">
                                         <img alt="" src="~/assets/images/@Model.Setting.UpliftedImage">
                                     </div>
                                     <div class="content">
@@ -445,8 +434,7 @@
         <section id="subscribe">
             <div class="row">
                 <div class="image-content">
-                    <div
-                         class="image"><img alt="" src="~/assets/images/@Model.Setting.SubscribeImage"></div>
+                    <div class="image"><img alt="" src="~/assets/images/@Model.Setting.SubscribeImage"></div>
                     <div class="content">
                         <div class="text">
                             <p>
@@ -492,8 +480,7 @@
                             <div class="socials">
                                 @foreach (var item in Model.FooterSocials)
                                 {
-                                    <a href="@item.SocialUrl">@Html.Raw(item.SocialIcon)</a>
-                                }
+                    <a href="@item.SocialUrl">@Html.Raw(item.SocialIcon)</a>}
                             </div>
                         </div>
                         <div class="links col-lg-9 col-md-6 col-sm-12">
@@ -664,7 +651,7 @@
                 })
             }
             else {
-                
+
             }
 
         })
