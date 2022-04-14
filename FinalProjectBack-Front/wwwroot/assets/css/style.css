@@ -905,6 +905,14 @@ ul {
   display: inline-block;
 }
 
+.basketArea .basketProductsArea .products .basketProduct .basketContent .productPrice .basketX {
+  font-size: 14px;
+}
+
+.basketArea .basketProductsArea .products .basketProduct .basketContent .productPrice .basketProductCount {
+  font-size: 16px;
+}
+
 .basketArea .basketProductsArea .products .basketProduct .basketContent .removeItem {
   margin-top: 7px;
   font-size: 17px;
@@ -1208,7 +1216,6 @@ ul {
 #homeNavBar .row .links-logo-icons .icons .userIcon:hover .userLoginStatus {
   display: block;
   width: 150px;
-  height: 100px;
   padding: 10px 0 10px 10px;
   background-color: white;
   border-radius: 5px;

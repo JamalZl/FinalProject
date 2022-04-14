@@ -24,7 +24,7 @@ namespace FinalProjectBack_Front.Controllers
 
             ProductVM productVM = new ProductVM
             {
-                Products = _context.Products.Include(p => p.ProductImages).ToList()
+                Products = _context.Products.Include(p=>p.Campaign).Include(p => p.ProductImages).ToList()
             };
             return View(productVM);
         }
@@ -33,7 +33,7 @@ namespace FinalProjectBack_Front.Controllers
 
             ProductVM productVM = new ProductVM
             {
-                Product = _context.Products.Include(p => p.ProductImages).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.Brand).Include(p => p.Tag).Include(p => p.ProductCategories).ThenInclude(p => p.Category).Include(p => p.DescriptionImages).FirstOrDefault(p => p.Id == id),
+                Product = _context.Products.Include(p=>p.Campaign).Include(p => p.ProductImages).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.Brand).Include(p => p.Tag).Include(p => p.ProductCategories).ThenInclude(p => p.Category).Include(p => p.DescriptionImages).FirstOrDefault(p => p.Id == id),
                 Products = _context.Products.Include(p => p.ProductImages).ToList()
             };
             return View(productVM);
@@ -109,7 +109,7 @@ namespace FinalProjectBack_Front.Controllers
         {
             ProductVM productVM = new ProductVM
             {
-                ProductByBrands = _context.Products.Include(p => p.ProductImages).Include(p => p.Brand).Where(p => p.BrandId == id).ToList()
+                ProductByBrands = _context.Products.Include(p=>p.Campaign).Include(p => p.ProductImages).Include(p => p.Brand).Where(p => p.BrandId == id).ToList()
             };
 
             return View(productVM);
@@ -119,7 +119,7 @@ namespace FinalProjectBack_Front.Controllers
             ViewBag.Categories = _context.ProductCategories.Include(pc => pc.Category).FirstOrDefault(pc => pc.CategoryId == id);
             ProductVM productVM = new ProductVM
             {
-                ProductByCategories = _context.Products.Include(p => p.ProductImages).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Where(p => p.ProductCategories.Any(pc => pc.CategoryId == id)).ToList()
+                ProductByCategories = _context.Products.Include(p=>p.Campaign).Include(p => p.ProductImages).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Where(p => p.ProductCategories.Any(pc => pc.CategoryId == id)).ToList()
             };
             return View(productVM);
         }
@@ -128,7 +128,7 @@ namespace FinalProjectBack_Front.Controllers
         {
             ProductVM productVM = new ProductVM
             {
-                ProductByTags=_context.Products.Include(p=>p.ProductImages).Include(p=>p.Tag).Where(p=>p.TagId==id).ToList()
+                ProductByTags=_context.Products.Include(p=>p.Campaign).Include(p=>p.ProductImages).Include(p=>p.Tag).Where(p=>p.TagId==id).ToList()
             };
             return View(productVM);
         }

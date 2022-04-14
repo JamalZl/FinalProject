@@ -24,13 +24,17 @@ $(document).ready(function () {
         $(".menu").addClass("animate__slideOutLeft")
         $(".menu").removeClass("animate__slideInLeft")
     })
-    $(".menuShopLi .menuShopLiA").click(function (e) {
+    $(".menuShopLi").click(function (e) {
         e.preventDefault()
         $(".menuShopUl").slideToggle()
     })
-    $(".menuProductsLi .menuProductsLiA").click(function (e) {
+    $(".menuProductsLi").click(function (e) {
         e.preventDefault()
         $(".menuProductsUl").slideToggle()
+    })
+
+    $(".userIconLi").click(function () {
+        $(".userIconMenuLoginStatusUl").slideToggle()
     })
     $(window).scroll(function () {
         if (window.scrollY >= 650) {
@@ -57,10 +61,10 @@ $(document).ready(function () {
             alert("Number of the products can't be lower than 1")
         }
     })
-    $(".productsLi .productsLiA").click(function (e) {
+    $(".productsLi a").click(function (e) {
         e.preventDefault()
     })
-    $(".shopLi .shopLiA").click(function (e) {
+    $(".shopLi a").click(function (e) {
         e.preventDefault()
     })
 

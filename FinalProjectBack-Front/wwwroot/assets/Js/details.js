@@ -34,8 +34,7 @@ $(document).ready(function () {
 
         if (!$(this).hasClass("isSelectedSize")) {
             $(this).toggleClass("isSelectedSize");
-        }
-
+        }    
         $(this).siblings().removeClass("isSelectedSize")
         let sizeValue = $(this).attr("data-value")
         $(".sizeVal").children().first().html(sizeValue)

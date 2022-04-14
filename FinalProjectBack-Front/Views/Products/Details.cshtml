@@ -39,7 +39,14 @@
                 <div class="row priceRow">
                     <ul>
                         <li>
-                            <span class="price">$ @Model.Product.Price</span>
+                            @if (Model.Product.CampaignId == null)
+                            {
+                                <div class="price">£ @Model.Product.Price</div>
+                            }
+                            else
+                            {
+                                <div class="price"> <del>£ @Model.Product.Price</del> @(Model.Product.Price*(100-Model.Product.Campaign.DiscountPercent)/100)</div>
+                            }
                         </li>
                         @if (Model.Product.InStock)
                         {

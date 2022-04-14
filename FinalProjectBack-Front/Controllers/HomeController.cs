@@ -26,9 +26,9 @@ namespace FinalProjectBack_Front.Controllers
                 Categories = _context.Categories.ToList(),
                 Setting = _context.Settings.FirstOrDefault(),
                 Brands = _context.Brands.ToList(),
-                Products = _context.Products.Include(p => p.ProductImages).Take(4).ToList(),
-                Tags=_context.Tags.ToList(),
-                Sliders=_context.Sliders.ToList()
+                Products = _context.Products.Include(p=>p.Campaign).Include(p => p.ProductImages).Take(4).ToList(),
+                Tags = _context.Tags.ToList(),
+                Sliders = _context.Sliders.ToList()
             };
 
             return View(homeVM);

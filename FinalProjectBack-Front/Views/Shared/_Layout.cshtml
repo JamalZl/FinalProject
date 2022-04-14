@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    @RenderSection("CSS",required:false)
+
+    @RenderSection("CSS", required: false)
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
           integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -44,7 +44,8 @@
                             <ul class="menuShopUl">
                                 @foreach (var brand in layoutService.GetBrands())
                                 {
-                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
+                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>
+}
                             </ul>
                         </li>
                         <li class="menuProductsLi">
@@ -53,13 +54,13 @@
                                 <li><a asp-controller="products" asp-action="index">All products</a></li>
                                 @foreach (var item in layoutService.GetCategories())
                                 {
-                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
+                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
+}
                             </ul>
                         </li>
                         @foreach (var tag in layoutService.GetTags())
                         {
-                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
-                        }
+            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
                         <li><a href="">Contact</a></li>
                         <li>
                             <a class="searchIcon" href="#">
@@ -67,10 +68,29 @@
                                 <span>Search</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="userIconLi">
                             <a class="userIcon" href="#">
-                                @Html.Raw(layoutService.GetSettingData().UserIcon)
-                                <span>Login/Register</span>
+                                <span>
+                                    User
+                                </span>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                    <div class="userIconMenuLoginStatus">
+                        <ul class="userIconMenuLoginStatusUl">
+                            <li><a>@User.Identity.Name</a></li>
+                            <li><a asp-controller="account" asp-action="edit">Edit your profile</a></li>
+                            <li><a asp-controller="account" asp-action="logout">Logout</a></li>
+                        </ul>
+                    </div> }
+                                else
+                                {
+                                    <div class="userIconMenuLoginStatus">
+                                        <ul class="userIconMenuLoginStatusUl">
+                                            <li><a asp-controller="account" asp-action="login">Login</a></li>
+                                            <li><a asp-controller="account" asp-action="register">Register</a></li>
+                                        </ul>
+                                    </div>
+                                }
                             </a>
                         </li>
                         <li>
@@ -98,7 +118,8 @@
                                     <ul class="shopElements">
                                         @foreach (var brand in layoutService.GetBrands())
                                         {
-                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
+                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>
+}
                                     </ul>
                                 </div>
                             </li>
@@ -109,15 +130,15 @@
                                         <li><a asp-controller="products" asp-action="index">All products</a></li>
                                         @foreach (var category in layoutService.GetCategories())
                                         {
-                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@category.Id">@category.Name</a></li>}
+                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@category.Id">@category.Name</a></li>
+}
                                     </ul>
                                 </div>
                             </li>
 
                             @foreach (var item in layoutService.GetTags())
                             {
-                                <li><a asp-controller="products" asp-action="gettags" asp-route-id="@item.Id">@item.Name</a></li>
-                            }
+                <li><a asp-controller="products" asp-action="gettags" asp-route-id="@item.Id">@item.Name</a></li>}
                             <li><a asp-controller="contact" asp-action="index">Contact</a></li>
                         </ul>
                     </div>
@@ -131,29 +152,35 @@
                         <a class="searchIcon" href="#">
                             @Html.Raw(layoutService.GetSettingData().SearchIcon)
                         </a>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                                <a asp-controller="account" asp-action="edit">
-                                    @User.Identity.Name
-                                 </a>
-                            <a asp-controller="account" asp-action="logout">Logout</a>
-
-                        }
-                        else
-                        {
-                            <a class="userIcon" asp-controller="account" asp-action="login">
-                                @Html.Raw(layoutService.GetSettingData().UserIcon)
-                            </a>
-
-                        }
-
+                         <div class="userIcon" href="#">
+                            <i class="bi bi-person nav-user"></i>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="userLoginStatus">
+                                    <ul class="userLoginStatusUl">
+                                        <li><a href="">@User.Identity.Name</a></li>
+                                        <li><a asp-controller="account" asp-action="Edit">Edit your profile</a></li>
+                                        <li><a asp-controller="account" asp-action="logout">Logout</a></li>
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="userLoginStatus">
+                                    <ul class="userLoginStatusUl">
+                                        <li><a asp-controller="account" asp-action="login">Login</a></li>
+                                        <li><a asp-controller="account" asp-action="register">Register</a></li>
+                                    </ul>
+                                </div>
+                            }
+                        </div>
                         <a href="#" class="wishlist">
                             @Html.Raw(layoutService.GetSettingData().WhishlistIcon)
                             <span class="wishlistCount">0</span>
                         </a>
                         <a href="#" class="basket">
                             @Html.Raw(layoutService.GetSettingData().BasketIcon)
-                            <span class="basketCount">0</span>
+                            <span class="basketCount">@layoutService.ShowBasket().BasketItems.Count</span>
                         </a>
                     </div>
                 </div>
@@ -203,10 +230,7 @@
                             </a>
                         </div>
                         <span class="productPrice">
-                            $ @item.Price
-                        </span>
-                        <span>
-                            @item.Count
+                            $ @item.Price <span class="basketX">x</span> <span class="basketProductCount">@item.Count</span>
                         </span>
                         <div class="removeItem">
                             <i class="bi bi-trash"></i>
@@ -358,22 +382,22 @@
         })
     </script>
     @*<script>
-        $(document).ready(function () {
-            $(".toCard").on("click", function () {
-                $.ajax({
+            $(document).ready(function () {
+                $(".toCard").on("click", function () {
+                    $.ajax({
 
-                    url: "/products/addbasket",
-                    success: function (data) {
-                        console.log(data)
-                    },
-                    error: function (error) {
-                        console.log(error)
-                    }
+                        url: "/products/addbasket",
+                        success: function (data) {
+                            console.log(data)
+                        },
+                        error: function (error) {
+                            console.log(error)
+                        }
+                    })
                 })
             })
-        })
 
-    </script>*@
+        </script>*@
     @RenderSection("Scripts", required: false)
     <script src="~/assets/Js/main.js"></script>
 </body>
