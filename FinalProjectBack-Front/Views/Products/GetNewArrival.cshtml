@@ -1,0 +1,46 @@
+﻿@model ProductVM
+@{
+    ViewData["Title"] = "GetNewArrival";
+}
+
+<section id="Entrance">
+    <div class="row">
+        <h1>
+            @if (Model.ProductByNewArrival.Count == 0)
+            {
+
+            }
+            else
+            {
+                <span>New Arrivals</span>
+            }
+        </h1>
+    </div>
+</section>
+@if (Model.ProductByNewArrival.Count == 0)
+{
+    <div class="row justify-content-center align-items-center" style="height:214px;">
+        <p style="display: inline-block; text-align:center; color: rgb(203,3,29);">
+            <span style="font-size:20px;font-weight:bold;">
+                NOT FOUND
+            </span>
+        </p>
+    </div>
+}
+else
+{
+    <section id="products">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+            </div>
+            <div class="row">
+                @await Html.PartialAsync("_ProductPartialView", Model.ProductByNewArrival)
+            </div>
+        </div>
+    </section>
+}
+
+@section Scripts{
+    <script src="~/assets/Js/products.js"></script>
+}
+

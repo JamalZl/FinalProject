@@ -112,18 +112,18 @@
                         <ul class="navLinkElements">
                             <li><a asp-controller="home" asp-action="index">Home</a></li>
                             <li class="shopLi">
-                                <a class="shopLiA">Shop</a>
+                                <a style="cursor:pointer;" class="shopLiA">Shop</a>
                                 <div class="shop">
                                     <ul class="shopElements">
                                         @foreach (var item in Model.Brands)
                                         {
-                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
-}
+                                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
+                                        }
                                     </ul>
                                 </div>
                             </li>
                             <li class="productsLi">
-                                <a class="productsLiA">Products</a>
+                                <a style="cursor:pointer;" class="productsLiA">Products</a>
                                 <div class="products">
                                     <ul class="productElements">
                                         <li><a asp-controller="products" asp-action="index">All products</a></li>
@@ -290,7 +290,7 @@
                             <p>@slider.Title</p>
                         </div>
                         <div class="mybtnDiv">
-                            <a class="myButton" href="">
+                            <a class="myButton" asp-controller="products" asp-action="getsale">
                                 START SHOPPING
                             </a>
                         </div>
@@ -309,7 +309,7 @@
                                     <p>Handpicked Items</p>
                                 </div>
                                 <div class="allproductsText">
-                                    <a href="">
+                                    <a asp-controller="products" asp-action="getsale">
                                         VIEW ALL PRODUCTS
                                     </a>
                                 </div>
@@ -324,7 +324,7 @@
                                     <div class="content">
                                         <div class="discount">@Model.Setting.HandpickedSale</div>
                                         <div class="saleStatus">@Model.Setting.HandpickedSaleTitle</div>
-                                        <a class="goToProducts" href="">SEE PRODUCTS</a>
+                                        <a class="goToProducts" asp-controller="products" asp-action="getsale">SEE PRODUCTS</a>
                                     </div>
                                 </div>
                             </div>
@@ -346,12 +346,12 @@
                     </div>
                     <div class="content">
                         <div class="collectionNo">
-                            <p>Trending Collection '20</p>
+                            <p>Trending Collections</p>
                         </div>
                         <div class="arrivalStatus">
                             <p>NEW ARRIVAL</p>
                         </div>
-                        <a class="collection" href="">SEE COLLECTION</a>
+                        <a class="collection" asp-controller="products" asp-action="GetNewArrival">SEE COLLECTION</a>
                     </div>
                 </div>
             </div>
@@ -387,9 +387,10 @@
                 <div class="row brandImagesRow">
                     @foreach (var brand in Model.Brands)
                     {
-        <div class="brand animate__animated">
-            <a href=""><img src="~/assets/images/@brand.Image" alt=""></a>
-        </div>}
+                    <div class="brand animate__animated">
+                         <a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id"><img src="~/assets/images/@brand.Image" alt=""></a>
+                    </div>
+                     }
                 </div>
             </div>
         </section>
@@ -404,7 +405,7 @@
                         <div class="shoeStatus">
                             <p>JUST IN SHOES</p>
                         </div>
-                        <a class="exploreMore" href="">EXPLORE MORE</a>
+                        <a class="exploreMore" asp-controller="products" asp-action="index">EXPLORE MORE</a>
                     </div>
                 </div>
             </div>
@@ -466,6 +467,70 @@
         </section>
     </main>
     <footer>
+        <section id="topFooterFullWidth">
+            <div class="container">
+                <div class="row">
+                    <div class="info-links">
+                        <div class="info col-lg-3 col-md-6 col-sm-12">
+                            <div class="logo">
+                                <a href="">
+                                    <img src="~/assets/images/@Model.Setting.Logo"
+                                         alt="">
+                                </a>
+                            </div>
+                            <div class="location">
+                                @Html.Raw(Model.Setting.FooterAdressIcon)
+                                <span>@Model.Setting.FooterAddress</span>
+                            </div>
+                            <div class="mail">
+                                @Html.Raw(Model.Setting.FooterEmailIcon)
+                                <a href="mailto:@Model.Setting.FooterEmail">@Model.Setting.FooterEmail</a>
+                            </div>
+                            <div class="number">
+                                @Html.Raw(Model.Setting.FooterNumberIcon)
+                                <span>@Model.Setting.FooterNumber</span>
+                            </div>
+                            <div class="socials">
+                                @foreach (var item in Model.FooterSocials)
+                                {
+                    <a href="@item.SocialUrl">@Html.Raw(item.SocialIcon)</a>}
+                            </div>
+                        </div>
+                        <div class="links col-lg-9 col-md-6 col-sm-12">
+                            <ul class="linkUl">
+                                <li class="footerBrands">
+                                    <p class="fullWidthBrand">BRANDS</p>
+                                    <ul class="footerBrandScroll">
+                                        @foreach (var item in Model.Brands)
+                                        {
+                                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>}
+                                    </ul>
+                                </li>
+                                <li class="footerProducts">
+                                    <p class="fullWidthProducts">PRODUCTS</p>
+                                    <ul class="footerProductsScroll">
+                                        <li><a href="">All products</a></li>
+                                        @foreach (var item in Model.Categories)
+                                        {
+                                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
+                                    </ul>
+                                </li>
+                                <li class="footerInformaton">
+                                    <p class="fullWidthInformation">INFORMATION</p>
+                                    <ul>
+                                        @foreach (var tag in Model.Tags)
+                                        {
+                                    <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
+}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
         <section id="topFooter">
             <div class="container">
                 <div class="row">
@@ -504,12 +569,10 @@
                                     <p class="fullWidthBrand">BRANDS</p>
                                     <p class="responsiveBrand">BRANDS</p>
                                     <ul>
-                                        <li><a href="">Nike</a></li>
-                                        <li><a href="">Adidas</a></li>
-                                        <li><a href="">Puma</a></li>
-                                        <li><a href="">Converse</a></li>
-                                        <li><a href="">Vans</a></li>
-                                        <li><a href="">New Balance</a></li>
+                                        @foreach (var item in Model.Brands)
+                                        {
+                                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
+}
                                     </ul>
                                 </li>
                                 <li class="footerProducts">
@@ -517,19 +580,19 @@
                                     <p class="responsiveProducts">PRODUCTS</p>
                                     <ul>
                                         <li><a href="">All products</a></li>
-                                        <li><a href="">Running</a></li>
-                                        <li><a href="">Jordan</a></li>
-                                        <li><a href="">Lifestyle</a></li>
-                                        <li><a href="">Football</a></li>
-                                        <li><a href="">Basketball</a></li>
+                                        @foreach (var item in Model.Categories)
+                                        {
+                                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
+}
                                     </ul>
                                 </li>
                                 <li class="footerInformaton">
                                     <p class="fullWidthInformation">INFORMATION</p>
                                     <p class="responsiveInformation">INFORMATION</p>
                                     <ul>
-                                        <li><a href="">Contact us</a></li>
-                                        <li><a href="">FAQs</a></li>
+                                        @foreach (var tag in Model.Tags)
+                                        {
+                                    <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
                                     </ul>
                                 </li>
                             </ul>

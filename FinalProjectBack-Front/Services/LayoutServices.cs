@@ -87,7 +87,7 @@ namespace FinalProjectBack_Front.Services
                         basketData.BasketItems.Add(basketItem);
                         basketItem.Count++;
                         basketData.TotalPrice += basketItem.Price * basketItem.Count;
-                        Math.Round(basketData.TotalPrice, 3);
+                        Math.Round(basketData.TotalPrice, 2);
                     }
                 }
 

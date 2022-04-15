@@ -1,7 +1,6 @@
 ﻿@model ProductVM
-@{
-    ViewData["Title"] = "Index";
-}
+@{ ViewData["Title"] = "Index";
+    List<Size> sizes = ViewBag.Sizes; }
 <section id="Entrance">
     <div class="row">
         <h1>
@@ -13,74 +12,104 @@
     <div class="container">
         <a id="filterIcon" href=""><i class="fa-solid fa-filter"></i>Filter</a>
         <div class="row myRow">
-            <div class="byTitle col-lg-4 col-md-6 col-sm-12">
-                <div class="title">
-                    <span>
-                        By Title
-                    </span>
-                </div>
-                <form action="">
-                    <input class="search" type="search" placeholder="Search for prpduct title"><br><br>
-                    <button class="searchSubmitBtn" type="submit">FILTER</button>
-                </form>
-            </div>
-            <div class="byPrice col-lg-4 col-md-6 col-sm-12">
-                <div class="title">
-                    <span>
-                        By Price
-                    </span>
-                </div>
-                <div class="wrapper">
-                    <div class="rangeDiv">
-                        <div class="slider-track"></div>
-                        <form class="d-flex" action="">
-                            <button class="priceSubmitBtn" type="submit">FILTER</button>
-                            <input type="range" min="0" max="999" value="0" id="slider-1" oninput="slideOne()">
-                            <input type="range" min="0" max="999" value="999" id="slider-2"
-                                   oninput="slideTwo()">
-                        </form>
+            <form id="filterForm" method="get">
+                <div class="byPrice col-lg-4 col-md-6 col-sm-12">
+                    <div class="title">
+                        <span>
+                            By Price
+                        </span>
                     </div>
-                </div>
-                <div class="values">
-                    <span class="priceTxt">Price:</span>
-                    <span>£</span>
-                    <span id="range1">
-                        0
-                    </span>
+                    <div class="wrapper">
+                        <div class="rangeDiv">
+                            <div class="slider-track"></div>
+                            <div class="rangeValueDiv">
+                                <input type="range" min="0" max="999" value="0" id="slider-1" oninput="slideOne()">
+                                <input type="range" min="0" max="999" value="999" id="slider-2"
+                                       oninput="slideTwo()">
+                                <p style="cursor:pointer;" class="priceSubmitBtn">FILTER</p>
+                                <input id="rangeInput1" type="hidden">
+                                <input id="rangeInput2" type="hidden">
+                            </div>
+                            <div class="values">
+                                <span class="priceTxt">Price:</span>
+                                <span>£</span>
+                                <span id="range1">
+                                    0
+                                </span>
+                                <span> &dash; </span>
+                                <span>£</span>
+                                <span id="range2">
+                                    100
+                                </span>
+                            </div>
+                        </div>
+                    </div>
 
-                    <span> &dash; </span>
-                    <span>£</span>
-                    <span id="range2">
-                        100
-                    </span>
                 </div>
-            </div>
-            <div class="bySize col-lg-4 col-md-6 col-sm-12">
-                <div class="titleSize">
-                    <span>
-                        By Size
-                    </span>
-                </div>
-                <ul class="sizeUl">
-                    <li><a href="#">40 (1)</a></li>
-                    <li><a href="">41 (1)</a></li>
-                    <li><a href="">42 (1)</a></li>
-                    <li><a href="">43 (1)</a></li>
-                    <li><a href="">44 (1)</a></li>
-                    <li><a href="">45 (1)</a></li>
-                </ul>
-            </div>
+                <div class="bySize col-lg-4 col-md-6 col-sm-12">
+                        <div class="titleSize">
+                            <span>
+                                By Size
+                            </span>
+                        </div>
+                        <div class="sizeDiv">
+                            @foreach (var size in sizes)
+                            {
+                            <input class="sizeValueInput" id="@size.Id" value="@size.Value" name="size" type="checkbox">
+                            <label for="@size.Id">@size.Value <span>(@size.ProductSizes.Count)</span></label><br>
+
+                            }
+                        </div>
+                    </div>
+            </form>
         </div>
     </div>
 </section>
 <section id="products">
     <div class="container">
-        <div class="row">
-           @await Html.PartialAsync("_ProductPartialView",Model.Products)
+        <div class="row" id="Old-Products">
+            @await Html.PartialAsync("_ProductPartialView", Model.Products)
+        </div>
+        <div class="row" id="New-Products">
         </div>
     </div>
 </section>
 
 @section Scripts{
     <script src="~/assets/Js/products.js"></script>
+
+    <script>
+        $(document).on('click', `.priceSubmitBtn`, function () {
+
+            //$("#searchResultsAjax").empty()
+            if ($(this).prev().prev().val() >= 0 && $(this).prev().val() > 0) {
+                $.ajax({
+                    url: `/Products/PriceSearch`,
+                    traditional:true,
+                    data: {
+                        "minPrice": $("#slider-1").val(),
+                        "maxPrice": $("#slider-2").val(),
+                        "sizes": $('.sizeDiv :input[name="size"]:checked').each(function () {
+                            console.log($(this).val())
+                        })
+                    },
+                    type: "Get",
+                    success: function (res) {
+
+                        $("#Old-Products").css("display", "none")
+                        $("#New-Products").html(res);
+                        
+                        // $('.sizeDiv :input[name="size"]:checked').each(function () {
+                        //     console.log($(this).val())
+                        //})
+                    }
+                })
+            }
+            else {
+                $("#Old-Courses").css("display", "flex")
+
+            }
+
+        })
+    </script>
 }

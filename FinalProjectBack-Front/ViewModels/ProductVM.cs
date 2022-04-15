@@ -12,6 +12,9 @@ namespace FinalProjectBack_Front.ViewModels
         public List<Product> ProductByBrands { get; set; }
         public List<Product> ProductByCategories { get; set; }
         public List<Product> ProductByTags { get; set; }
+        public List<Product> ProductBySale { get; set; }
+        public List<Product> ProductByNewArrival { get; set; }
+        public List<Product> RelatedProducts { get; set; }
         public Product Product { get; set; }
     }
 }

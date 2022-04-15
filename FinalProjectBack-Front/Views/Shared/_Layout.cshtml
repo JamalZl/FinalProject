@@ -54,13 +54,14 @@
                                 <li><a asp-controller="products" asp-action="index">All products</a></li>
                                 @foreach (var item in layoutService.GetCategories())
                                 {
-                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
-}
+                                     <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
+                                }
                             </ul>
                         </li>
                         @foreach (var tag in layoutService.GetTags())
                         {
-            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
+                        <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
+                        }
                         <li><a href="">Contact</a></li>
                         <li>
                             <a class="searchIcon" href="#">
@@ -261,6 +262,70 @@
         @RenderBody()
     </main>
     <footer>
+        <section id="topFooterFullWidth">
+            <div class="container">
+                <div class="row">
+                    <div class="info-links">
+                        <div class="info col-lg-3 col-md-6 col-sm-12">
+                            <div class="logo">
+                                <a href="">
+                                    <img src="~/assets/images/@layoutService.GetSettingData().Logo"
+                                         alt="">
+                                </a>
+                            </div>
+                            <div class="location">
+                                @Html.Raw(layoutService.GetSettingData().FooterAdressIcon)
+                                <span>@layoutService.GetSettingData().FooterAddress</span>
+                            </div>
+                            <div class="mail">
+                                @Html.Raw(layoutService.GetSettingData().FooterEmailIcon)
+                                <a href="mailto:@layoutService.GetSettingData().FooterEmail">@layoutService.GetSettingData().FooterEmail</a>
+                            </div>
+                            <div class="number">
+                                @Html.Raw(layoutService.GetSettingData().FooterNumberIcon)
+                                <span>@layoutService.GetSettingData().FooterNumber</span>
+                            </div>
+                            <div class="socials">
+                                @foreach (var social in layoutService.GetSocials())
+                                {
+                    <a href="@social.SocialUrl">@Html.Raw(social.SocialIcon)</a>}
+                            </div>
+                        </div>
+                        <div class="links col-lg-9 col-md-6 col-sm-12 ">
+                            <ul class="linkUl">
+                                <li class="footerBrands">
+                                    <p class="fullWidthBrand">BRANDS</p>
+                                    <ul class="fullWidthBrand">
+                                        @foreach (var brand in layoutService.GetBrands())
+                                        {
+                                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
+                                    </ul>
+                                </li>
+                                <li class="footerProducts">
+                                    <p class="fullWidthProducts">PRODUCTS</p>
+                                    <ul class="footerProductsScroll">
+                                        <li><a href="">All products</a></li>
+                                        @foreach (var item in layoutService.GetCategories())
+                                        {
+                                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
+                                    </ul>
+                                </li>
+                                <li class="footerInformaton">
+                                    <p class="fullWidthInformation">TAGS</p>
+                                    <ul>
+                                        @foreach (var tag in layoutService.GetTags())
+                                        {
+                                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
         <section id="topFooter">
             <div class="container">
                 <div class="row">
@@ -298,33 +363,31 @@
                                 <li class="footerBrands">
                                     <p class="fullWidthBrand">BRANDS</p>
                                     <p class="responsiveBrand">BRANDS</p>
-                                    <ul>
-                                        <li><a href="">Nike</a></li>
-                                        <li><a href="">Adidas</a></li>
-                                        <li><a href="">Puma</a></li>
-                                        <li><a href="">Converse</a></li>
-                                        <li><a href="">Vans</a></li>
-                                        <li><a href="">New Balance</a></li>
+                                    <ul class="footerBrandScroll">
+                                        @foreach (var brand in layoutService.GetBrands())
+                                        {
+                                             <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>
+                                         }
                                     </ul>
                                 </li>
                                 <li class="footerProducts">
                                     <p class="fullWidthProducts">PRODUCTS</p>
                                     <p class="responsiveProducts">PRODUCTS</p>
-                                    <ul>
+                                    <ul class="footerProductsScroll">
                                         <li><a href="">All products</a></li>
-                                        <li><a href="">Running</a></li>
-                                        <li><a href="">Jordan</a></li>
-                                        <li><a href="">Lifestyle</a></li>
-                                        <li><a href="">Football</a></li>
-                                        <li><a href="">Basketball</a></li>
+                                        @foreach (var item in layoutService.GetCategories())
+                                        {
+                                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
+                                        }
                                     </ul>
                                 </li>
                                 <li class="footerInformaton">
-                                    <p class="fullWidthInformation">INFORMATION</p>
-                                    <p class="responsiveInformation">INFORMATION</p>
+                                    <p class="fullWidthInformation">TAGS</p>
+                                    <p class="responsiveInformation">TAGS</p>
                                     <ul>
-                                        <li><a href="">Contact us</a></li>
-                                        <li><a href="">FAQs</a></li>
+                                        @foreach (var tag in layoutService.GetTags())
+                                        {
+                                    <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
                                     </ul>
                                 </li>
                             </ul>
@@ -380,25 +443,8 @@
             }
 
         })
-    </script>
-    @*<script>
-            $(document).ready(function () {
-                $(".toCard").on("click", function () {
-                    $.ajax({
-
-                        url: "/products/addbasket",
-                        success: function (data) {
-                            console.log(data)
-                        },
-                        error: function (error) {
-                            console.log(error)
-                        }
-                    })
-                })
-            })
-
-        </script>*@
-    @RenderSection("Scripts", required: false)
+     </script>
+    @RenderSection("Scripts", required: false);
     <script src="~/assets/Js/main.js"></script>
 </body>
 </html>

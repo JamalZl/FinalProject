@@ -3,7 +3,7 @@
 {
     <div class="smallImage col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div class="image">
-            <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" class="mainImage">
+            <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="mainImage">
                 <img src="~/assets/images/@product.ProductImages.FirstOrDefault().Image"
                      alt="">
                 <div class="icons">
@@ -12,7 +12,7 @@
                 </div>
 
             </a>
-            <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" class="secondImage">
+            <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="secondImage">
                 <img src="~/assets//images/@product.ProductImages.Skip(1).FirstOrDefault().Image"
                      alt="">
             </a>
@@ -26,18 +26,18 @@
                         <i class="fa-solid fa-plus"></i>
                     </a>
                 </div>
-                <a asp-controller="products" asp-action="addbasket" asp-route-id="@product.Id" class="toCard">ADD TO CART</a>
+                <a asp-controller="products" asp-action="addbasket" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="toCard">ADD TO CART</a>
             </div>
         </div>
         <div class="name-price">
-            <div class="name"><a asp-controller="products" asp-action="details" asp-route-id="@product.Id">@product.Name</a></div>
+            <div class="name"><a asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId">@product.Name</a></div>
             @if (product.CampaignId == null)
             {
                 <div class="price">£ @product.Price</div>
             }
             else
             {
-                <div class="price"> <del>£ @product.Price</del> @(product.Price*(100-product.Campaign.DiscountPercent)/100)</div>
+                <div class="price"> <del>£@product.Price</del> £@Math.Round((product.Price * (100 - product.Campaign.DiscountPercent) / 100), 2)</div>
             }
         </div>
     </div>

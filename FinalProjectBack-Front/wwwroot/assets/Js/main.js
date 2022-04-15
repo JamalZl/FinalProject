@@ -61,12 +61,12 @@ $(document).ready(function () {
             alert("Number of the products can't be lower than 1")
         }
     })
-    $(".productsLi a").click(function (e) {
-        e.preventDefault()
-    })
-    $(".shopLi a").click(function (e) {
-        e.preventDefault()
-    })
+    //$(".productsLi a").click(function (e) {
+    //    e.preventDefault()
+    //})
+    //$(".shopLi a").click(function (e) {
+    //    e.preventDefault()
+    //})
 
     $(".searchIcon").click(function (e) {
         e.preventDefault()
