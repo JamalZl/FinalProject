@@ -767,7 +767,7 @@ ul {
 }
 
 .basketArea {
-  height: 100vh;
+  height: 100%;
   width: 340px;
   background-color: white;
   padding: 0 !important;
@@ -864,7 +864,7 @@ ul {
 
 .basketArea .basketProductsArea {
   overflow-y: scroll;
-  max-height: 450px;
+  max-height: 650px;
 }
 
 .basketArea .basketProductsArea .products .basketProduct {
@@ -903,14 +903,6 @@ ul {
   font-size: 14px;
   margin-top: 7px;
   display: inline-block;
-}
-
-.basketArea .basketProductsArea .products .basketProduct .basketContent .productPrice .basketX {
-  font-size: 14px;
-}
-
-.basketArea .basketProductsArea .products .basketProduct .basketContent .productPrice .basketProductCount {
-  font-size: 16px;
 }
 
 .basketArea .basketProductsArea .products .basketProduct .basketContent .removeItem {
@@ -1595,7 +1587,7 @@ ul {
 #handpickedItems .handpickedRow .smallImageRow .smallImage .image .mainImage {
   -webkit-transition: 0.7s;
   transition: 0.7s;
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 100%;
 }
@@ -2424,7 +2416,7 @@ ul {
 #bestSeller .smallImageRow .smallImage .image .mainImage {
   -webkit-transition: 0.7s;
   transition: 0.7s;
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 100%;
 }
@@ -3874,7 +3866,7 @@ footer #bottomFooter .row .payment {
 #products .smallImage .image .mainImage {
   -webkit-transition: 0.7s;
   transition: 0.7s;
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 100%;
 }

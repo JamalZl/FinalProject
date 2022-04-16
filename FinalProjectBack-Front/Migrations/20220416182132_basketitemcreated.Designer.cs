@@ -4,14 +4,16 @@ using FinalProjectBack_Front.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinalProjectBack_Front.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220416182132_basketitemcreated")]
+    partial class basketitemcreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -591,31 +593,6 @@ namespace FinalProjectBack_Front.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("FinalProjectBack_Front.Models.WhishlistItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("WhishlistItems");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -753,7 +730,7 @@ namespace FinalProjectBack_Front.Migrations
                         .WithMany("BasketItems")
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("FinalProjectBack_Front.Models.Product", "Product")
+                    b.HasOne("FinalProjectBack_Front.Models.Product", "Flower")
                         .WithMany("BasketItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -838,19 +815,6 @@ namespace FinalProjectBack_Front.Migrations
                     b.HasOne("FinalProjectBack_Front.Models.Size", "Size")
                         .WithMany("ProductSizes")
                         .HasForeignKey("SizeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FinalProjectBack_Front.Models.WhishlistItem", b =>
-                {
-                    b.HasOne("FinalProjectBack_Front.Models.AppUser", "AppUser")
-                        .WithMany("WhishlistItems")
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("FinalProjectBack_Front.Models.Product", "Product")
-                        .WithMany("WhishlistItems")
-                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

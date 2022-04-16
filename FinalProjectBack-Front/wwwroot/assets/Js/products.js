@@ -45,6 +45,3 @@ function fillColor() {
     percent2 = (sliderTwo.value / sliderMaxValue) * 100;
     sliderTrack.style.background = `linear-gradient(to right, rgb(218, 218, 229) ${percent1}% , rgb(203, 3, 29) ${percent1}% , rgb(203, 3, 29) ${percent2}%, rgb(218, 218, 229) ${percent2}%)`;
 }
-
-var value = $("#sizeFilterControlValue").val()
-console.log(value);

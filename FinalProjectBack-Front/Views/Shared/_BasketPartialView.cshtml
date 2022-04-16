@@ -1,0 +1,67 @@
+﻿@inject FinalProjectBack_Front.Services.LayoutServices layoutService
+@{
+    BasketVM basket = await layoutService.ShowBasket();
+}
+@*<div class="basketTxt-closeIcon">
+    <span class="basketTxt">SHOPPING CART</span>
+    <span class="basketCloseIcon"><i class="las la-times"></i></span>
+</div>*@
+@if (basket.BasketItems.Count == 0)
+{
+    <div class="emptyBasket">
+        <div class="emptybasketIcon">
+            <i class="bi bi-cart-x"></i>
+        </div>
+        <p>Your basket is empty</p>
+        <div class="returnBtn">
+            <a class="basketToShopBtn" asp-controller="products" asp-action="index">RETURN TO SHOP</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="basketProductsArea">
+        <div class="products">
+            @foreach (var item in basket.BasketItems)
+            {
+                <div class="basketProduct">
+                    <div class="basketProductImage">
+                        <a href="">
+                            <img src="~/assets/images/@item.Product.ProductImages.FirstOrDefault().Image" alt="">
+                        </a>
+                    </div>
+                    <div class="basketContent">
+                        <div class="productName">
+                            <a href="">
+                                @item.Product.Name
+                            </a>
+                        </div>
+                        <span class="productPrice">
+                            $ @item.Price <span class="basketX">x</span> <span class="basketProductCount">@item.Count</span>
+                        </span>
+                        <div class="removeItem">
+                            <a style="color:black;" class="bi bi-trash"></a>
+                        </div>
+                    </div>
+
+                </div>}
+        </div>
+        <div class="subtotal">
+            <div class="title">
+                <span class="subtotalTitle">Subtotal</span>
+                <span class="subtotalPrice">$ @basket.TotalPrice</span>
+            </div>
+            <div class="desc">
+                <p>Taxes, shipping and discounts codes calculated at checkout</p>
+            </div>
+            <div class="checkoutBtn">
+                <a class="mycheckoutBtn" href="">
+                    CHECK OUT
+                </a>
+            </div>
+        </div>
+    </div>
+    <p id="basketTotalCountFetch" style="display:none">@basket.BasketItems.Count</p>
+
+}
+

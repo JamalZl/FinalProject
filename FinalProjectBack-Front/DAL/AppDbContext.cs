@@ -32,5 +32,7 @@ namespace FinalProjectBack_Front.DAL
         public DbSet<ProductSize> ProductSizes { get; set; }
         public DbSet<ProductDescriptionImage> DescriptionImages { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
+        public DbSet<WhishlistItem> WhishlistItems { get; set; }
     }
 }

@@ -1,6 +1,9 @@
 ﻿@model HomeVM
 @inject FinalProjectBack_Front.Services.LayoutServices layoutService
-@{ Layout = null; }
+@{ 
+    Layout = null;
+    BasketVM basket = await layoutService.ShowBasket();
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -179,7 +182,7 @@
                         </a>
                         <a href="#" class="basket">
                             @Html.Raw(Model.Setting.BasketIcon)
-                            <span class="basketCount">@layoutService.ShowBasket().BasketItems.Count</span>
+                            <span class="basketCount">@basket.BasketItems.Count</span>
                         </a>
                     </div>
                 </div>
@@ -213,7 +216,7 @@
                     </div>
                     <div class="basketProductsArea">
                         <div class="products">
-                            @foreach (var item in layoutService.ShowBasket().BasketItems)
+                            @foreach (var item in basket.BasketItems)
                             {
                         <div class="basketProduct">
                             <div class="basketProductImage">
@@ -239,7 +242,7 @@
                         <div class="subtotal">
                             <div class="title">
                                 <span class="subtotalTitle">Subtotal</span>
-                                <span class="subtotalPrice">$ @layoutService.ShowBasket().TotalPrice</span>
+                                <span class="subtotalPrice">$ @basket.TotalPrice</span>
                             </div>
                             <div class="desc">
                                 <p>Taxes, shipping and discounts codes calculated at checkout</p>

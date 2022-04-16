@@ -12,5 +12,7 @@ namespace FinalProjectBack_Front.Models
         public string Surname { get; set; }
         public bool IsAdmin { get; set; }
         public int Age { get; set; }
+        public List<BasketItem> BasketItems { get; set; }
+        public List<WhishlistItem> WhishlistItems { get; set; }
     }
 }

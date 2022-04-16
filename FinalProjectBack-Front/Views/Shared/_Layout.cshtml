@@ -44,8 +44,7 @@
                             <ul class="menuShopUl">
                                 @foreach (var brand in layoutService.GetBrands())
                                 {
-                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>
-}
+                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
                             </ul>
                         </li>
                         <li class="menuProductsLi">
@@ -54,14 +53,12 @@
                                 <li><a asp-controller="products" asp-action="index">All products</a></li>
                                 @foreach (var item in layoutService.GetCategories())
                                 {
-                                     <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
-                                }
+                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
                             </ul>
                         </li>
                         @foreach (var tag in layoutService.GetTags())
                         {
-                        <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
-                        }
+            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
                         <li><a href="">Contact</a></li>
                         <li>
                             <a class="searchIcon" href="#">
@@ -83,15 +80,14 @@
                             <li><a asp-controller="account" asp-action="logout">Logout</a></li>
                         </ul>
                     </div> }
-                                else
-                                {
-                                    <div class="userIconMenuLoginStatus">
-                                        <ul class="userIconMenuLoginStatusUl">
-                                            <li><a asp-controller="account" asp-action="login">Login</a></li>
-                                            <li><a asp-controller="account" asp-action="register">Register</a></li>
-                                        </ul>
-                                    </div>
-                                }
+                else
+                {
+    <div class="userIconMenuLoginStatus">
+        <ul class="userIconMenuLoginStatusUl">
+            <li><a asp-controller="account" asp-action="login">Login</a></li>
+            <li><a asp-controller="account" asp-action="register">Register</a></li>
+        </ul>
+    </div>}
                             </a>
                         </li>
                         <li>
@@ -119,8 +115,7 @@
                                     <ul class="shopElements">
                                         @foreach (var brand in layoutService.GetBrands())
                                         {
-                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>
-}
+                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
                                     </ul>
                                 </div>
                             </li>
@@ -131,15 +126,15 @@
                                         <li><a asp-controller="products" asp-action="index">All products</a></li>
                                         @foreach (var category in layoutService.GetCategories())
                                         {
-                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@category.Id">@category.Name</a></li>
-}
+                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@category.Id">@category.Name</a></li>}
                                     </ul>
                                 </div>
                             </li>
 
                             @foreach (var item in layoutService.GetTags())
                             {
-                <li><a asp-controller="products" asp-action="gettags" asp-route-id="@item.Id">@item.Name</a></li>}
+                <li><a asp-controller="products" asp-action="gettags" asp-route-id="@item.Id">@item.Name</a></li>
+}
                             <li><a asp-controller="contact" asp-action="index">Contact</a></li>
                         </ul>
                     </div>
@@ -153,35 +148,34 @@
                         <a class="searchIcon" href="#">
                             @Html.Raw(layoutService.GetSettingData().SearchIcon)
                         </a>
-                         <div class="userIcon" href="#">
+                        <div class="userIcon" href="#">
                             <i class="bi bi-person nav-user"></i>
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <div class="userLoginStatus">
+                <div class="userLoginStatus">
+                    <ul class="userLoginStatusUl">
+                        <li><a href="">@User.Identity.Name</a></li>
+                        <li><a asp-controller="account" asp-action="Edit">Edit your profile</a></li>
+                        <li><a asp-controller="account" asp-action="logout">Logout</a></li>
+                    </ul>
+                </div> }
+                                        else
+                                        {
+                                    <div class="userLoginStatus">
                                     <ul class="userLoginStatusUl">
-                                        <li><a href="">@User.Identity.Name</a></li>
-                                        <li><a asp-controller="account" asp-action="Edit">Edit your profile</a></li>
-                                        <li><a asp-controller="account" asp-action="logout">Logout</a></li>
+                                    <li><a asp-controller="account" asp-action="login">Login</a></li>
+                                    <li><a asp-controller="account" asp-action="register">Register</a></li>
                                     </ul>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="userLoginStatus">
-                                    <ul class="userLoginStatusUl">
-                                        <li><a asp-controller="account" asp-action="login">Login</a></li>
-                                        <li><a asp-controller="account" asp-action="register">Register</a></li>
-                                    </ul>
-                                </div>
-                            }
+                                    </div>
+                                    }
                         </div>
-                        <a href="#" class="wishlist">
+                        <a asp-controller="whishlist" asp-action="index" class="wishlist">
                             @Html.Raw(layoutService.GetSettingData().WhishlistIcon)
                             <span class="wishlistCount">0</span>
                         </a>
                         <a href="#" class="basket">
                             @Html.Raw(layoutService.GetSettingData().BasketIcon)
-                            <span class="basketCount">@layoutService.ShowBasket().BasketItems.Count</span>
+                            <span class="basketCount fetchBasketCountTest">0</span>
                         </a>
                     </div>
                 </div>
@@ -200,60 +194,8 @@
                     </div>
                 </div>
                 <div class="basketArea animate__animated">
-                    <div class="basketTxt-closeIcon">
-                        <span class="basketTxt">SHOPPING CART</span>
-                        <span class="basketCloseIcon"><i class="las la-times"></i></span>
-                    </div>
-                    <div class="emptyBasket d-none">
-                        <div class="emptybasketIcon">
-                            <i class="bi bi-cart-x"></i>
-                        </div>
-                        <p>Your basket is empty</p>
-                        <div class="returnBtn">
-                            <a class="basketToShopBtn" href="">RETURN TO SHOP</a>
-                        </div>
-                    </div>
-                    <div class="basketProductsArea">
-                        <div class="products">
-                            @foreach (var item in layoutService.ShowBasket().BasketItems)
-                            {
-
-                <div class="basketProduct">
-                    <div class="basketProductImage">
-                        <a href="">
-                            <img src="~/assets/images/@item.Product.ProductImages.FirstOrDefault().Image" alt="">
-                        </a>
-                    </div>
-                    <div class="basketContent">
-                        <div class="productName">
-                            <a href="">
-                                @item.Product.Name
-                            </a>
-                        </div>
-                        <span class="productPrice">
-                            $ @item.Price <span class="basketX">x</span> <span class="basketProductCount">@item.Count</span>
-                        </span>
-                        <div class="removeItem">
-                            <i class="bi bi-trash"></i>
-                        </div>
-                    </div>
-                </div>}
-                        </div>
-                        <div class="subtotal">
-                            <div class="title">
-                                <span class="subtotalTitle">Subtotal</span>
-                                <span class="subtotalPrice">$ @layoutService.ShowBasket().TotalPrice</span>
-                            </div>
-                            <div class="desc">
-                                <p>Taxes, shipping and discounts codes calculated at checkout</p>
-                            </div>
-                            <div class="checkoutBtn">
-                                <a class="mycheckoutBtn" href="">
-                                    CHECK OUT
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    @await Html.PartialAsync("_BasketPartialView",layoutService) 
                 </div>
             </div>
         </nav>
@@ -298,7 +240,7 @@
                                     <ul class="fullWidthBrand">
                                         @foreach (var brand in layoutService.GetBrands())
                                         {
-                                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
+                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
                                     </ul>
                                 </li>
                                 <li class="footerProducts">
@@ -307,7 +249,7 @@
                                         <li><a href="">All products</a></li>
                                         @foreach (var item in layoutService.GetCategories())
                                         {
-                                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
+                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
                                     </ul>
                                 </li>
                                 <li class="footerInformaton">
@@ -315,8 +257,8 @@
                                     <ul>
                                         @foreach (var tag in layoutService.GetTags())
                                         {
-                                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
-                                        }
+                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
+}
                                     </ul>
                                 </li>
                             </ul>
@@ -366,8 +308,8 @@
                                     <ul class="footerBrandScroll">
                                         @foreach (var brand in layoutService.GetBrands())
                                         {
-                                             <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>
-                                         }
+                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>
+}
                                     </ul>
                                 </li>
                                 <li class="footerProducts">
@@ -377,8 +319,8 @@
                                         <li><a href="">All products</a></li>
                                         @foreach (var item in layoutService.GetCategories())
                                         {
-                                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
-                                        }
+                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
+}
                                     </ul>
                                 </li>
                                 <li class="footerInformaton">
@@ -387,7 +329,7 @@
                                     <ul>
                                         @foreach (var tag in layoutService.GetTags())
                                         {
-                                    <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
+                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
                                     </ul>
                                 </li>
                             </ul>
@@ -441,9 +383,83 @@
             else {
 
             }
-
         })
-     </script>
+    </script>
+    <script>
+
+        $(document).ready(function () {
+
+            $(document).on("click", ".fetchAddToCard", function (e) {
+                e.preventDefault()
+                var href = $(this).attr("href")
+                console.log(href)
+                var base = window.location.origin
+                var url = `${base}${href}`
+                var urlToPartial = `${url}/Products/GetPartial`
+
+                fetch(url).then(res => res.text()).then(data => {
+                    fetch(urlToPartial).then(res => res.text()).then(data => {
+
+                        $(".basketArea").empty();
+                        var basket = document.querySelector(".basketArea")
+//                        basket.innerHTML = `<div class="basketTxt-closeIcon">
+//    <span class="basketTxt">SHOPPING CART</span>
+//    <a onclick="closeBasket()" href="javascript:void(0)" class="basketCloseIcon"><i class="las la-times"></i></a>
+//</div>`;
+                        $(".basketArea").append(data);
+                    });
+                })
+
+                setTimeout(function () {
+
+                    var totalCount = document.getElementById("basketTotalCountFetch")
+
+                    var count = totalCount.innerHTML
+                    var navBasketCount = document.getElementsByClassName("fetchBasketCountTest")
+                    navBasketCount.innerHTML = count;
+                    console.log(navBasketCount.innerHTML)
+                },100);
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $(document).on("click", ".whishlistFetch", function (e) {
+                e.preventDefault()
+                var href = $(this).attr("href")
+                console.log(href)
+                var base = window.location.origin
+                var url = `${base}${href}`
+                var urlToPartial = `${url}/Products/GetWhishlistPartial`
+
+                fetch(url).then(res => res.text()).then(data => {
+                    fetch(urlToPartial).then(res => res.text()).then(data => {
+
+                        $("#products").empty();
+                        //var basket = document.querySelector(".basketArea")
+                        //                        basket.innerHTML = `<div class="basketTxt-closeIcon">
+                        //    <span class="basketTxt">SHOPPING CART</span>
+                        //    <a onclick="closeBasket()" href="javascript:void(0)" class="basketCloseIcon"><i class="las la-times"></i></a>
+                        //</div>`;
+                        $("#products").append(data);
+                    });
+                })
+
+                //setTimeout(function () {
+
+                //    var totalCount = document.getElementById("basketTotalCountFetch")
+
+                //    var count = totalCount.innerHTML
+                //    var navBasketCount = document.getElementsByClassName("fetchBasketCountTest")
+                //    navBasketCount.innerHTML = count;
+                //    console.log(navBasketCount.innerHTML)
+                //}, 100);
+            });
+
+        });
+    </script>
     @RenderSection("Scripts", required: false);
     <script src="~/assets/Js/main.js"></script>
 </body>

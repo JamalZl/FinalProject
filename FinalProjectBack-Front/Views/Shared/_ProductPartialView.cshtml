@@ -7,7 +7,7 @@
                 <img src="~/assets/images/@product.ProductImages.FirstOrDefault().Image"
                      alt="">
                 <div class="icons">
-                    <a href="" class="whishlist"><i class="bi bi-heart"></i></a>
+                    <a asp-controller="products" asp-action="AddWhishlist" asp-route-id="@product.Id" class="whishlist whishlistFetch"><i class="bi bi-heart"></i></a>
                     <a href="" class="view"><i class="bi bi-eye"></i></a>
                 </div>
 
@@ -26,7 +26,7 @@
                         <i class="fa-solid fa-plus"></i>
                     </a>
                 </div>
-                <a asp-controller="products" asp-action="addbasket" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="toCard">ADD TO CART</a>
+                <a asp-controller="products" asp-action="addbasket" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="toCard fetchAddToCard">ADD TO CART</a>
             </div>
         </div>
         <div class="name-price">

@@ -603,9 +603,8 @@ ul {
 }
 
 
-
 .basketArea{
-    height: 100vh;
+    height: 100%;
     width: 340px;
     background-color: white;
     padding: 0 !important;
@@ -676,7 +675,7 @@ ul {
     
     .basketProductsArea{
             overflow-y: scroll;
-            max-height: 450px;
+            max-height: 650px;
         .products{      
         .basketProduct{
             display: flex;
@@ -708,12 +707,6 @@ ul {
                     font-size: 14px;
                     margin-top: 7px;
                     display: inline-block;
-                    .basketX{
-                        font-size: 14px;
-                    }
-                    .basketProductCount{
-                        font-size: 16px;
-                    }
                 }
                 .removeItem{
                     margin-top: 7px;
@@ -1341,7 +1334,7 @@ ul {
 
                     .mainImage {
                         transition: 0.7s;
-                        position: absolute;
+                        position: relative;
                         width: 100%;
                         height: 100%;
 
@@ -2108,7 +2101,7 @@ ul {
 
                 .mainImage {
                     transition: 0.7s;
-                    position: absolute;
+                    position: relative;
                     width: 100%;
                     height: 100%;
 
@@ -3487,7 +3480,7 @@ footer {
 
             .mainImage {
                 transition: 0.7s;
-                position: absolute;
+                position: relative;
                 width: 100%;
                 height: 100%;
 

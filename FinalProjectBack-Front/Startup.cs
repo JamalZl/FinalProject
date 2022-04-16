@@ -31,10 +31,14 @@ namespace FinalProjectBack_Front
         {
             services.AddControllersWithViews();
             services.AddScoped<LayoutServices>();
+            //services.AddDbContext<AppDbContext>(option =>
+            //{
+            //    option.UseSqlServer(Configuration.GetConnectionString("Default"));
+            //});
+            //services.AddDbContext<AppDbContext>(ServiceLifetime.Transient);
             services.AddDbContext<AppDbContext>(option =>
-            {
-                option.UseSqlServer(Configuration.GetConnectionString("Default"));
-            });
+                       option.UseSqlServer(Configuration.GetConnectionString("Default")),
+            ServiceLifetime.Transient);
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,
@@ -56,6 +60,8 @@ namespace FinalProjectBack_Front
                 option.SignIn.RequireConfirmedEmail = true;
                 option.User.RequireUniqueEmail = true;
             }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
+            //services.AddControllers().AddNewtonsoftJson(options =>
+            //options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,74 @@
+﻿
+@inject FinalProjectBack_Front.Services.LayoutServices layoutService
+@{
+    WhishlistVM whishlist = await layoutService.GetWhishlist();
+}
+@if (whishlist.WhishlistItems.Count == 0)
+{
+    <section id="whishlistEmpty">
+        <div class="container whishlistContainer">
+            <div class="row whishListEmptyRow">
+                <div class="whishlistInfo">
+                    <p class="whishlistHeartIcon">
+                        <i class="bi bi-heart"></i>
+                    </p>
+                    <p class="whishlistStatus">
+                        WHISHLIST IS EMPTY
+                    </p>
+                    <p class="whishlistDesc">
+                        You don't have any products in the wishlist yet. <br>
+                        You will find a lot of interesting products on our "Shop" page.
+                    </p>
+                    <div class="returnToShop">
+                        <a class="returnToShopBtn" asp-controller="products" asp-action="index">RETURN TO SHOP</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    @foreach (var product in whishlist.WhishlistItems)
+    {
+        <div class="smallImage col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="image">
+                <a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="mainImage">
+                    <img src="~/assets/images/@product.Product.ProductImages.FirstOrDefault().Image"
+                         alt="">
+                    <div class="icons">
+                        <a style="color:black;" class="bi bi-trash"></a>
+                    </div>
+
+                </a>
+                <a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="secondImage">
+                    <img src="~/assets//images/@product.Product.ProductImages.Skip(1).FirstOrDefault().Image"
+                         alt="">
+                </a>
+                <div class="addToCard">
+                    <div class="increase-number-decrease">
+                        <a class="minus" href="">
+                            <i class="fa-solid fa-minus"></i>
+                        </a>
+                        <span id="inputNumber">1</span>
+                        <a class="plus" href="">
+                            <i class="fa-solid fa-plus"></i>
+                        </a>
+                    </div>
+                    <a asp-controller="products" asp-action="addbasket" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="toCard fetchAddToCard">ADD TO CART</a>
+                </div>
+            </div>
+            <div class="name-price">
+                <div class="name"><a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId">@product.Product.Name</a></div>
+                @if (product.Product.CampaignId == null)
+                {
+                    <div class="price">£ @product.Price</div>
+                }
+                else
+                {
+                    <div class="price"> <del>£@product.Price</del> £@Math.Round((product.Price * (100 - product.Product.Campaign.DiscountPercent) / 100), 2)</div>
+                }
+            </div>
+        </div>
+    }
+}

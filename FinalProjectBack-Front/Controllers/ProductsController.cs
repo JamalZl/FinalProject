@@ -1,6 +1,7 @@
 ﻿using FinalProjectBack_Front.DAL;
 using FinalProjectBack_Front.Models;
 using FinalProjectBack_Front.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -14,10 +15,12 @@ namespace FinalProjectBack_Front.Controllers
     public class ProductsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public ProductsController(AppDbContext context)
+        public ProductsController(AppDbContext context,UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -40,64 +43,106 @@ namespace FinalProjectBack_Front.Controllers
             return View(productVM);
         }
 
-        public IActionResult PriceSearch(int minPrice, int maxPrice, List<string> sizes)
+        public IActionResult PriceSearch(int minPrice, int maxPrice, List<int> size)
         {
             //var min = int.Parse(minPrice);
             //var max = int.Parse(maxPrice);
-            var sizeArr=sizes.ToArray();
+
             ViewBag.Sizes = _context.Sizes.Include(s => s.ProductSizes).ThenInclude(ps => ps.Product).ThenInclude(p => p.ProductImages).OrderBy(s => s.Value).ToList();
-            List<Product> products = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => (minPrice <= p.Price * (100 - p.Campaign.DiscountPercent) / 100 && p.Price * (100 - p.Campaign.DiscountPercent) / 100 <= maxPrice) || (sizeArr.Contains(p.ProductSizes.FirstOrDefault().Size.Value))).ToList();
+            List<Product> products = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => (minPrice <= p.Price * (100 - p.Campaign.DiscountPercent) / 100 && p.Price * (100 - p.Campaign.DiscountPercent) / 100 <= maxPrice)).ToList();
             return PartialView("_ProductPartialView", products);
 
+
         }
+        //public IActionResult PriceSearchh(int minPrice, int maxPrice, List<int> size)
+        //{
+        //    //var min = int.Parse(minPrice);
+        //    //var max = int.Parse(maxPrice);
+
+        //    ViewBag.Sizes = _context.Sizes.Include(s => s.ProductSizes).ThenInclude(ps => ps.Product).ThenInclude(p => p.ProductImages).OrderBy(s => s.Value).ToList();
+        //    List<Product> products = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => (minPrice <= p.Price * (100 - p.Campaign.DiscountPercent) / 100 && p.Price * (100 - p.Campaign.DiscountPercent) / 100 <= maxPrice)).ToList();
+        //    return Json(products);
 
 
-        public IActionResult AddBasket(int id)
+        //}
+
+
+        public  async Task<IActionResult> AddBasket(int id)
         {
             Product product = _context.Products.Include(p => p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
 
-            string basket = HttpContext.Request.Cookies["Basket"];
-
-            if (basket == null)
+            if (User.Identity.IsAuthenticated && User.IsInRole("Member"))
             {
-                List<BasketCookieItemVM> basketCookieItems = new List<BasketCookieItemVM>();
+                AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-                basketCookieItems.Add(new BasketCookieItemVM
+                BasketItem basketItem = _context.BasketItems.FirstOrDefault(b => b.ProductId == product.Id && b.AppUserId == user.Id);
+                if (basketItem == null)
                 {
-                    Id = product.Id,
-                    Count = 0
-                });
-
-                string basketStr = JsonConvert.SerializeObject(basketCookieItems);
-
-                HttpContext.Response.Cookies.Append("Basket", basketStr);
-            }
-            else
-            {
-                List<BasketCookieItemVM> basketCookieItems = JsonConvert.DeserializeObject<List<BasketCookieItemVM>>(basket);
-
-                BasketCookieItemVM cookieItem = basketCookieItems.FirstOrDefault(b => b.Id == product.Id);
-
-                if (cookieItem == null)
-                {
-                    cookieItem = new BasketCookieItemVM
+                    basketItem = new BasketItem
                     {
-                        Id = product.Id,
-                        Count = 0
+                        AppUserId = user.Id,
+                        ProductId = product.Id,
+                        Count = 1
                     };
-                    basketCookieItems.Add(cookieItem);
+                    _context.BasketItems.Add(basketItem);
                 }
                 else
                 {
-                    cookieItem.Count++;
+                    basketItem.Count++;
                 }
-
-                string basketStr = JsonConvert.SerializeObject(basketCookieItems);
-
-                HttpContext.Response.Cookies.Append("Basket", basketStr);
+                _context.SaveChanges();
+                return PartialView("_BasketPartialView");
             }
+            else
+            {
+                string basket = HttpContext.Request.Cookies["Basket"];
 
-            return RedirectToAction("index", "products");
+                if (basket == null)
+                {
+                    List<BasketCookieItemVM> basketCookieItems = new List<BasketCookieItemVM>();
+
+                    basketCookieItems.Add(new BasketCookieItemVM
+                    {
+                        Id = product.Id,
+                        Count = 0
+                    });
+
+                    string basketStr = JsonConvert.SerializeObject(basketCookieItems);
+
+                    HttpContext.Response.Cookies.Append("Basket", basketStr);
+                    return PartialView("_BasketPartialView");
+
+                }
+                else
+                {
+                    List<BasketCookieItemVM> basketCookieItems = JsonConvert.DeserializeObject<List<BasketCookieItemVM>>(basket);
+
+                    BasketCookieItemVM cookieItem = basketCookieItems.FirstOrDefault(b => b.Id == product.Id);
+
+                    if (cookieItem == null)
+                    {
+                        cookieItem = new BasketCookieItemVM
+                        {
+                            Id = product.Id,
+                            Count = 0
+                        };
+                        basketCookieItems.Add(cookieItem);
+                    }
+                    else
+                    {
+                        cookieItem.Count++;
+                    }
+
+                    string basketStr = JsonConvert.SerializeObject(basketCookieItems);
+
+                    HttpContext.Response.Cookies.Append("Basket", basketStr);
+
+                    return PartialView("_BasketPartialView");
+                }
+            }
+           
+
+            
         }
 
         //public IActionResult Delete(int id)
@@ -162,5 +207,89 @@ namespace FinalProjectBack_Front.Controllers
             return View(productVM);
         }
 
+        public IActionResult GetPartial()
+        {
+            return PartialView("_BasketPartialView");
+        }
+
+        public async Task<IActionResult> AddWhishlist(int id)
+        {
+            Product product = _context.Products.Include(p => p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
+
+            if (User.Identity.IsAuthenticated && User.IsInRole("Member"))
+            {
+                AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                WhishlistItem whishlistItem = _context.WhishlistItems.FirstOrDefault(b => b.ProductId == product.Id && b.AppUserId == user.Id);
+                if (whishlistItem == null)
+                {
+                    whishlistItem = new WhishlistItem
+                    {
+                        AppUserId = user.Id,
+                        ProductId = product.Id,
+                        Count = 1
+                    };
+                    _context.WhishlistItems.Add(whishlistItem);
+                }
+                else
+                {
+                    whishlistItem.Count++;
+                }
+                _context.SaveChanges();
+                return PartialView("_WhishlistPartialView");
+            }
+            else
+            {
+                string whishlist = HttpContext.Request.Cookies["Whishlist"];
+
+                if (whishlist == null)
+                {
+                    List<WhislistCookieItemVM> whislistCookieItems = new List<WhislistCookieItemVM>();
+
+                    whislistCookieItems.Add(new WhislistCookieItemVM
+                    {
+                        Id = product.Id,
+                        Count = 0
+                    });
+
+                    string whishlistStr = JsonConvert.SerializeObject(whislistCookieItems);
+
+                    HttpContext.Response.Cookies.Append("Whishlist", whishlistStr);
+                    return PartialView("_WhishlistPartialView");
+
+                }
+                else
+                {
+                    List<WhislistCookieItemVM> whislistCookieItems = JsonConvert.DeserializeObject<List<WhislistCookieItemVM>>(whishlist);
+
+                    WhislistCookieItemVM cookieItem = whislistCookieItems.FirstOrDefault(b => b.Id == product.Id);
+
+                    if (cookieItem == null)
+                    {
+                        cookieItem = new WhislistCookieItemVM
+                        {
+                            Id = product.Id,
+                            Count = 0
+                        };
+                        whislistCookieItems.Add(cookieItem);
+                    }
+                    else
+                    {
+                        cookieItem.Count++;
+                    }
+
+                    string whishlistStr = JsonConvert.SerializeObject(whislistCookieItems);
+
+                    HttpContext.Response.Cookies.Append("Whishlist", whishlistStr);
+
+                    return PartialView("_WhishlistPartialView");
+                }
+            }
+        }
+
+        public IActionResult GetWhishlistPartial()
+        {
+            return PartialView("_WhishlistPartialView");
+        }
     }
 }

@@ -45,9 +45,7 @@ namespace FinalProjectBack_Front.Models
         public List<int> ImageIds { get; set; }
         [NotMapped]
         public List<int> DescImageIds { get; set; }
-
-
-
-
+        public List<BasketItem> BasketItems { get; set; }
+        public List<WhishlistItem> WhishlistItems { get; set; }
     }
 }
