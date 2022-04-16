@@ -291,5 +291,36 @@ namespace FinalProjectBack_Front.Controllers
         {
             return PartialView("_WhishlistPartialView");
         }
+
+        public async Task<IActionResult> DeleteWhishListItem(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+                List<WhishlistItem> whishlistItems = _context.WhishlistItems.Where(b => b.ProductId == id && b.AppUserId == user.Id).ToList();
+                foreach (var item in whishlistItems)
+                {
+                    _context.WhishlistItems.Remove(item);
+                }
+            }
+            else
+            {
+                string basket = HttpContext.Request.Cookies["Whishlist"];
+
+                List<WhislistCookieItemVM> whislistCookieItems = JsonConvert.DeserializeObject<List<WhislistCookieItemVM>>(basket);
+
+                WhislistCookieItemVM cookieItem = whislistCookieItems.FirstOrDefault(c => c.Id == id);
+
+
+                whislistCookieItems.Remove(cookieItem);
+
+                string whishlistStr = JsonConvert.SerializeObject(whislistCookieItems);
+
+                HttpContext.Response.Cookies.Append("Whishlist", whishlistStr);
+
+            }
+            _context.SaveChanges();
+            return PartialView("_WhishlistPartialView");
+        }
     }
 }

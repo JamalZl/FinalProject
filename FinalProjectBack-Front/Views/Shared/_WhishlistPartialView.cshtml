@@ -37,7 +37,7 @@ else
                     <img src="~/assets/images/@product.Product.ProductImages.FirstOrDefault().Image"
                          alt="">
                     <div class="icons">
-                        <a style="color:black;" class="bi bi-trash"></a>
+                        <a asp-controller="products" asp-action="DeleteWhishListItem" asp-route-id="@product.Product.Id" style="color:black;" class="bi bi-trash removeWhishlistItem"></a>
                     </div>
 
                 </a>
