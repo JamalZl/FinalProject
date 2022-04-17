@@ -85,7 +85,7 @@
                     }
                 </div>
                 <div class="row colorRow">
-                    <p class="colorVal">COLOR: <span></span></p>
+                    <p class="colorVal">COLOR: <span id="color-basket"></span></p>
                     <ul class="color">
 
                         @foreach (var color in Model.Product.ProductColors)
@@ -97,7 +97,7 @@
                     </ul>
                 </div>
                 <div class="row sizeRow">
-                    <p class="sizeVal">SIZE: <span></span></p>
+                    <p class="sizeVal">SIZE: <span id="size-basket"></span></p>
                     <ul class="size">
                         @foreach (var size in Model.Product.ProductSizes.OrderBy(ps=>ps.Size.Value))
                         {
@@ -113,13 +113,22 @@
                         <button class="plus"><i class="fa-solid fa-plus"></i></button>
                     </div>
                     <div class="whishList col-lg-2 col-md-3 col-sm-6 col-xs-2">
-                        <a href="">
+                        <a class="whishlistFetch" asp-controller="products" asp-action="AddWhishlist" asp-route-id="@Model.Product.Id" asp-route-categoryId="@Model.Product.ProductCategories.FirstOrDefault().Id">
                             <i class="bi bi-heart whishListIcon"></i>
                         </a>
                     </div>
-                    <a style="text-decoration:none;" asp-controller="products" asp-action="addbasket" asp-route-id="@Model.Product.Id" class="addCard col-lg-4 col-md-12 col-sm-12 col-xs-12  fetchAddToCard">
-                        ADD TO CARD
-                    </a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a style="text-decoration:none;" asp-controller="products" asp-action="AddBasket" asp-route-id="@Model.Product.Id" asp-route-categoryId="@Model.Product.ProductCategories.FirstOrDefault().Id" class="addCard col-lg-4 col-md-12 col-sm-12 col-xs-12  fetchAddToCard">
+                            ADD TO CARD
+                        </a>
+                    }
+                    else
+                    {
+                        <a style="text-decoration:none;" asp-controller="account" asp-action="login" class="addCard col-lg-4 col-md-12 col-sm-12 col-xs-12 ">
+                            LOGIN
+                        </a>
+                    }
                 </div>
                 <div class="row buyItRow col-lg-7 col-md-12 col-sm-12 col-xs-12">
                     <button>

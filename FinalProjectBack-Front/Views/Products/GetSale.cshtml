@@ -26,70 +26,6 @@
 }
 else
 {
-    <section id="filter">
-        <div class="container">
-            <a id="filterIcon" href=""><i class="fa-solid fa-filter"></i>Filter</a>
-            <div class="row myRow">
-                <div class="byTitle col-lg-4 col-md-6 col-sm-12">
-                    <div class="title">
-                        <span>
-                            By Title
-                        </span>
-                    </div>
-                    <form action="">
-                        <input class="search" type="search" placeholder="Search for prpduct title"><br><br>
-                        <button class="searchSubmitBtn" type="submit">FILTER</button>
-                    </form>
-                </div>
-                <div class="byPrice col-lg-4 col-md-6 col-sm-12">
-                    <div class="title">
-                        <span>
-                            By Price
-                        </span>
-                    </div>
-                    <div class="wrapper">
-                        <div class="rangeDiv">
-                            <div class="slider-track"></div>
-                            <form class="d-flex" action="">
-                                <button class="priceSubmitBtn" type="submit">FILTER</button>
-                                <input type="range" min="0" max="999" value="0" id="slider-1" oninput="slideOne()">
-                                <input type="range" min="0" max="999" value="999" id="slider-2"
-                                       oninput="slideTwo()">
-                            </form>
-                        </div>
-                    </div>
-                    <div class="values">
-                        <span class="priceTxt">Price:</span>
-                        <span>£</span>
-                        <span id="range1">
-                            0
-                        </span>
-
-                        <span> &dash; </span>
-                        <span>£</span>
-                        <span id="range2">
-                            100
-                        </span>
-                    </div>
-                </div>
-                <div class="bySize col-lg-4 col-md-6 col-sm-12">
-                    <div class="titleSize">
-                        <span>
-                            By Size
-                        </span>
-                    </div>
-                    <ul class="sizeUl">
-                        <li><a href="#">40 (1)</a></li>
-                        <li><a href="">41 (1)</a></li>
-                        <li><a href="">42 (1)</a></li>
-                        <li><a href="">43 (1)</a></li>
-                        <li><a href="">44 (1)</a></li>
-                        <li><a href="">45 (1)</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
 }
 @if (Model.ProductBySale.Count == 0)
 {
@@ -114,7 +50,4 @@ else
     </section>
 }
 
-@section Scripts{
-    <script src="~/assets/Js/products.js"></script>
-}
 

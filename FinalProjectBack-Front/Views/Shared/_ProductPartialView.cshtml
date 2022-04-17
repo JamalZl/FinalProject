@@ -6,27 +6,13 @@
             <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="mainImage">
                 <img src="~/assets/images/@product.ProductImages.FirstOrDefault().Image"
                      alt="">
-                <div class="icons">
-                    <a asp-controller="products" asp-action="AddWhishlist" asp-route-id="@product.Id" class="whishlist whishlistFetch"><i class="bi bi-heart"></i></a>
-                    <a href="" class="view"><i class="bi bi-eye"></i></a>
-                </div>
-
             </a>
             <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="secondImage">
-                <img src="~/assets//images/@product.ProductImages.Skip(1).FirstOrDefault().Image"
+                <img src="~/assets/images/@product.ProductImages.Skip(1).FirstOrDefault().Image"
                      alt="">
             </a>
             <div class="addToCard">
-                <div class="increase-number-decrease">
-                    <a class="minus" href="">
-                        <i class="fa-solid fa-minus"></i>
-                    </a>
-                    <span id="inputNumber">1</span>
-                    <a class="plus" href="">
-                        <i class="fa-solid fa-plus"></i>
-                    </a>
-                </div>
-                <a asp-controller="products" asp-action="addbasket" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="toCard fetchAddToCard">ADD TO CART</a>
+                <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="toCard fetchAddToCard">CLOSER LOOK</a>
             </div>
         </div>
         <div class="name-price">
@@ -39,6 +25,9 @@
             {
                 <div class="price"> <del>£@product.Price</del> £@Math.Round((product.Price * (100 - product.Campaign.DiscountPercent) / 100), 2)</div>
             }
+            <div class="icons">
+                <a asp-controller="products" asp-action="AddWhishlist" asp-route-id="@product.Id"  class="whishlist whishlistFetch"><i class="fa-regular fa-heart"></i></a>
+            </div>
         </div>
     </div>
 }

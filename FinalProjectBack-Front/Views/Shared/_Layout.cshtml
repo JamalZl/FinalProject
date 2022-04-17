@@ -152,21 +152,21 @@
                             <i class="bi bi-person nav-user"></i>
                             @if (User.Identity.IsAuthenticated)
                             {
-                <div class="userLoginStatus">
-                    <ul class="userLoginStatusUl">
-                        <li><a href="">@User.Identity.Name</a></li>
-                        <li><a asp-controller="account" asp-action="Edit">Edit your profile</a></li>
-                        <li><a asp-controller="account" asp-action="logout">Logout</a></li>
-                    </ul>
-                </div> }
-                                        else
-                                        {
-                                    <div class="userLoginStatus">
-                                    <ul class="userLoginStatusUl">
-                                    <li><a asp-controller="account" asp-action="login">Login</a></li>
-                                    <li><a asp-controller="account" asp-action="register">Register</a></li>
-                                    </ul>
-                                    </div>
+                        <div class="userLoginStatus">
+                            <ul class="userLoginStatusUl">
+                                <li><a href="">@User.Identity.Name</a></li>
+                                <li><a asp-controller="account" asp-action="Edit">Edit your profile</a></li>
+                                <li><a asp-controller="account" asp-action="logout">Logout</a></li>
+                            </ul>
+                        </div> }
+                                    else
+                                    {
+                                        <div class="userLoginStatus">
+                                            <ul class="userLoginStatusUl">
+                                                <li><a asp-controller="account" asp-action="login">Login</a></li>
+                                                <li><a asp-controller="account" asp-action="register">Register</a></li>
+                                            </ul>
+                                        </div>
                                     }
                         </div>
                         <a asp-controller="whishlist" asp-action="index" class="wishlist">
@@ -194,8 +194,13 @@
                     </div>
                 </div>
                 <div class="basketArea animate__animated">
-                    
-                    @await Html.PartialAsync("_BasketPartialView",layoutService) 
+                    <div class="basketTxt-closeIcon">
+                            <span class="basketTxt">SHOPPING CART</span>
+                            <span class="basketCloseIcon"><i class="las la-times"></i></span>
+                    </div>
+                    <div class="basketProductsArea">
+                        @await Html.PartialAsync("_BasketPartialView", layoutService)
+                    </div>
                 </div>
             </div>
         </nav>
@@ -203,7 +208,7 @@
     <main>
         @RenderBody()
     </main>
-    <footer>
+    <footer style="margin-bottom:-50px;">
         <section id="topFooterFullWidth">
             <div class="container">
                 <div class="row">
@@ -391,36 +396,83 @@
 
             $(document).on("click", ".fetchAddToCard", function (e) {
                 e.preventDefault()
+                var colorval = $("#color-basket").html()
+                
+                var sizeval = $("#size-basket").html()
+                var count = $("#productCounter").val()
+
                 var href = $(this).attr("href")
-                console.log(href)
                 var base = window.location.origin
-                var url = `${base}${href}`
+                var url = `${base}${href}&colorval=${colorval}&sizeval=${sizeval}&count=${count}`
+                //var fullUrl = `${url}/${colorval}/${sizeval}`
+                console.log(url)
                 var urlToPartial = `${url}/Products/GetPartial`
 
                 fetch(url).then(res => res.text()).then(data => {
+
+                    //data.$.ajax({
+                    //    url: `/Products/AddBasket`,
+                    //    data: {
+                    //        "colorval": $("#color-basket").html(),
+                    //        "sizeval":$("#size-basket").html()
+                    //    },
+                    //    type: "Get",
+                    //    success: function (res) {
+                    //        console.log(res)
+                    //    },
+                    //    Error: function(res) {
+                    //        console.log(res)
+                    //    }
+                    //})
                     fetch(urlToPartial).then(res => res.text()).then(data => {
 
-                        $(".basketArea").empty();
-                        var basket = document.querySelector(".basketArea")
-//                        basket.innerHTML = `<div class="basketTxt-closeIcon">
-//    <span class="basketTxt">SHOPPING CART</span>
-//    <a onclick="closeBasket()" href="javascript:void(0)" class="basketCloseIcon"><i class="las la-times"></i></a>
-//</div>`;
-                        $(".basketArea").append(data);
+                        $(".basketArea .basketProductsArea").empty();
+                        $(".basketArea .basketProductsArea").append(data);
                     });
                 })
 
-                setTimeout(function () {
+                //setTimeout(function () {
 
-                    var totalCount = document.getElementById("basketTotalCountFetch")
+                //    var totalCount = document.getElementById("basketTotalCountFetch")
 
-                    var count = totalCount.innerHTML
-                    var navBasketCount = document.getElementsByClassName("fetchBasketCountTest")
-                    navBasketCount.innerHTML = count;
-                    console.log(navBasketCount.innerHTML)
-                },100);
+                //    var count = totalCount.innerHTML
+                //    var navBasketCount = document.getElementsByClassName("fetchBasketCountTest")
+                //    navBasketCount.innerHTML = count;
+                //    console.log(navBasketCount.innerHTML)
+                //},100);
             });
 
+            $(document).on("click", ".removeBasketItemFetch", function (e) {
+
+                e.preventDefault();
+                var href = $(this).attr("href");
+                console.log(href)
+                var base = window.location.origin;
+                var url = `${base}${href}`
+                var urlForPartial = `${base}/Products/GetPartial`
+
+                fetch(url).then(res => res.text()).then(data => {
+
+                    fetch(urlForPartial).then(res => res.text()).then(data => {
+
+                        $(".basketArea .basketProductsArea").empty();
+                        $(".basketArea .basketProductsArea").append(data);
+
+                    })
+
+
+                })
+                setTimeout(function () {
+                    //var totalcount = document.getElementById("total_price")
+                    //var htmltag = document.getElementById("total-count")
+                    //htmltag.innerHTML = "0"
+                    //var count = totalcount.innerHTML
+                    //htmltag.innerHTML = count
+
+                }, 100);
+
+
+            })
         });
     </script>
     <script>
@@ -437,13 +489,13 @@
                 fetch(url).then(res => res.text()).then(data => {
                     fetch(urlToPartial).then(res => res.text()).then(data => {
 
-                        $("#products").empty();
+                        $("#products .whishCont .whishRow").empty();
                         //var basket = document.querySelector(".basketArea")
                         //                        basket.innerHTML = `<div class="basketTxt-closeIcon">
                         //    <span class="basketTxt">SHOPPING CART</span>
                         //    <a onclick="closeBasket()" href="javascript:void(0)" class="basketCloseIcon"><i class="las la-times"></i></a>
                         //</div>`;
-                        $("#products").append(data);
+                        $("#products .whishCont .whishRow").append(data);
                     });
                 })
 
@@ -465,16 +517,16 @@
                 console.log(href)
                 var base = window.location.origin;
                 var url = `${base}${href}`
-                var urlForPartial = `${base}/Book/GetWhishlistPartial`
+                var urlForPartial = `${base}/Products/GetWhishlistPartial`
 
                 fetch(url).then(res => res.text()).then(data => {
 
                     fetch(urlForPartial).then(res => res.text()).then(data => {
 
-                        $("#products").empty();
+                        $("#products .whishCont .whishRow").empty();
                         //var card = document.querySelector(".carts")
                         //card.innerHTML = `<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>`
-                        $("#products").append(data);
+                        $("#products .whishCont .whishRow").append(data);
 
                     })
 
@@ -494,7 +546,7 @@
 
         });
     </script>
-    @RenderSection("Scripts", required: false);
+    @RenderSection("Scripts", required: false)
     <script src="~/assets/Js/main.js"></script>
 </body>
 </html>

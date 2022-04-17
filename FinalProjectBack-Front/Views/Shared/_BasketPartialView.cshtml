@@ -2,10 +2,6 @@
 @{
     BasketVM basket = await layoutService.ShowBasket();
 }
-@*<div class="basketTxt-closeIcon">
-    <span class="basketTxt">SHOPPING CART</span>
-    <span class="basketCloseIcon"><i class="las la-times"></i></span>
-</div>*@
 @if (basket.BasketItems.Count == 0)
 {
     <div class="emptyBasket">
@@ -20,7 +16,6 @@
 }
 else
 {
-    <div class="basketProductsArea">
         <div class="products">
             @foreach (var item in basket.BasketItems)
             {
@@ -36,11 +31,16 @@ else
                                 @item.Product.Name
                             </a>
                         </div>
+                        <div class="size-color">
+                            <span class="color" style="font-size:14px;">Red</span>
+                            /
+                            <span class="size" style="font-size:14px;">40</span> 
+                        </div>
                         <span class="productPrice">
                             $ @item.Price <span class="basketX">x</span> <span class="basketProductCount">@item.Count</span>
                         </span>
                         <div class="removeItem">
-                            <a style="color:black;" class="bi bi-trash"></a>
+                            <a asp-controller="products" asp-action="DeleteBasketItem" asp-route-id="@item.Product.Id" style="color:black;" class="bi bi-trash removeBasketItemFetch"></a>
                         </div>
                     </div>
 
@@ -60,7 +60,7 @@ else
                 </a>
             </div>
         </div>
-    </div>
+    
     <p id="basketTotalCountFetch" style="display:none">@basket.BasketItems.Count</p>
 
 }

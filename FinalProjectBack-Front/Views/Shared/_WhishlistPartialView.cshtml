@@ -36,25 +36,13 @@ else
                 <a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="mainImage">
                     <img src="~/assets/images/@product.Product.ProductImages.FirstOrDefault().Image"
                          alt="">
-                    <div class="icons">
-                        <a asp-controller="products" asp-action="DeleteWhishListItem" asp-route-id="@product.Product.Id" style="color:black;" class="bi bi-trash removeWhishlistItem"></a>
-                    </div>
 
                 </a>
                 <a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="secondImage">
-                    <img src="~/assets//images/@product.Product.ProductImages.Skip(1).FirstOrDefault().Image"
+                    <img src="~/assets/images/@product.Product.ProductImages.Skip(1).FirstOrDefault().Image"
                          alt="">
                 </a>
                 <div class="addToCard">
-                    <div class="increase-number-decrease">
-                        <a class="minus" href="">
-                            <i class="fa-solid fa-minus"></i>
-                        </a>
-                        <span id="inputNumber">1</span>
-                        <a class="plus" href="">
-                            <i class="fa-solid fa-plus"></i>
-                        </a>
-                    </div>
                     <a asp-controller="products" asp-action="addbasket" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="toCard fetchAddToCard">ADD TO CART</a>
                 </div>
             </div>
@@ -68,6 +56,9 @@ else
                 {
                     <div class="price"> <del>£@product.Price</del> £@Math.Round((product.Price * (100 - product.Product.Campaign.DiscountPercent) / 100), 2)</div>
                 }
+                <div class="icons">
+                    <a asp-controller="products" asp-action="DeleteWhishListItem" asp-route-id="@product.Product.Id" style="color:black;" class="bi bi-trash removeWhishlistItem"></a>
+                </div>
             </div>
         </div>
     }

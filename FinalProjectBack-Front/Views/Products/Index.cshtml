@@ -1,6 +1,5 @@
 ﻿@model ProductVM
-@{ ViewData["Title"] = "Index";
-    List<Size> sizes = ViewBag.Sizes; }
+@{ ViewData["Title"] = "Index"; }
 <section id="Entrance">
     <div class="row">
         <h1>
@@ -46,7 +45,7 @@
                     </div>
 
                 </div>
-                <div class="bySize col-lg-4 col-md-6 col-sm-12">
+                @*<div class="bySize col-lg-4 col-md-6 col-sm-12">
                         <div class="titleSize">
                             <span>
                                 By Size
@@ -60,7 +59,7 @@
 
                             }
                         </div>
-                    </div>
+                    </div>*@
             </form>
         </div>
     </div>
@@ -77,47 +76,26 @@
 
 @section Scripts{
     <script src="~/assets/Js/products.js"></script>
-
     <script>
         $(document).on('click', `.priceSubmitBtn`, function () {
-
             //$("#searchResultsAjax").empty()
-            //if ($(this).prev().prev().val() >= 0 && $(this).prev().val() > 0) {
-                
-            //}
-            //else {
-            //    $("#Old-Courses").css("display", "flex")
-
-            //}
-
-            $.ajax({
-                url: `/products/PriceSearchh`,
-                traditional: true,
-                data: {
-                    "minPrice": $("#slider-1").val(),
-                    "maxPrice": $("#slider-2").val(),
-                    "sizes": $('.sizeDiv :input[name="size"]:checked').each(function () {
-                        /*console.log($(this).val())*/
-                        $(this).val()
-                    }),
-                    //"sizes": console.log($('.sizeDiv :input[name="size"]:checked').val()),
-                },
-                type: "post",
-                dataType:"json",
-                success: function (data) {
-                    console.log(data)
-                    //$("#Old-Products").css("display", "none")
-                    //$("#New-Products").html(res);
-
-                    // $('.sizeDiv :input[name="size"]:checked').each(function () {
-                    //     console.log($(this).val())
-                    //})
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            })
-
+            if ($(this).prev().prev().val() >= 0 && $(this).prev().val() > 0) {
+                $.ajax({
+                    url: `/Products/PriceSearch`,
+                    data: {
+                        "minPrice": $("#slider-1").val(),
+                        "maxPrice": $("#slider-2").val(),
+                    },
+                    type: "Get",
+                    success: function (res) {
+                        $("#Old-Products").css("display", "none")
+                        $("#New-Products").html(res);
+                    }
+                })
+            }
+            else {
+                $("#Old-Products").css("display", "flex")
+            }
         })
     </script>
 }

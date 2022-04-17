@@ -11,6 +11,8 @@ namespace FinalProjectBack_Front.Models
         public int ProductId { get; set; }
         public string AppUserId { get; set; }
         public int Count { get; set; }
+        public string color { get;set }
+        public string size { get;set }
         public Product Product { get; set; }
         public AppUser AppUser { get; set; }
     }

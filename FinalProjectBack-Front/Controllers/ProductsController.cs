@@ -17,7 +17,7 @@ namespace FinalProjectBack_Front.Controllers
         private readonly AppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
 
-        public ProductsController(AppDbContext context,UserManager<AppUser> userManager)
+        public ProductsController(AppDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -39,38 +39,25 @@ namespace FinalProjectBack_Front.Controllers
                 Products = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).ToList(),
                 RelatedProducts = _context.Products.Include(p => p.ProductImages).Include(p => p.Campaign).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Where(p => p.ProductCategories.Any(pc => pc.CategoryId == categoryId && p.Id != id)).Where(p => p.IsDeleted == false).Take(8).ToList()
             };
-            if (productVM == null) return NotFound();
+            if (productVM.Product == null) return BadRequest();
             return View(productVM);
         }
 
-        public IActionResult PriceSearch(int minPrice, int maxPrice, List<int> size)
+        public IActionResult PriceSearch(int minPrice, int maxPrice)
         {
             //var min = int.Parse(minPrice);
             //var max = int.Parse(maxPrice);
-
-            ViewBag.Sizes = _context.Sizes.Include(s => s.ProductSizes).ThenInclude(ps => ps.Product).ThenInclude(p => p.ProductImages).OrderBy(s => s.Value).ToList();
-            List<Product> products = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => (minPrice <= p.Price * (100 - p.Campaign.DiscountPercent) / 100 && p.Price * (100 - p.Campaign.DiscountPercent) / 100 <= maxPrice)).ToList();
+            List<Product> products = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => (p.CampaignId != null && minPrice <= (p.Price - (p.Price * p.Campaign.DiscountPercent) / 100) && (p.Price - (p.Price * p.Campaign.DiscountPercent) / 100 <= maxPrice)) || (p.CampaignId == null && p.Price >= minPrice && p.Price <= maxPrice)).ToList();
             return PartialView("_ProductPartialView", products);
 
 
         }
-        //public IActionResult PriceSearchh(int minPrice, int maxPrice, List<int> size)
-        //{
-        //    //var min = int.Parse(minPrice);
-        //    //var max = int.Parse(maxPrice);
-
-        //    ViewBag.Sizes = _context.Sizes.Include(s => s.ProductSizes).ThenInclude(ps => ps.Product).ThenInclude(p => p.ProductImages).OrderBy(s => s.Value).ToList();
-        //    List<Product> products = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => (minPrice <= p.Price * (100 - p.Campaign.DiscountPercent) / 100 && p.Price * (100 - p.Campaign.DiscountPercent) / 100 <= maxPrice)).ToList();
-        //    return Json(products);
 
 
-        //}
-
-
-        public  async Task<IActionResult> AddBasket(int id)
+        public async Task<IActionResult> AddBasket(int id,string colorval, string sizeval,int count)
         {
             Product product = _context.Products.Include(p => p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
-
+            
             if (User.Identity.IsAuthenticated && User.IsInRole("Member"))
             {
                 AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -82,13 +69,13 @@ namespace FinalProjectBack_Front.Controllers
                     {
                         AppUserId = user.Id,
                         ProductId = product.Id,
-                        Count = 1
+                        Count = count
                     };
                     _context.BasketItems.Add(basketItem);
                 }
                 else
                 {
-                    basketItem.Count++;
+                    basketItem.Count+=count;
                 }
                 _context.SaveChanges();
                 return PartialView("_BasketPartialView");
@@ -104,7 +91,7 @@ namespace FinalProjectBack_Front.Controllers
                     basketCookieItems.Add(new BasketCookieItemVM
                     {
                         Id = product.Id,
-                        Count = 0
+                        Count = 1
                     });
 
                     string basketStr = JsonConvert.SerializeObject(basketCookieItems);
@@ -124,7 +111,7 @@ namespace FinalProjectBack_Front.Controllers
                         cookieItem = new BasketCookieItemVM
                         {
                             Id = product.Id,
-                            Count = 0
+                            Count = 1
                         };
                         basketCookieItems.Add(cookieItem);
                     }
@@ -140,27 +127,11 @@ namespace FinalProjectBack_Front.Controllers
                     return PartialView("_BasketPartialView");
                 }
             }
-           
 
-            
+
+
         }
 
-        //public IActionResult Delete(int id)
-        //{
-        //    //Product product = _context.Products.Include(p => p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
-
-        //    string basket = HttpContext.Request.Cookies["Basket"];
-        //    List<BasketCookieItemVM> basketCookieItems = JsonConvert.DeserializeObject<List<BasketCookieItemVM>>(basket);
-
-
-        //    if (cookieStr==null)
-        //    {
-        //        return NotFound();
-        //    }
-
-
-
-        //}
 
         public IActionResult GetBrands(int id)
         {
@@ -321,6 +292,37 @@ namespace FinalProjectBack_Front.Controllers
             }
             _context.SaveChanges();
             return PartialView("_WhishlistPartialView");
+        }
+
+        public async Task<IActionResult> DeleteBasketItem(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+                List<BasketItem> basketItems = _context.BasketItems.Where(b => b.ProductId == id && b.AppUserId == user.Id).ToList();
+                foreach (var item in basketItems)
+                {
+                    _context.BasketItems.Remove(item);
+                }
+            }
+            else
+            {
+                string basket = HttpContext.Request.Cookies["Basket"];
+
+                List<BasketCookieItemVM> basketCookieItems = JsonConvert.DeserializeObject<List<BasketCookieItemVM>>(basket);
+
+                BasketCookieItemVM cookieItem = basketCookieItems.FirstOrDefault(c => c.Id == id);
+
+
+                basketCookieItems.Remove(cookieItem);
+
+                string basketStr = JsonConvert.SerializeObject(basketCookieItems);
+
+                HttpContext.Response.Cookies.Append("Basket", basketStr);
+
+            }
+            _context.SaveChanges();
+            return PartialView("_BasketPartialView");
         }
     }
 }

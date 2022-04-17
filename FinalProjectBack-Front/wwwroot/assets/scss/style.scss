@@ -675,7 +675,7 @@ ul {
     
     .basketProductsArea{
             overflow-y: scroll;
-            max-height: 650px;
+            max-height: 450px;
         .products{      
         .basketProduct{
             display: flex;
@@ -1279,7 +1279,7 @@ ul {
                 margin: 45px 0;
                 width: 46%;
                 height: 36%;
-
+                margin-bottom: 10%;
                 .image {
                     position: relative;
                     overflow: hidden;
@@ -1305,36 +1305,9 @@ ul {
 
                     }
 
-                    .icons {
-                        width: 36px;
-                        height: 60px;
-                        background-color: white;
-                        position: absolute;
-                        top: 10px;
-                        right: 10px;
-                        text-align: center;
-                        display: flex;
-                        flex-direction: column;
-                        opacity: 0;
-                        transition: 0.3s;
-
-                        a {
-                            color: black;
-                            transition: 0.3s;
-
-                            &:hover {
-                                color: red;
-                            }
-                        }
-
-                        .view {
-                            margin-top: 7px;
-                        }
-                    }
-
                     .mainImage {
                         transition: 0.7s;
-                        position: relative;
+                        position: absolute;
                         width: 100%;
                         height: 100%;
 
@@ -1356,57 +1329,6 @@ ul {
                         overflow: hidden;
                         height: 0;
                         letter-spacing: 0.3px;
-
-                        .increase-number-decrease {
-                            width: 80px;
-                            height: 40px;
-                            background-color: rgb(206, 37, 60);
-
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            transition: 0.8s;
-
-                            a {
-                                text-decoration: none;
-                            }
-
-                            .minus {
-                                border-right: 1px rgba(207, 117, 117, 0.781) solid;
-                                display: inline-block;
-                                height: 100%;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                width: 33%;
-                                text-align: center;
-                                color: white;
-                                font-size: 8px;
-
-                            }
-
-                            .plus {
-                                border-left: 1px rgba(207, 117, 117, 0.781) solid;
-                                border-right: 1px rgba(207, 117, 117, 0.781) solid;
-                                display: inline-block;
-                                height: 100%;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                width: 33%;
-                                text-align: center;
-                                font-size: 8px;
-                                color: white;
-                            }
-
-                            #inputNumber {
-                                width: 34%;
-                                text-align: center;
-                                color: white;
-                                font-size: 15px;
-                            }
-
-                        }
 
                         .toCard {
                             display: flex;
@@ -1439,7 +1361,16 @@ ul {
 
                 .name-price {
                     position: absolute;
-
+                    .icons {
+                        .whishlist{
+                            font-size: 20px;
+                            transition: 0.3s;
+                            color:  black;
+                            &:hover{
+                            color: rgb(186, 5, 29);
+                            }
+                        }
+                    }
                     .name {
                         margin-top: 20px;
 
@@ -1638,33 +1569,6 @@ ul {
 
                     }
 
-                    .icons {
-                        width: 36px;
-                        height: 60px;
-                        background-color: white;
-                        position: absolute;
-                        top: 10px;
-                        right: 10px;
-                        text-align: center;
-                        display: flex;
-                        flex-direction: column;
-                        opacity: 0;
-                        transition: 0.3s;
-
-                        a {
-                            color: black;
-                            transition: 0.3s;
-
-                            &:hover {
-                                color: red;
-                            }
-                        }
-
-                        .view {
-                            margin-top: 7px;
-                        }
-                    }
-
                     .mainImage {
                         transition: 0.7s;
                         position: relative;
@@ -1773,6 +1677,16 @@ ul {
                 .name-price {
                     position: absolute;
 
+                    .icons {
+                        .whishlist{
+                            font-size: 20px;
+                            transition: 0.3s;
+                            color:  black;
+                            &:hover{
+                            color: rgb(186, 5, 29);
+                            }
+                        }
+                    }
                     .name {
                         margin-top: 20px;
 
@@ -2072,36 +1986,11 @@ ul {
 
                 }
 
-                .icons {
-                    width: 36px;
-                    height: 60px;
-                    background-color: white;
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    text-align: center;
-                    display: flex;
-                    flex-direction: column;
-                    opacity: 0;
-                    transition: 0.3s;
-
-                    a {
-                        color: black;
-                        transition: 0.3s;
-
-                        &:hover {
-                            color: red;
-                        }
-                    }
-
-                    .view {
-                        margin-top: 7px;
-                    }
-                }
+               
 
                 .mainImage {
                     transition: 0.7s;
-                    position: relative;
+                    position: absolute;
                     width: 100%;
                     height: 100%;
 
@@ -2124,56 +2013,7 @@ ul {
                     height: 0;
                     letter-spacing: 0.3px;
 
-                    .increase-number-decrease {
-                        width: 80px;
-                        height: 40px;
-                        background-color: rgb(206, 37, 60);
-
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        transition: 0.8s;
-
-                        a {
-                            text-decoration: none;
-                        }
-
-                        .minus {
-                            border-right: 1px rgba(207, 117, 117, 0.781) solid;
-                            display: inline-block;
-                            height: 100%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            width: 33%;
-                            text-align: center;
-                            color: white;
-                            font-size: 8px;
-
-                        }
-
-                        .plus {
-                            border-left: 1px rgba(207, 117, 117, 0.781) solid;
-                            border-right: 1px rgba(207, 117, 117, 0.781) solid;
-                            display: inline-block;
-                            height: 100%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            width: 33%;
-                            text-align: center;
-                            font-size: 8px;
-                            color: white;
-                        }
-
-                        #inputNumber {
-                            width: 34%;
-                            text-align: center;
-                            color: white;
-                            font-size: 15px;
-                        }
-
-                    }
+                   
 
                     .toCard {
                         display: flex;
@@ -2206,7 +2046,16 @@ ul {
 
             .name-price {
                 position: absolute;
-
+                .icons {
+                    .whishlist{
+                        font-size: 20px;
+                        transition: 0.3s;
+                        color:  black;
+                        &:hover{
+                        color: rgb(186, 5, 29);
+                        }
+                    }
+                }
                 .name {
                     margin-top: 20px;
 
@@ -3428,7 +3277,7 @@ footer {
     .smallImage {
         position: relative;
         margin: 45px 0;
-
+        margin-bottom:8%;
 
         .image {
             position: relative;
@@ -3451,37 +3300,13 @@ footer {
 
             }
 
-            .icons {
-                width: 36px;
-                height: 60px;
-                background-color: white;
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                text-align: center;
-                display: flex;
-                flex-direction: column;
-                opacity: 0;
-                transition: 0.3s;
-
-                a {
-                    color: black;
-                    transition: 0.3s;
-
-                    &:hover {
-                        color: red;
-                    }
-                }
-
-                .view {
-                    margin-top: 7px;
-                }
-            }
+            
 
             .mainImage {
                 transition: 0.7s;
-                position: relative;
+                position: absolute;
                 width: 100%;
+                z-index: 10;
                 height: 100%;
 
                 img {
@@ -3503,56 +3328,7 @@ footer {
                 height: 0;
                 letter-spacing: 0.3px;
 
-                .increase-number-decrease {
-                    width: 80px;
-                    height: 40px;
-                    background-color: rgb(206, 37, 60);
-
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    transition: 0.8s;
-
-                    a {
-                        text-decoration: none;
-                    }
-
-                    .minus {
-                        border-right: 1px rgba(207, 117, 117, 0.781) solid;
-                        display: inline-block;
-                        height: 100%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 33%;
-                        text-align: center;
-                        color: white;
-                        font-size: 8px;
-
-                    }
-
-                    .plus {
-                        border-left: 1px rgba(207, 117, 117, 0.781) solid;
-                        border-right: 1px rgba(207, 117, 117, 0.781) solid;
-                        display: inline-block;
-                        height: 100%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 33%;
-                        text-align: center;
-                        font-size: 8px;
-                        color: white;
-                    }
-
-                    #inputNumber {
-                        width: 34%;
-                        text-align: center;
-                        color: white;
-                        font-size: 15px;
-                    }
-
-                }
+                
 
                 .toCard {
                     display: flex;
@@ -3585,7 +3361,16 @@ footer {
 
         .name-price {
             position: absolute;
-
+            .icons {
+                .whishlist{
+                    font-size: 20px;
+                    transition: 0.3s;
+                    color:  black;
+                    &:hover{
+                    color: rgb(186, 5, 29);
+                    }
+                }
+            }
             .name {
                 margin-top: 20px;
 
@@ -3613,6 +3398,7 @@ footer {
         &:hover {
             .mainImage {
                 opacity: 0;
+                transition: 0.5s;
             }
 
             .icons {
@@ -4320,33 +4106,6 @@ footer {
 
                 }
 
-                .icons {
-                    width: 36px;
-                    height: 60px;
-                    background-color: white;
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    text-align: center;
-                    display: flex;
-                    flex-direction: column;
-                    opacity: 0;
-                    transition: 0.3s;
-
-                    a {
-                        color: black;
-                        transition: 0.3s;
-
-                        &:hover {
-                            color: red;
-                        }
-                    }
-
-                    .view {
-                        margin-top: 7px;
-                    }
-                }
-
                 .mainImage {
                     transition: 0.7s;
                     position: relative;
@@ -4372,56 +4131,6 @@ footer {
                     height: 0;
                     letter-spacing: 0.3px;
 
-                    .increase-number-decrease {
-                        width: 80px;
-                        height: 40px;
-                        background-color: rgb(206, 37, 60);
-
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        transition: 0.8s;
-
-                        a {
-                            text-decoration: none;
-                        }
-
-                        .minus {
-                            border-right: 1px rgba(207, 117, 117, 0.781) solid;
-                            display: inline-block;
-                            height: 100%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            width: 33%;
-                            text-align: center;
-                            color: white;
-                            font-size: 8px;
-
-                        }
-
-                        .plus {
-                            border-left: 1px rgba(207, 117, 117, 0.781) solid;
-                            border-right: 1px rgba(207, 117, 117, 0.781) solid;
-                            display: inline-block;
-                            height: 100%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            width: 33%;
-                            text-align: center;
-                            font-size: 8px;
-                            color: white;
-                        }
-
-                        #inputNumber {
-                            width: 34%;
-                            text-align: center;
-                            color: white;
-                            font-size: 15px;
-                        }
-
-                    }
 
                     .toCard {
                         display: flex;
@@ -4454,7 +4163,16 @@ footer {
 
             .name-price {
                 position: absolute;
-
+                .icons {
+                    .whishlist{
+                        font-size: 20px;
+                        transition: 0.3s;
+                        color:  black;
+                        &:hover{
+                        color: rgb(186, 5, 29);
+                        }
+                    }
+                }
                 .name {
                     margin-top: 20px;
 
@@ -4544,32 +4262,6 @@ footer {
 
                 }
 
-                .icons {
-                    width: 36px;
-                    height: 60px;
-                    background-color: white;
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    text-align: center;
-                    display: flex;
-                    flex-direction: column;
-                    opacity: 0;
-                    transition: 0.3s;
-
-                    a {
-                        color: black;
-                        transition: 0.3s;
-
-                        &:hover {
-                            color: red;
-                        }
-                    }
-
-                    .view {
-                        margin-top: 7px;
-                    }
-                }
 
                 .mainImage {
                     transition: 0.7s;
@@ -4596,56 +4288,6 @@ footer {
                     height: 0;
                     letter-spacing: 0.3px;
 
-                    .increase-number-decrease {
-                        width: 80px;
-                        height: 40px;
-                        background-color: rgb(206, 37, 60);
-
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        transition: 0.8s;
-
-                        a {
-                            text-decoration: none;
-                        }
-
-                        .minus {
-                            border-right: 1px rgba(207, 117, 117, 0.781) solid;
-                            display: inline-block;
-                            height: 100%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            width: 33%;
-                            text-align: center;
-                            color: white;
-                            font-size: 8px;
-
-                        }
-
-                        .plus {
-                            border-left: 1px rgba(207, 117, 117, 0.781) solid;
-                            border-right: 1px rgba(207, 117, 117, 0.781) solid;
-                            display: inline-block;
-                            height: 100%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            width: 33%;
-                            text-align: center;
-                            font-size: 8px;
-                            color: white;
-                        }
-
-                        #inputNumber {
-                            width: 34%;
-                            text-align: center;
-                            color: white;
-                            font-size: 15px;
-                        }
-
-                    }
 
                     .toCard {
                         display: flex;
@@ -4678,7 +4320,16 @@ footer {
 
             .name-price {
                 position: absolute;
-
+                .icons {
+                    .whishlist{
+                        font-size: 20px;
+                        transition: 0.3s;
+                        color:  black;
+                        &:hover{
+                        color: rgb(186, 5, 29);
+                        }
+                    }
+                }
                 .name {
                     margin-top: 20px;
 
@@ -4984,7 +4635,22 @@ footer {
     }
 
 }
-
+@media screen and (max-width:1199px) {
+    #handpickedItems{
+        .smallImageRow{
+            .smallImage{
+                margin-bottom: 13%!important;
+            }
+        }
+    }
+    #bestSeller{
+        .smallImageRow{
+            .smallImage{
+                margin-bottom: 13%!important;
+            }
+        }
+    }
+}
 @media screen and (max-width:992px) {
     .container {
         max-width: 980px;
@@ -5420,6 +5086,11 @@ footer {
         }
         
     }
+    #products{
+        .smallImage{
+            margin-bottom: 10%;
+        }
+    }
 
     #details {
         .info {
@@ -5749,6 +5420,12 @@ footer {
             }
         }
     }
+    #products{
+        margin-bottom: 15%!important;
+        .smallImage{
+            margin-bottom: 12%;
+        }
+    }
 
     #NavBar {
         .links-logo-icons {
@@ -6033,10 +5710,6 @@ footer {
             }
         }
     }
-
-    #products {
-        margin-bottom: 8% !important;
-    }
 }
 
 @media screen and (max-width:419px) {
@@ -6242,6 +5915,9 @@ footer {
 
     #products {
         margin-bottom: 10% !important;
+            .smallImage{
+                margin-bottom: 18%;
+            }
     }
     #filter {
         #filterForm{
@@ -6256,5 +5932,28 @@ footer {
             }
         }
         
+    }
+    #products{
+        margin-bottom: 20%!important;
+    }
+}
+
+@media screen and (max-width:321px){
+    #handpickedItems{
+        .smallImageRow{
+            .smallImage{
+                margin-bottom: 20%!important;
+            }
+        }
+    }
+    #bestSeller{
+        .smallImageRow{
+            .smallImage{
+                margin-bottom: 20%!important;
+            }
+        }
+    }
+    #products{
+        margin-bottom: 16%!important;
     }
 }
