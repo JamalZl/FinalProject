@@ -1,5 +1,4 @@
-﻿
-@inject FinalProjectBack_Front.Services.LayoutServices layoutService
+﻿@inject FinalProjectBack_Front.Services.LayoutServices layoutService
 @{
     WhishlistVM whishlist = await layoutService.GetWhishlist();
 }
@@ -50,11 +49,11 @@ else
                 <div class="name"><a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId">@product.Product.Name</a></div>
                 @if (product.Product.CampaignId == null)
                 {
-                    <div class="price">£ @product.Price</div>
+                    <div class="price">$ @product.Price</div>
                 }
                 else
                 {
-                    <div class="price"> <del>£@product.Price</del> £@Math.Round((product.Price * (100 - product.Product.Campaign.DiscountPercent) / 100), 2)</div>
+                    <div class="price"> <del>$@product.Price</del> $@Math.Round((product.Price * (100 - product.Product.Campaign.DiscountPercent) / 100), 2)</div>
                 }
                 <div class="icons">
                     <a asp-controller="products" asp-action="DeleteWhishListItem" asp-route-id="@product.Product.Id" style="color:black;" class="bi bi-trash removeWhishlistItem"></a>
@@ -62,4 +61,6 @@ else
             </div>
         </div>
     }
+    <p id="whishlistTotalCountFetch" style="display:none">@whishlist.WhishlistItems.Count</p>
+
 }

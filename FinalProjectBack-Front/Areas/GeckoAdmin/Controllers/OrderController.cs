@@ -1,5 +1,6 @@
 ﻿using FinalProjectBack_Front.DAL;
 using FinalProjectBack_Front.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
 {
     [Area("GeckoAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class OrderController : Controller
     {
         private readonly AppDbContext _context;

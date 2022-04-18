@@ -28,7 +28,8 @@ namespace FinalProjectBack_Front.Controllers
                 Brands = _context.Brands.ToList(),
                 Products = _context.Products.Include(p=>p.ProductCategories).ThenInclude(pc=>pc.Category).Include(p=>p.Campaign).Include(p => p.ProductImages).Take(4).Where(p => p.IsDeleted == false).ToList(),
                 Tags = _context.Tags.ToList(),
-                Sliders = _context.Sliders.ToList()
+                Sliders = _context.Sliders.ToList(),
+                BestSellerProducts= _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => p.IsDeleted == false).OrderByDescending(p=>p.SellCount).Take(4).ToList(),
             };
 
             return View(homeVM);

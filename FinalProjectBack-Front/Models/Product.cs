@@ -49,6 +49,8 @@ namespace FinalProjectBack_Front.Models
         public List<BasketItem> BasketItems { get; set; }
         public List<WhishlistItem> WhishlistItems { get; set; }
         public List<OrderItem> OrderItems { get; set; }
+        public List<Comment> Comments { get; set; }
+
 
     }
 }

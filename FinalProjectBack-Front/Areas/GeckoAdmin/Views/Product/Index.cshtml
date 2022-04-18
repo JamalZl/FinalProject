@@ -5,6 +5,7 @@
 
 @section AdminCSS{
     <link href="~/admin/assets/extrapages/material-dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 }
 
 <div class="container mt-4">
@@ -26,6 +27,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Name</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Description</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Edit / Delete</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Comments</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,12 +43,10 @@
                                         <div class="d-flex">
                                             @if (product.ProductImages.FirstOrDefault().Image.Contains("https://"))
                                             {
-                                                <img style="width:140px;height:140px;" src="@product.ProductImages.FirstOrDefault().Image" alt="product image" />
-                                            }
-                                            else
-                                            {
-                                                <img style="width:140px;height:140px;" src="~/assets/images/@product.ProductImages.FirstOrDefault().Image" alt="product image" />
-                                            }
+                                <img style="width:140px;height:140px;" src="@product.ProductImages.FirstOrDefault().Image" alt="product image" /> }
+                            else
+                            {
+                                <img style="width:140px;height:140px;" src="~/assets/images/@product.ProductImages.FirstOrDefault().Image" alt="product image" />}
                                         </div>
                                     </td>
                                     <td class="px-1">
@@ -57,16 +57,14 @@
                                     <td class="px-1">
                                         @if (product.Description.Length > 25)
                                         {
-                                            <div class="d-flex">
-                                                <h6 class="mb-0 text-sm mx-1">@product.Description.Substring(0, 25)...</h6>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="d-flex">
-                                                <h6 class="mb-0 text-sm mx-1">@product.Description</h6>
-                                            </div>
-                                        }
+                                <div class="d-flex">
+                                    <h6 class="mb-0 text-sm mx-1">@product.Description.Substring(0, 25)...</h6>
+                                </div> }
+                            else
+                            {
+                                <div class="d-flex">
+                                    <h6 class="mb-0 text-sm mx-1">@product.Description</h6>
+                                </div>}
                                     </td>
                                     <td>
                                         <a style="text-decoration:none" asp-controller="product" asp-action="edit" asp-route-id="@product.Id">
@@ -75,6 +73,10 @@
                                         <a style="text-decoration:none;" class="delete-item mx-2" asp-controller="product" asp-action="delete" asp-route-id="@product.Id">
                                             <i style="color: red; font-size: 25px;" class="bi bi-trash3"></i>
                                         </a>
+                                    </td>
+                                    <td>
+                                        <a asp-controller="product" asp-action="comments" asp-route-ProductId="@product.Id" style="text-decoration: none; color: rgb(55,160,0);"><i style="font-size: 35px;" class="las la-comment"></i> <span style="font-size:16px;">(@product.Comments.Count)</span></a>
+                                        
                                     </td>
                                 </tr>
                                 }

@@ -16,5 +16,7 @@ namespace FinalProjectBack_Front.ViewModels
         public List<Product> ProductByNewArrival { get; set; }
         public List<Product> RelatedProducts { get; set; }
         public Product Product { get; set; }
+        public List<Comment> Comments { get; set; }
+        public List<Product> CheapProducts { get; set; }
     }
 }

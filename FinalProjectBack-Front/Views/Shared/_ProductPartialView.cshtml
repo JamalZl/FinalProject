@@ -19,11 +19,11 @@
             <div class="name"><a asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId">@product.Name</a></div>
             @if (product.CampaignId == null)
             {
-                <div class="price">£ @product.Price</div>
+        <div class="price">$ @product.Price</div>
             }
             else
             {
-                <div class="price"> <del>£@product.Price</del> £@Math.Round((product.Price * (100 - product.Campaign.DiscountPercent) / 100), 2)</div>
+        <div class="price"> <del>$@product.Price</del> $@Math.Round((product.Price * (100 - product.Campaign.DiscountPercent) / 100), 2)</div>
             }
             <div class="icons">
                 <a asp-controller="products" asp-action="AddWhishlist" asp-route-id="@product.Id"  class="whishlist whishlistFetch"><i class="fa-regular fa-heart"></i></a>

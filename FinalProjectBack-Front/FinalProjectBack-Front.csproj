@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Apis.Admin.Directory.directory_v1" Version="1.57.0.2640" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.23" />
@@ -27,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\assets\css\checkout.css.map" />
     <None Include="wwwroot\assets\css\style.css.map" />
     <None Include="wwwroot\assets\homeowlcarousel\owl.carousel.min.js" />
     <None Include="wwwroot\assets\images\brandAdidas - Copy - Copy - Copy.webp" />
@@ -49,6 +51,7 @@
     <None Include="wwwroot\assets\Js\main.js" />
     <None Include="wwwroot\assets\Js\products.js" />
     <None Include="wwwroot\assets\Js\zoomsl.js" />
+    <None Include="wwwroot\assets\scss\checkout.scss" />
     <None Include="wwwroot\assets\scss\style.scss" />
   </ItemGroup>
 

@@ -17,6 +17,7 @@ namespace FinalProjectBack_Front.ViewModels
         public List<Brand> Brands { get; set; }
         public List<Category> Categories { get; set; }
         public List<Product> Products { get; set; }
+        public List<Product> BestSellerProducts { get; set; }
         public List<Tag> Tags { get; set; }
         public List<Slider> Sliders { get; set; }
     }

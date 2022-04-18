@@ -1,5 +1,6 @@
 ﻿using FinalProjectBack_Front.DAL;
 using FinalProjectBack_Front.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
 {
     [Area("GeckoAdmin")]
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class SizeController : Controller
     {
         private readonly AppDbContext _context;

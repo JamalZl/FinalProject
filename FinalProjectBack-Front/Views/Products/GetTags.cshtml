@@ -1,25 +1,28 @@
-﻿@model  ProductVM
+﻿@model ProductVM
 @{
     ViewData["Title"] = "GetTags";
 }
-
 <section id="Entrance">
-    <div class="row">
-        <h1>
-            @if (Model.ProductByTags.Count == 0)
-            {
-
-            }
-            else
-            {
-                @Model.ProductByTags.Where(p => p.Tag.Name == Model.ProductByTags.FirstOrDefault().Tag.Name).FirstOrDefault().Tag.Name
+    <div class="row productEntranceRow">
+        <div class="productImage-Content">
+            <div class="productImage"><img src="https://m.media-amazon.com/images/S/aplus-media/vc/932f56fe-0014-43a5-aa27-505cebe9b99d.__CR0,0,1464,600_PT0_SX1464_V1___.jpg" alt=""></div>
+            <div class="productContent">
                 <span>
-                    (@Model.ProductByTags.Count)
+                    @if (Model.ProductByTags.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        @Model.ProductByTags.Where(p => p.Tag.Name == Model.ProductByTags.FirstOrDefault().Tag.Name).FirstOrDefault().Tag.Name
+                        <span>
+                            (@Model.ProductByTags.Count)
+                        </span>
+
+                    }
                 </span>
-
-            }
-
-        </h1>
+            </div>
+        </div>
     </div>
 </section>
 @if (Model.ProductByTags.Count == 0)

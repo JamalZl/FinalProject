@@ -1,6 +1,7 @@
 ﻿using FinalProjectBack_Front.DAL;
 using FinalProjectBack_Front.Extensions;
 using FinalProjectBack_Front.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
 {
     [Area("GeckoAdmin")]
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;
@@ -26,7 +28,7 @@ namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
         {
             ViewBag.TotalPage = Math.Ceiling((decimal)_context.Products.Count() / 6);
             ViewBag.CurrentPage = page;
-            List<Product> products = _context.Products.Include(p => p.ProductImages).Skip((page - 1) * 6).Take(6).ToList();
+            List<Product> products = _context.Products.Include(p=>p.Comments).ThenInclude(c=>c.AppUser).Include(p => p.ProductImages).Skip((page - 1) * 6).Take(6).ToList();
             return View(products);
         }
         public IActionResult Create()
@@ -371,6 +373,22 @@ namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
             _context.Products.Remove(product);
             _context.SaveChanges();
             return Json(new { status = 200 });
+        }
+
+        public IActionResult Comments(int ProductId)
+        {
+            if (!_context.Comments.Any(c => c.ProductId == ProductId)) return RedirectToAction("index", "product");
+            List<Comment> comments = _context.Comments.Include(c => c.AppUser).Where(c => c.ProductId == ProductId).ToList();
+            return View(comments);
+        }
+        public IActionResult CStatusChange(int id)
+        {
+            if (!_context.Comments.Any(c => c.Id == id)) return RedirectToAction("Index", "Product");
+            Comment comment = _context.Comments.SingleOrDefault(c => c.Id == id);
+            comment.IsVisible = comment.IsVisible ? false : true;
+            _context.SaveChanges();
+            return RedirectToAction("Comments", "Product", new { ProductId = comment.ProductId });
+
         }
     }
 }

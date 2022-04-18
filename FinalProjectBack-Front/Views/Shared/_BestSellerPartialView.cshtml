@@ -1,0 +1,35 @@
+﻿@model List<Product>
+@foreach (var product in Model)
+{
+    <div class="smallImage col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+        <div class="image">
+            <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="mainImage">
+                <img src="~/assets/images/@product.ProductImages.FirstOrDefault().Image"
+                     alt="">
+            </a>
+            <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="secondImage">
+                <img src="~/assets/images/@product.ProductImages.Skip(1).FirstOrDefault().Image"
+                     alt="">
+            </a>
+            <div class="addToCard">
+                <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="toCard fetchAddToCard">CLOSER LOOK</a>
+            </div>
+        </div>
+        <div class="name-price">
+            <div class="name"><a asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId">@product.Name</a></div>
+            @if (product.CampaignId == null)
+            {
+        <div class="price">$ @product.Price</div>
+            }
+            else
+            {
+        <div class="price"> <del>$@product.Price</del> $@Math.Round((product.Price * (100 - product.Campaign.DiscountPercent) / 100), 2)</div>
+            }
+            <div class="icons">
+                <a asp-controller="products" asp-action="AddWhishlist" asp-route-id="@product.Id" class="whishlist whishlistFetch"><i class="fa-regular fa-heart"></i></a>
+            </div>
+        </div>
+    </div>
+}
+
+

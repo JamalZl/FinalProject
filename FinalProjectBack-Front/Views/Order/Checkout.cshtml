@@ -4,6 +4,9 @@
     double totalPrice = 0;
 
 }
+@section CSS{ 
+    <link href="~/assets/css/checkout.css" rel="stylesheet" />
+}
 <div class="item-flex">
 
     <!--
@@ -140,30 +143,4 @@
     </section>
 
 </div>
-
-@section Scripts{
-
-    <script src="~/assets/Js/checkout.js"></script>
-    <script>
-        Command: toastr["info"]("Example message ", "Example title")
-
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": false,
-            "positionClass": "toast-top-center",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-    </script>
-}
 

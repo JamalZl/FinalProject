@@ -1,6 +1,7 @@
 ﻿using FinalProjectBack_Front.DAL;
 using FinalProjectBack_Front.Models;
 using FinalProjectBack_Front.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,9 +38,11 @@ namespace FinalProjectBack_Front.Controllers
             {
                 Product = _context.Products.Include(p => p.Campaign).Include(p => p.ProductImages).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.Brand).Include(p => p.Tag).Include(p => p.ProductCategories).ThenInclude(p => p.Category).Include(p => p.DescriptionImages).Where(p => p.IsDeleted == false).FirstOrDefault(p => p.Id == id),
                 Products = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).ToList(),
-                RelatedProducts = _context.Products.Include(p => p.ProductImages).Include(p => p.Campaign).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Where(p => p.ProductCategories.Any(pc => pc.CategoryId == categoryId && p.Id != id)).Where(p => p.IsDeleted == false).Take(8).ToList()
+                RelatedProducts = _context.Products.Include(p => p.ProductImages).Include(p => p.Campaign).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Where(p => p.ProductCategories.Any(pc => pc.CategoryId == categoryId && p.Id != id)).Where(p => p.IsDeleted == false).Take(8).ToList(),
+                Comments = _context.Comments.Include(c => c.Product).Include(c => c.AppUser).Where(c => c.ProductId == id).ToList(),
+                CheapProducts = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).OrderBy(p => (p.CampaignId != null ? (p.Price - (p.Price * p.Campaign.DiscountPercent) / 100) : p.Price)).Take(8).ToList(),
             };
-            if (productVM.Product == null) return BadRequest();
+            if (productVM.Product == null) return NotFound();
             return View(productVM);
         }
 
@@ -65,7 +68,7 @@ namespace FinalProjectBack_Front.Controllers
             if (User.Identity.IsAuthenticated && User.IsInRole("Member"))
             {
                 AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-
+                //((b.Size == sizeval && b.Color != colorval) || (b.Size != sizeval && b.Color == colorval) || (b.Size != sizeval && b.Color != colorval))
                 BasketItem basketItem = _context.BasketItems.FirstOrDefault(b => b.ProductId == product.Id && b.AppUserId == user.Id);
                 if (basketItem == null)
                 {
@@ -133,8 +136,6 @@ namespace FinalProjectBack_Front.Controllers
                     return PartialView("_BasketPartialView");
                 }
             }
-
-
 
         }
 
@@ -329,6 +330,40 @@ namespace FinalProjectBack_Front.Controllers
             }
             _context.SaveChanges();
             return PartialView("_BasketPartialView");
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddComment(Comment comment)
+        {
+            Product product = _context.Products.Include(p => p.ProductCategories).FirstOrDefault();
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (!ModelState.IsValid) return RedirectToAction("details", "products", new { id = comment.ProductId, categoryId = product.ProductCategories.FirstOrDefault().CategoryId });
+            if (!_context.Products.Any(p => p.Id == comment.ProductId)) return NotFound();
+            Comment cmmt = new Comment
+            {
+                Text = comment.Text,
+                ProductId = comment.ProductId,
+                CreatedTime = DateTime.Now,
+                AppUserId = user.Id,
+                Rating = comment.Rating
+            };
+            _context.Comments.Add(cmmt);
+            _context.SaveChanges();
+            return RedirectToAction("details", "products", new { id = comment.ProductId, categoryId = product.ProductCategories.FirstOrDefault().CategoryId });
+        }
+
+        public async Task<IActionResult> DeleteComment(int id)
+        {
+            Product product = _context.Products.Include(p => p.ProductCategories).FirstOrDefault();
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (!ModelState.IsValid) return RedirectToAction("Index", "Products");
+            if (!_context.Comments.Any(c => c.Id == id && c.AppUserId == user.Id)) return NotFound();
+            Comment comment = _context.Comments.FirstOrDefault(c => c.Id == id && c.AppUserId == user.Id);
+            _context.Comments.Remove(comment);
+            _context.SaveChanges();
+            return RedirectToAction("Details", "Products", new { id = comment.ProductId, categoryId = product.ProductCategories.FirstOrDefault().CategoryId });
         }
     }
 }

@@ -1,7 +1,13 @@
 ﻿@model ProductVM
-@{ 
-    ViewData["Title"] = "Details";
-}
+@{ ViewData["Title"] = "Details";
+    double overallCommentRating = 0;
+    @foreach (Comment item in Model.Comments.Where(c=>c.IsVisible==true))
+                    {
+                        {
+                            overallCommentRating += (item.Rating);
+                        }
+                    }
+    }
 @section CSS{
     <link rel="stylesheet" href="~/assets/homeowlcarousel/owl.carousel.min.css">
     <link rel="stylesheet" href="~/assets/homeowlcarousel/owl.theme.default.min.css">
@@ -21,11 +27,10 @@
                     <div class="smallImages">
                         @foreach (var img in Model.Product.ProductImages)
                         {
-                            <div class="image">
-                                <img src="~/assets/images/@img.Image"
-                                     alt="">
-                            </div>
-                        }
+            <div class="image">
+                <img src="~/assets/images/@img.Image"
+                     alt="">
+            </div>}
 
                     </div>
                 </div>
@@ -39,14 +44,12 @@
                 <div class="row priceRow">
                     <ul>
                         <li>
-                            @if (Model.Product.CampaignId==null)
+                            @if (Model.Product.CampaignId == null)
                             {
-                                <div class="price">£@Model.Product.Price</div>
-                            }
+                            <div class="price">$@Model.Product.Price</div> }
                             else
                             {
-                        <div class="price"> <del>£@Model.Product.Price</del> £@Math.Round((Model.Product.Price*(100-Model.Product.Campaign.DiscountPercent)/100),2)</div>
-                            }
+                        <div class="price"> <del>$@Model.Product.Price</del> $@Math.Round((Model.Product.Price * (100 - Model.Product.Campaign.DiscountPercent) / 100), 2)</div>}
                         </li>
                         @if (Model.Product.InStock)
                         {
@@ -59,25 +62,109 @@
                     </ul>
                 </div>
                 <div class="row reviewRow">
-                    <a href="" class="reviews">
+                    <a class="reviews">
                         <span class="reviewIcons">
-                            <span class="fa-regular fa-star"></span>
-                            <span class="fa-regular fa-star"></span>
-                            <span class="fa-regular fa-star"></span>
-                            <span class="fa-regular fa-star"></span>
-                            <span class="fa-regular fa-star"></span>
+                            @if (Model.Comments.Count==0)
+                            {
+                                 <span class="reviewText">No rewievs</span>
+                            }
+                            else
+                            {
+                    @if ((overallCommentRating / Model.Comments.Count<=5) && (overallCommentRating/Model.Comments.Count>4.5))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 4.5) && (overallCommentRating / Model.Comments.Count >4))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 4) && (overallCommentRating / Model.Comments.Count > 3.5))
+                    {
+                         <i class="fa-solid fa-star"></i>
+                         <i class="fa-solid fa-star"></i>
+                         <i class="fa-solid fa-star"></i>
+                         <i class="fa-solid fa-star"></i>
+                         <i class="fa-regular fa-star"></i>
+
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 3.5) && (overallCommentRating / Model.Comments.Count > 3))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 3) && (overallCommentRating / Model.Comments.Count > 2.5))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 2.5) && (overallCommentRating / Model.Comments.Count > 2))
+                    {
+                         <i class="fa-solid fa-star"></i>
+                         <i class="fa-solid fa-star"></i>
+                         <i class="fa-solid fa-star-half-stroke"></i>
+                         <i class="fa-regular fa-star"></i>
+                         <i class="fa-regular fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 2) && (overallCommentRating / Model.Comments.Count > 1.5))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 1.5) && (overallCommentRating / Model.Comments.Count > 1))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 1) && (overallCommentRating / Model.Comments.Count > 0.5))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 0.5) && (overallCommentRating / Model.Comments.Count > 0))
+                    {
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    }
+                    <span class="basedOn" style="font-size:14px;">
+                        Based on @Model.Comments.Count comments
+                    </span>    
+                            }
                         </span>
-                        <span class="reviewText">No rewievs</span>
                     </a>
                 </div>
                 <div class="row descRow">
                     @if (Model.Product.Description.Length <= 190)
                     {
-                        <p>
-                            @Model.Product.Description
-                        </p>
-                    }
-                    else if(Model.Product.Description.Length >= 190)
+        <p>
+            @Model.Product.Description
+        </p> }
+                    else if (Model.Product.Description.Length >= 190)
                     {
                         <p>
                             @Model.Product.Description.Substring(0, 190)...
@@ -85,24 +172,22 @@
                     }
                 </div>
                 <div class="row colorRow">
-                    <p class="colorVal">COLOR: <span id="color-basket">@Model.Product.ProductColors.OrderBy(p=>p.ColorId).FirstOrDefault().Color.Value</span></p>
+                    <p class="colorVal">COLOR: <span id="color-basket">@Model.Product.ProductColors.OrderBy(p => p.ColorId).FirstOrDefault().Color.Value</span></p>
                     <ul class="color">
 
                         @foreach (var color in Model.Product.ProductColors)
                         {
-                             <li class="colorLi" data-value="@color.Color.Name">
+                            <li class="colorLi" data-value="@color.Color.Name">
                                 <a style="background-color: @color.Color.Value;" href=""></a>
-                             </li>
-                        }
+                            </li>}
                     </ul>
                 </div>
                 <div class="row sizeRow">
-                    <p class="sizeVal">SIZE: <span id="size-basket">@Model.Product.ProductSizes.OrderBy(ps=>ps.SizeId).FirstOrDefault().Size.Value</span></p>
+                    <p class="sizeVal">SIZE: <span id="size-basket">@Model.Product.ProductSizes.OrderBy(ps => ps.SizeId).FirstOrDefault().Size.Value</span></p>
                     <ul class="size">
-                        @foreach (var size in Model.Product.ProductSizes.OrderBy(ps=>ps.Size.Value))
+                        @foreach (var size in Model.Product.ProductSizes.OrderBy(ps => ps.Size.Value))
                         {
-                            <li  class="sizeLi" data-value="@size.Size.Value"><span>@size.Size.Value</span></li>
-                        }
+            <li class="sizeLi" data-value="@size.Size.Value"><span>@size.Size.Value</span></li>}
 
                     </ul>
                 </div>
@@ -120,10 +205,9 @@
                     </div>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a style="text-decoration:none;" asp-controller="products" asp-action="AddBasket" asp-route-id="@Model.Product.Id" asp-route-categoryId="@Model.Product.ProductCategories.FirstOrDefault().Id" class="addCard col-lg-4 col-md-12 col-sm-12 col-xs-12  fetchAddToCard">
-                            ADD TO CARD
-                        </a>
-                    }
+        <a style="text-decoration:none;" asp-controller="products" asp-action="AddBasket" asp-route-id="@Model.Product.Id" asp-route-categoryId="@Model.Product.ProductCategories.FirstOrDefault().Id" class="addCard col-lg-4 col-md-12 col-sm-12 col-xs-12  fetchAddToCard">
+            ADD TO CARD
+        </a> }
                     else
                     {
                         <a style="text-decoration:none;" asp-controller="account" asp-action="login" class="addCard col-lg-4 col-md-12 col-sm-12 col-xs-12 ">
@@ -138,15 +222,19 @@
                 </div>
                 <div class="row categoryRow">
                     <span class="name">Brand:<span class="content">@Model.Product.Brand.Name</span></span>
-                    <span class="name">Category:<span class="content">@foreach (var item in Model.Product.ProductCategories)
-                    {
-                        @item.Category.Name <span>  </span>
-                    }</span></span>
-                    <span class="name">Tag:<span class="content">@Model.Product.Tag.Name</span></span>
-                </div>
+                    <span class="name">
+                        Category:<span class="content">
+                            @foreach (var item in Model.Product.ProductCategories)
+                            {
+                                @item.Category.Name <span>  </span>
+                            }
+                    </span>
+                </span>
+                <span class="name">Tag:<span class="content">@Model.Product.Tag.Name</span></span>
             </div>
         </div>
     </div>
+</div>
 </section>
 <section id="description">
     <div class="container">
@@ -170,10 +258,9 @@
             <div class="row descImage">
                 @foreach (var item in Model.Product.DescriptionImages)
                 {
-                    <img class="col-lg-4 col-md-12"
-                         src="~/assets/images/@item.Image"
-                         alt="">
-                }
+    <img class="col-lg-4 col-md-12"
+         src="~/assets/images/@item.Image"
+         alt="">}
 
 
             </div>
@@ -182,94 +269,368 @@
             <span class="customerReviewText">Customer Comments</span>
             <div class="title">
                 <div class="star-review">
-                    <span class="noReview  d-none">
-                        No comments yet
-                    </span>
-                    <span class="starIcons">
+                    @if (Model.Comments.Count == 0)
+                    {
+                        <span class="noReview">
+                            No comments yet
+                        </span>
+                    }
+                    else
+                    {
+                <span class="starIcons">
+                   
+                    @if ((overallCommentRating / Model.Comments.Count<=5) && (overallCommentRating/Model.Comments.Count>4.5))
+                    {
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
-                    </span>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 4.5) && (overallCommentRating / Model.Comments.Count >4))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 4) && (overallCommentRating / Model.Comments.Count > 3.5))
+                    {
+                         <i class="fa-solid fa-star"></i>
+                         <i class="fa-solid fa-star"></i>
+                         <i class="fa-solid fa-star"></i>
+                         <i class="fa-solid fa-star"></i>
+                         <i class="fa-regular fa-star"></i>
+
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 3.5) && (overallCommentRating / Model.Comments.Count > 3))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 3) && (overallCommentRating / Model.Comments.Count > 2.5))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 2.5) && (overallCommentRating / Model.Comments.Count > 2))
+                    {
+                         <i class="fa-solid fa-star"></i>
+                         <i class="fa-solid fa-star"></i>
+                         <i class="fa-solid fa-star-half-stroke"></i>
+                         <i class="fa-regular fa-star"></i>
+                         <i class="fa-regular fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 2) && (overallCommentRating / Model.Comments.Count > 1.5))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 1.5) && (overallCommentRating / Model.Comments.Count > 1))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 1) && (overallCommentRating / Model.Comments.Count > 0.5))
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    }
+                    else if ((overallCommentRating / Model.Comments.Count <= 0.5) && (overallCommentRating / Model.Comments.Count > 0))
+                    {
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    }
+                </span>
                     <span class="basedOn">
-                        Based on 1 comment
+                        Based on @Model.Comments.Count comments
                     </span>
+                    }
+                    
                 </div>
-                <a href="#" id="writeComment">Write a comment</a>
+                @if (!User.Identity.IsAuthenticated)
+                {
+    <a asp-controller="account" asp-action="login" style="text-decoration: none; color: rgb(128,128,128);" class="isAuthComment">Login</a> }
+                else
+                {
+                    <a href="#" id="writeComment">Write a comment</a>
+                                }
+
             </div>
             <div class="row writeCommentRow">
                 <hr>
-                <p class="writeCmmnt">
-                    Write a comment
-                </p>
-                <form action="">
-                    <label class="nameLbl" for="name">Name</label><br>
-                    <input class="name-mail" type="text" id="name" placeholder="Enter your name"><br><br>
-                    <label class="mailLbl" for="mail">Email</label><br>
-                    <input class="name-mail" type="email" id="mail" placeholder="jamalaz@code.edu.az"><br><br>
-                    <label class="rating">
-                        Rating
-                    </label><br>
-                    <div class="starRating">
-                        <input name="star" class="" value="1" data-value="1" type="radio" id="rating1">
-                        <label for="rating1" class="fa-regular fa-star myStar"></label>
-                        <input name="star" value="2" data-value="2" type="radio" id="rating2">
-                        <label for="rating2" class="fa-regular fa-star myStar"></label>
-                        <input name="star" value="3" data-value="3" type="radio" id="rating3">
-                        <label for="rating3" class="fa-regular fa-star myStar"></label>
-                        <input name="star" value="4" data-value="4" type="radio" id="rating4">
-                        <label for="rating4" class="fa-regular fa-star myStar"></label>
-                        <input name="star" value="5" data-value="5" type="radio" id="rating5">
-                        <label for="rating5" class="fa-regular fa-star myStar"></label>
-                    </div>
-                    <label class="txtAreaLbl" for="comment">Body of comment</label><br>
-                    <textarea class="txtArea" name="" id="comment" cols="150" rows="8"
-                              placeholder="Write your comment here"></textarea>
-                    <button class="commentFormSubmit" type="submit">Submit Comment</button>
-                </form>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <p class="writeCmmnt">
+                         Write a comment
+                    </p>
+                    <form method="post" asp-controller="products" asp-action="AddComment">
+                        <label class="rating">
+                            Rating
+                        </label><br>
+                        <div class="starRating">
+                            <input name="rating" class="" value="1" data-value="1" type="radio" id="rating1" required >
+                            <label for="rating" class="fa-regular fa-star myStar"></label>
+                            <input name="rating" value="2" data-value="2" type="radio" id="rating2" required>
+                            <label for="rating" class="fa-regular fa-star myStar"></label>
+                            <input name="rating" value="3" data-value="3" type="radio" id="rating3" required>
+                            <label for="rating" class="fa-regular fa-star myStar"></label>
+                            <input name="rating" value="4" data-value="4" type="radio" id="rating4" required>
+                            <label for="rating" class="fa-regular fa-star myStar"></label>
+                            <input name="rating" value="5" data-value="5" type="radio" id="rating5" required>
+                            <label for="rating" class="fa-regular fa-star myStar"></label>
+                            <span style="margin-top:10px;display:inline-block" class="text text-danger"></span>
+                        </div>
+                        <input type="hidden" name="ProductId" value="@Model.Product.Id" />
+                        <label class="txtAreaLbl" for="Text">Body of comment</label><br>
+                        <textarea required class="txtArea" name="Text" id="comment" cols="150" rows="8"
+                                  placeholder="Write your comment here"></textarea>
+                        <span style="margin-top:10px;display:inline-block" class="text text-danger"></span>
+                        <button class="commentFormSubmit" type="submit">Submit Comment</button>
+                    </form>}
+                                else
+                                {
+
+                                }
             </div>
             <div class="row commentsRow">
-                <div class="comment">
-                    <hr>
-                    <div class="commentIcons">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="name-date">
-                        <span>
-                            <span class="name">Camal</span> on <span class="date">Mar 17,2022</span>
-                        </span>
-                    </div>
-                    <div class="commentContent">
-                        <p>
-                            Salam Dostlar Necesiz
-                        </p>
-                    </div>
-                </div>
-                <div class="comment">
-                    <hr>
-                    <div class="commentIcons">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="name-date">
-                        <span>
-                            <span class="name">Camal</span> on <span class="date">Mar 17,2022</span>
-                        </span>
-                    </div>
-                    <div class="commentContent">
-                        <p>
-                            Salam Dostlar Necesiz
-                        </p>
-                    </div>
-                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @foreach (Comment comment in Model.Comments.Where(c => c.IsVisible == true).OrderByDescending(c => c.CreatedTime))
+                    {
+    @if (comment.AppUser.UserName == User.Identity.Name)
+    {
+        <div class="comment">
+            <hr>
+            <div class="commentIcons">
+                @if (comment.Rating==1)
+                {
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+
+                }
+                else if (comment.Rating==2)
+                {
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+
+                }
+                else if (comment.Rating==3)
+                {
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                }
+                else if(comment.Rating==4)
+                {
+                 <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                }
+                else if (comment.Rating==5)
+                {
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                }
+            </div>
+            <div class="name-date">
+                <span>
+                    <span class="name">@comment.AppUser.Name</span> on <span class="date">@comment.CreatedTime.ToString("MMMM dd , yyyy")</span>
+                </span>
+            </div>
+            <div class="commentContent">
+                <p>
+                    @comment.Text
+                </p>
+            </div>
+        </div>
+        <a asp-controller="products" asp-action="deletecomment" asp-route-id="@comment.Id" style="text-decoration: none; color: rgb(128,128,128);"><i class="fa-regular fa-trash-can"></i></a>
+
+    }
+    else
+    {
+        <div class="comment">
+            <hr>
+            <div class="commentIcons">
+                @if (comment.Rating==1)
+                {
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+
+                }
+                else if (comment.Rating==2)
+                {
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+
+                }
+                else if (comment.Rating==3)
+                {
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                }
+                else if(comment.Rating==4)
+                {
+                 <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                }
+                else if (comment.Rating==5)
+                {
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                }
+            </div>
+            <div class="name-date">
+                <span>
+                    <span class="name">@comment.AppUser.Name</span> on <span class="date">@comment.CreatedTime.ToString("MMMM dd , yyyy")</span>
+                </span>
+            </div>
+            <div class="commentContent">
+                <p>
+                    @comment.Text
+                </p>
+            </div>
+        </div>
+
+    }                }
+                }
+                else
+                {
+                     @foreach (Comment comment in Model.Comments.Where(c => c.IsVisible == true).OrderByDescending(c => c.CreatedTime))
+                    {
+    @if (comment.AppUser.UserName == User.Identity.Name)
+    {
+        <div class="comment">
+            <hr>
+            <div class="commentIcons">
+                @if (comment.Rating==1)
+                {
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+
+                }
+                else if (comment.Rating==2)
+                {
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+
+                }
+                else if (comment.Rating==3)
+                {
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                }
+                else if(comment.Rating==4)
+                {
+                 <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                }
+                else if (comment.Rating==5)
+                {
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                }
+            </div>
+            <div class="name-date">
+                <span>
+                    <span class="name">@comment.AppUser.Name</span> on <span class="date">@comment.CreatedTime.ToString("MMMM dd , yyyy")</span>
+                </span>
+            </div>
+            <div class="commentContent">
+                <p>
+                    @comment.Text
+                </p>
+            </div>
+        </div>
+        <i class="fa-regular fa-trash"></i>
+    }
+    else
+    {
+        <div class="comment">
+            <hr>
+            <div class="commentIcons">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="name-date">
+                <span>
+                    <span class="name">Camal</span> on <span class="date">Mar 17,2022</span>
+                </span>
+            </div>
+            <div class="commentContent">
+                <p>
+                    Salam Dostlar Necesiz
+                </p>
+            </div>
+        </div>
+    }                }
+                }
             </div>
         </div>
     </div>
@@ -289,11 +650,11 @@
 <section id="recentlyViewed">
     <div class="container">
         <div class="row">
-            <span class="recentlyTitle">Recently Viewed</span>
+            <span class="recentlyTitle">Save Your Money</span>
         </div>
         <div class="row">
             <div class="recently owl-carousel owl-theme">
-                @await Html.PartialAsync("_ProductPartialView",Model.Products)
+                @await Html.PartialAsync("_CheapProductsPartialView", Model.CheapProducts)
             </div>
         </div>
     </div>
@@ -302,4 +663,7 @@
 @section Scripts{
     <script src="~/assets/homeowlcarousel/owl.carousel.min.js"></script>
     <script src="~/assets/Js/details.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 }

@@ -2,24 +2,27 @@
 @{
     ViewData["Title"] = "GetSale";
 }
-
 <section id="Entrance">
-    <div class="row">
-        <h1>
-            @if (Model.ProductBySale.Count == 0)
-            {
+    <div class="row productEntranceRow">
+        <div class="productImage-Content">
+            <div class="productImage"><img src="https://m.media-amazon.com/images/S/aplus-media/vc/932f56fe-0014-43a5-aa27-505cebe9b99d.__CR0,0,1464,600_PT0_SX1464_V1___.jpg" alt=""></div>
+            <div class="productContent">
+                @if (Model.ProductBySale.Count == 0)
+                {
 
-            }
-            else
-            {
-                <span>On Sale</span>
-                <span>
-                    (@Model.ProductBySale.Count)
-                </span>
-            }
-        </h1>
+                }
+                else
+                {
+                    <span>On Sale</span>
+                    <span>
+                        (@Model.ProductBySale.Count)
+                    </span>
+                }
+            </div>
+        </div>
     </div>
 </section>
+
 @if (Model.ProductBySale.Count == 0)
 {
 

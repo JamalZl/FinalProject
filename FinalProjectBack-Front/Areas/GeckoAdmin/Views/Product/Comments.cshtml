@@ -1,0 +1,97 @@
+﻿@model List<Comment>
+@{
+    ViewData["Title"] = "Comments";
+}
+
+@section AdminCSS{
+    <link href="~/admin/assets/extrapages/material-dashboard.css" rel="stylesheet">
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div style="background-color: rgb(55,160,0)" class="shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">Product comments</h6>
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">#</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Username</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Text</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Created Date</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Visibility status</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Settings</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (Comment cmt in Model)
+                                {
+                                    <tr>
+                                        <td class="px-1">
+                                            <div class="d-flex">
+                                                <h6 class="mb-0 text-sm mx-1">@cmt.Id</h6>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <div class="d-flex">
+                                                <h6 class="mb-0 text-sm mx-1">@cmt.AppUser.Name</h6>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <div class="d-flex">
+                                                <h6 class="mb-0 text-sm mx-1">@cmt.Text</h6>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <div class="d-flex">
+                                                <h6 class="mb-0 text-sm mx-1">@cmt.CreatedTime.ToString("dddd, dd MMMM yyyy HH:mm")</h6>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <div class="d-flex">
+                                                <h6 class="mb-0 text-sm mx-1">@cmt.IsVisible</h6>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <div class="d-flex">
+                                                @if (cmt.IsVisible)
+                                                {
+                                                    <a asp-controller="product" asp-action="CStatusChange" asp-route-id="@cmt.Id" class="btn btn-success btn-circle mb-2 mr-1"><i class="fas fa-check"></i></a>
+
+                                                }
+                                                else
+                                                {
+                                                    <a asp-controller="product" asp-action="CStatusChange" asp-route-id="@cmt.Id" class="btn btn-danger btn-circle mb-2 mr-1"><i class="fas fa-times"></i></a>
+                                                }
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="d-flex mt-4">
+                            <a asp-controller="product" asp-action="index" style="width:20%; color:white;" class="btn btn-dark btn-circle mb-2 mr-1 mx-2">Go Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@section AdminScripts{
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })</script>
+
+    }*@
+
