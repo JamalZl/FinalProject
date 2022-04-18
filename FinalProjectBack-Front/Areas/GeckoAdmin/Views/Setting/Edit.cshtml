@@ -17,18 +17,18 @@
                 <div class="card-body">
                     <div class="text text-danger" asp-validation-summary="ModelOnly"></div>
                     <form method="post" enctype="multipart/form-data">
-                        <div class="px-1 mb-4">
+                        <div  class="px-1 mb-4">
                             <p>
                                 Current logo image
                             </p>
-                            <div class="d-flex">
+                            <div style="background-color: lightgrey;" class="d-flex">
                                 @if (Model.Logo.Contains("https://"))
                                 {
-                                    <img style="width:140px;height:75px;" src="@Model.Logo" alt="logo image" />
+                                    <img style="width:100px;height:50px;" src="@Model.Logo" alt="logo image" />
                                 }
                                 else
                                 {
-                                    <img style="width:140px;height:75px;" src="~/assets/images/@Model.Logo" alt="logo image" />
+                                    <img style="width:100px;height:50px;" src="~/assets/images/@Model.Logo" alt="logo image" />
                                 }
                             </div>
                         </div>
@@ -44,11 +44,11 @@
                             <div class="d-flex">
                                 @if (Model.HandpickedImage.Contains("https://"))
                                 {
-                                    <img style="width:140px;height:75px;" src="@Model.HandpickedImage" alt="handpicked image" />
+                                    <img style="width:100px;height:150px;" src="@Model.HandpickedImage" alt="handpicked image" />
                                 }
                                 else
                                 {
-                                    <img style="width:140px;height:75px;" src="~/assets/images/@Model.HandpickedImage" alt="handpicked image" />
+                                    <img style="width:100px;height:150px;" src="~/assets/images/@Model.HandpickedImage" alt="handpicked image" />
                                 }
                             </div>
                         </div>
@@ -124,11 +124,11 @@
                             <div class="d-flex">
                                 @if (Model.UpliftedImage.Contains("https://"))
                                 {
-                                    <img style="width:140px;height:75px;" src="@Model.UpliftedImage" alt="uplifted image" />
+                                    <img style="width:100px;height:150px;" src="@Model.UpliftedImage" alt="uplifted image" />
                                 }
                                 else
                                 {
-                                    <img style="width:140px;height:75px;" src="~/assets/images/@Model.UpliftedImage" alt="uplifted image" />
+                                    <img style="width:100px;height:150px;" src="~/assets/images/@Model.UpliftedImage" alt="uplifted image" />
                                 }
                             </div>
                         </div>
@@ -144,11 +144,11 @@
                             <div class="d-flex">
                                 @if (Model.FooterPaymentImage.Contains("https://"))
                                 {
-                                    <img style="width:140px;height:75px;" src="@Model.FooterPaymentImage" alt="uplifted image" />
+                                    <img style="width:250px;height:40px;" src="@Model.FooterPaymentImage" alt="uplifted image" />
                                 }
                                 else
                                 {
-                                    <img style="width:140px;height:75px;" src="~/assets/images/@Model.FooterPaymentImage" alt="uplifted image" />
+                                    <img style="width:250px;height:40px;" src="~/assets/images/@Model.FooterPaymentImage" alt="uplifted image" />
                                 }
                             </div>
                         </div>

@@ -54,10 +54,14 @@ namespace FinalProjectBack_Front.Controllers
         }
 
 
-        public async Task<IActionResult> AddBasket(int id,string colorval, string sizeval,int count)
+        public async Task<IActionResult> AddBasket(int id, string colorval, string sizeval, int count)
         {
             Product product = _context.Products.Include(p => p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
-            
+
+            if ((colorval == null && sizeval != null) || (colorval != null && sizeval == null) || (colorval == null && sizeval == null))
+            {
+                return NotFound();
+            }
             if (User.Identity.IsAuthenticated && User.IsInRole("Member"))
             {
                 AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -69,13 +73,15 @@ namespace FinalProjectBack_Front.Controllers
                     {
                         AppUserId = user.Id,
                         ProductId = product.Id,
-                        Count = count
+                        Count = count,
+                        Color = colorval,
+                        Size = sizeval
                     };
                     _context.BasketItems.Add(basketItem);
                 }
                 else
                 {
-                    basketItem.Count+=count;
+                    basketItem.Count += count;
                 }
                 _context.SaveChanges();
                 return PartialView("_BasketPartialView");

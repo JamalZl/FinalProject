@@ -33,7 +33,7 @@
                             <tbody>
                                 @foreach (Setting setting in Model)
                                 {
-                                    <tr>
+                                    <tr style="background-color: lightgrey; border-radius:10px;">
                                         <td class="px-1">
                                             <div class="d-flex">
                                                 <h6 class="mb-0 text-sm mx-1">@setting.Id</h6>
@@ -43,11 +43,11 @@
                                             <div class="d-flex">
                                                 @if (setting.Logo.Contains("https://"))
                                                 {
-                                                    <img style="width:140px;height:75px;" src="@setting.Logo" alt="logo image" />
+                                                    <img style="width:100px;height:50px;" src="@setting.Logo" alt="logo image" />
                                                 }
                                                 else
                                                 {
-                                                    <img style="width:140px;height:75px;" src="~/assets/images/@setting.Logo" alt="logo image" />
+                                                    <img style="width:100px;height:50px;" src="~/assets/images/@setting.Logo" alt="logo image" />
                                                 }
                                             </div>
                                         </td>

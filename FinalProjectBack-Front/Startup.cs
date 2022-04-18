@@ -31,11 +31,6 @@ namespace FinalProjectBack_Front
         {
             services.AddControllersWithViews();
             services.AddScoped<LayoutServices>();
-            //services.AddDbContext<AppDbContext>(option =>
-            //{
-            //    option.UseSqlServer(Configuration.GetConnectionString("Default"));
-            //});
-            //services.AddDbContext<AppDbContext>(ServiceLifetime.Transient);
             services.AddDbContext<AppDbContext>(option =>
                        option.UseSqlServer(Configuration.GetConnectionString("Default")),
             ServiceLifetime.Transient);

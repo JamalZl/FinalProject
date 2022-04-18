@@ -100,10 +100,10 @@ $(document).ready(function () {
         plproductCount.value = Number(plproductCount.value) + 1;
     })
     plMinus.addEventListener("click", () => {
-        if (plproductCount.value > 0) {
+        if (plproductCount.value > 1) {
             plproductCount.value = Number(plproductCount.value) - 1;
         } else {
-            alert("Number of the products can't be lower than zero")
+            alert("Number of the products can't be lower than 1")
         }
     })
 

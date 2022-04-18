@@ -85,7 +85,7 @@
                     }
                 </div>
                 <div class="row colorRow">
-                    <p class="colorVal">COLOR: <span id="color-basket"></span></p>
+                    <p class="colorVal">COLOR: <span id="color-basket">@Model.Product.ProductColors.OrderBy(p=>p.ColorId).FirstOrDefault().Color.Value</span></p>
                     <ul class="color">
 
                         @foreach (var color in Model.Product.ProductColors)
@@ -97,7 +97,7 @@
                     </ul>
                 </div>
                 <div class="row sizeRow">
-                    <p class="sizeVal">SIZE: <span id="size-basket"></span></p>
+                    <p class="sizeVal">SIZE: <span id="size-basket">@Model.Product.ProductSizes.OrderBy(ps=>ps.SizeId).FirstOrDefault().Size.Value</span></p>
                     <ul class="size">
                         @foreach (var size in Model.Product.ProductSizes.OrderBy(ps=>ps.Size.Value))
                         {
@@ -112,6 +112,7 @@
                         <input id="productCounter" value="1" type="text">
                         <button class="plus"><i class="fa-solid fa-plus"></i></button>
                     </div>
+                    <div asp-validation-summary="@ValidationSummary.ModelOnly"></div>
                     <div class="whishList col-lg-2 col-md-3 col-sm-6 col-xs-2">
                         <a class="whishlistFetch" asp-controller="products" asp-action="AddWhishlist" asp-route-id="@Model.Product.Id" asp-route-categoryId="@Model.Product.ProductCategories.FirstOrDefault().Id">
                             <i class="bi bi-heart whishListIcon"></i>

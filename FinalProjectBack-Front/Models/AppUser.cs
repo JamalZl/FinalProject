@@ -14,5 +14,7 @@ namespace FinalProjectBack_Front.Models
         public int Age { get; set; }
         public List<BasketItem> BasketItems { get; set; }
         public List<WhishlistItem> WhishlistItems { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

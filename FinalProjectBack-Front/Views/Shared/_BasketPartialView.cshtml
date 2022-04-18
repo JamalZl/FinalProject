@@ -32,9 +32,9 @@ else
                             </a>
                         </div>
                         <div class="size-color">
-                            <span class="color" style="font-size:14px;">Red</span>
+                            <span class="color" style="font-size:14px;">@item.Color</span>
                             /
-                            <span class="size" style="font-size:14px;">40</span> 
+                            <span class="size" style="font-size:14px;">@item.Size</span> 
                         </div>
                         <span class="productPrice">
                             $ @item.Price <span class="basketX">x</span> <span class="basketProductCount">@item.Count</span>
@@ -55,7 +55,7 @@ else
                 <p>Taxes, shipping and discounts codes calculated at checkout</p>
             </div>
             <div class="checkoutBtn">
-                <a class="mycheckoutBtn" href="">
+                <a class="mycheckoutBtn" asp-controller="order" asp-action="checkout">
                     CHECK OUT
                 </a>
             </div>

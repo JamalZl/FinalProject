@@ -402,3 +402,6 @@ C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug
 C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Views\Products\GetNewArrival.cshtml.g.cs
 C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_BasketPartialView.cshtml.g.cs
 C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_WhishlistPartialView.cshtml.g.cs
+C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Views\Order\Checkout.cshtml.g.cs
+C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Areas\GeckoAdmin\Views\Order\Index.cshtml.g.cs
+C:\Users\User\Desktop\FinalProject-BackEnd-main\FinalProjectBack-Front\obj\Debug\netcoreapp3.1\Razor\Areas\GeckoAdmin\Views\Order\Edit.cshtml.g.cs

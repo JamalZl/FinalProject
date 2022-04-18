@@ -20,6 +20,7 @@ namespace FinalProjectBack_Front.Models
         public string Description { get; set; }
         public bool InStock { get; set; } = true;
         public bool IsDeleted { get; set; } = false;
+        public int SellCount { get; set; } = 0;
         public List<ProductColor> ProductColors { get; set; }
         public List<ProductSize> ProductSizes { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
@@ -47,5 +48,7 @@ namespace FinalProjectBack_Front.Models
         public List<int> DescImageIds { get; set; }
         public List<BasketItem> BasketItems { get; set; }
         public List<WhishlistItem> WhishlistItems { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
+
     }
 }

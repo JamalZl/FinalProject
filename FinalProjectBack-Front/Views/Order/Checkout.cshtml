@@ -1,0 +1,169 @@
+﻿@model OrderVM
+@{
+    ViewData["Title"] = "Checkout";
+    double totalPrice = 0;
+
+}
+<div class="item-flex">
+
+    <!--
+     - checkout section
+    -->
+    <section class="checkout">
+
+        <h2 class="section-heading">Checkout section</h2>
+
+        <div class="payment-form">
+
+            <form method="post">
+
+                <div class="cardholder-name">
+                    <label asp-for="@Model.Name" class="label-default">Name</label>
+                    <input asp-for="@Model.Name" id="cardholder-name" class="input-default">
+                    <span style="margin-top:10px;display:inline-block" class="text text-danger" asp-validation-for="@Model.Name"></span>
+                </div>
+
+                <div class="card-number">
+                    <label asp-for="@Model.Surname" class="label-default">Surname</label>
+                    <input asp-for="@Model.Surname" id="card-number" class="input-default">
+                    <span style="margin-top:10px;display:inline-block" class="text text-danger" asp-validation-for="@Model.Surname"></span>
+                </div>
+
+                <div class="card-number">
+                    <label asp-for="@Model.Email" class="label-default">Email</label>
+                    <input asp-for="@Model.Email" id="card-number" class="input-default">
+                    <span style="margin-top:10px;display:inline-block" class="text text-danger" asp-validation-for="@Model.Email"></span>
+                </div>
+
+                <div class="card-number">
+                    <label asp-for="@Model.PhoneNumber" class="label-default">Number</label>
+                    <input asp-for="@Model.PhoneNumber" id="card-number" class="input-default">
+                    <span style="margin-top:10px;display:inline-block" class="text text-danger" asp-validation-for="@Model.PhoneNumber"></span>
+                </div>
+
+
+                <div class="card-number">
+                    <label asp-for="@Model.Country" class="label-default">Country</label>
+                    <input asp-for="@Model.Country" id="card-number" class="input-default">
+                    <span style="margin-top:10px;display:inline-block" class="text text-danger" asp-validation-for="@Model.Country"></span>
+                </div>
+
+                <div class="card-number">
+                    <label asp-for="@Model.State" class="label-default">State</label>
+                    <input asp-for="@Model.State" id="card-number" class="input-default">
+                    <span style="margin-top:10px;display:inline-block" class="text text-danger" asp-validation-for="@Model.State"></span>
+                </div>
+
+                <div class="card-number">
+                    <label asp-for="@Model.Address" class="label-default">Address</label>
+                    <input asp-for="@Model.Address" id="card-number" class="input-default">
+                    <span style="margin-top:10px;display:inline-block" class="text text-danger" asp-validation-for="@Model.Address"></span>
+                </div>
+
+                <button type="submit" style="border-color: #9b0b1e; box-shadow: 0 0 0 0.25rem #9b0b1e " class="btn btn-primary">
+                    <b>Order</b>
+                </button>
+            </form>
+
+        </div>
+
+       
+
+    </section>
+
+
+    <!--
+      - cart section
+    -->
+    <section style="overflow-y:scroll;" class="cart">
+
+        <div class="cart-item-box">
+
+            <h2 class="section-heading">Order Summery</h2>
+
+            <div class="product-card">
+
+                @foreach (BasketItem item in Model.BasketItems)
+                {
+
+                    {
+                        totalPrice += (item.Product.CampaignId == null ? item.Count * item.Product.Price : item.Count * item.Product.Price * (100 - item.Product.Campaign.DiscountPercent) / 100);
+                    }
+                    <div class="card" style="display:flex;flex-direction:row; padding:15px;">
+
+                        <div class="img-box">
+                            <img src="~/assets/images/@item.Product.ProductImages.FirstOrDefault().Image" alt="shoes" style="width:80px;" class="product-img">
+                        </div>
+
+                        <div class="detail">
+
+                            <h3 class="product-name" style="color: #9b0b1e;">@item.Product.Name <span style="font-size:13px;">x</span> <span style="font-size: 14px; ">@item.Count</span></h3>
+
+                            <span>
+                                <span style="text-transform:capitalize;">@item.Color</span>
+                                /
+                                <span>@item.Size</span>
+                            </span>
+                            <div class="wrapper">
+
+                                <div class="price">
+                                    $<span id="price">@(item.Product.CampaignId==null ?item.Count*item.Product.Price:item.Count*item.Product.Price*(100-item.Product.Campaign.DiscountPercent)/100)</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+
+
+            </div>
+
+        </div>
+
+        <div class="wrapper">
+
+            <div class="amount">
+
+                <div class="shipping">
+                    <span>Shipping</span> <span>$ <span id="shipping">0.00</span></span>
+                </div>
+                <div class="total">
+                    <span>Total</span> <span>$ <span id="total">@totalPrice</span></span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+@section Scripts{
+
+    <script src="~/assets/Js/checkout.js"></script>
+    <script>
+        Command: toastr["info"]("Example message ", "Example title")
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}
+

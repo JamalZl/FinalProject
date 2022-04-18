@@ -1,0 +1,183 @@
+﻿@model Order
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="main-content">
+    <!--Content Header (Page header)-->
+    <div class="content-header row align-items-center m-0">
+        <div class="col-sm-8 header-title p-0">
+            <div class="media">
+                <div class="header-icon text-success mr-3"><i class="typcn typcn-document-text"></i></div>
+                <div class="media-body">
+                    <h1 class="font-weight-bold">Order</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/.Content Header (Page header)-->
+    <div class="body-content">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 text-left">
+                        <h1 class="h3">Fullname:@Model.AppUser.Name @Model.AppUser.Surname</h1>
+                        <address>
+                            <strong>Country:@Model.Country</strong><br>
+                            <strong>State:@Model.State</strong><br />
+                            <strong>Address:@Model.Address</strong>
+                            <strong>Order time:@Model.Date.ToString("dddd, dd MMMM yyyy HH:mm")</strong>
+                        </address>
+                        <a style="text-decoration:none;" href="mailto:@Model.AppUser.Email">Email:@Model.AppUser.Email</a>
+                    </div>
+                </div>
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card my-4">
+                                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                    <div style="background-color: rgb(55,160,0);height:65px;border-radius:5px;" class="shadow-primary border-radius-lg pt-4 pb-3 d-flex align-items-center">
+                                        <h4 style="padding:10px;" class="text-white text-capitalize ps-3">Order items</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body px-0 pb-2">
+                                    <div class="table-responsive p-0">
+                                        <table class="table align-items-center mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">#</th>
+                                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Name</th>
+                                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Price</th>
+                                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">Count</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (OrderItem order in Model.OrderItems)
+                                                {
+                                                    <tr style="height:60px;">
+                                                        <td class="px-1">
+                                                            <div class="d-flex">
+                                                                <h6 class="mb-0 text-sm mx-1">@order.Id</h6>
+                                                            </div>
+                                                        </td>
+                                                        <td class="px-1">
+                                                            <div class="d-flex">
+                                                                <h6 class="mb-0 text-sm mx-1">@order.Name</h6>
+                                                            </div>
+                                                        </td>
+                                                        <td class="px-1">
+                                                            <div class="d-flex">
+                                                                <h6 class="mb-0 text-sm mx-1">$@order.Price</h6>
+                                                            </div>
+                                                        </td>
+                                                        <td class="px-1">
+                                                            <div class="d-flex">
+                                                                <h6 class="mb-0 text-sm mx-1">@order.Count</h6>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <ul class="list-unstyled text-left">
+                                <li>
+                                    <strong style="font-size:18px">Total price: <span style="font-size:14px;">$@Model.TotalPrice</span></strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    @if (Model.Status == null)
+                    {
+                        <div class="d-flex">
+                            <p class="btn btn-info rounded-pill mr-1"><i class="fas fa-circle-notch fa-spin"></i> <span style="font-size:10px;">Pending</span> </p>
+                        </div>
+                    }
+                    else if (Model.Status == true)
+                    {
+                        <div class="d-flex">
+                            <p class="btn btn-success rounded-pill mr-1"><i class="fas fa-check"></i> <span style="font-size:10px;">Accepted</span> </p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="d-flex">
+                            <p class="btn btn-danger rounded-pill mr-1"><i class="fas fa-times"></i> <span style="font-size:10px;">Rejected</span> </p>
+                        </div>
+                    }
+                    <form>
+                        <textarea class="form-control mt-5 OrderMessage" placeholder="Write your message here" cols="65" rows="8"></textarea>
+                    </form>
+                </div>
+
+
+            </div>
+            @if (Model.Status == true)
+            {
+                <div class="container mx-1">
+                    <div class="card-footer">
+                        <a asp-controller="order" asp-action="index" class="btn btn-labeled btn-dark mb-2 mr-1">
+                            <span class="btn-label"><i class="fas fa-redo-alt"></i></span>Go Back
+                        </a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="container mx-1">
+                    <div class="card-footer">
+                        <a asp-controller="order" asp-action="Accept" asp-route-id="@Model.Id" class="btn btn-labeled btn-success mb-2 mr-1 orderAccept">
+                            <span class="btn-label"><i class="fas fa-check"></i></span>Accept
+                        </a>
+                        <a asp-controller="order" asp-action="reject" asp-route-id="@Model.Id" class="btn btn-labeled btn-danger mb-2 mr-1 orderReject">
+                            <span class="btn-label"><i class="fas fa-times"></i></span>Reject
+                        </a>
+                        <a asp-controller="order" asp-action="index" class="btn btn-labeled btn-dark mb-2 mr-1">
+                            <span class="btn-label"><i class="fas fa-redo-alt"></i></span>Go Back
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div><!--/.body content-->
+</div>
+
+@section AdminScripts{
+    <script>
+        $(document).ready(function () {
+
+            $(".orderAccept").click(function (e) {
+                e.preventDefault();
+                var message = $(".OrderMessage").val();
+                var link = $(this).attr("href") + "/?message=" + message
+                fetch(link).then(res => res.json()).then(data => {
+                    if (data.status == 200) {
+                        location.href = "https://localhost:44349/GeckoAdmin/order/index"
+                    } else {
+
+                    }
+                })
+            })
+
+            $(".orderReject").click(function (e) {
+                e.preventDefault();
+                var message = $(".OrderMessage").val();
+                var link = $(this).attr("href") + "/?message=" + message
+                fetch(link).then(res => res.json()).then(data => {
+                    if (data.status == 200) {
+                        location.href = "https://localhost:44349/GeckoAdmin/order/index"
+                    } else {
+
+                    }
+                })
+            })
+        })
+    </script>
+}
+

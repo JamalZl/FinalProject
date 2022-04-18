@@ -68,7 +68,8 @@ namespace FinalProjectBack_Front.Services
             {
                 TotalPrice = 0,
                 BasketItems = new List<BasketItemVM>(),
-                Count = 0
+                Count = 0,
+                
             };
 
             if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
@@ -83,7 +84,9 @@ namespace FinalProjectBack_Front.Services
                         BasketItemVM basketItemVM = new BasketItemVM
                         {
                             Product = product,
-                            Count = item.Count
+                            Count = item.Count,
+                            Color=item.Color,
+                            Size=item.Size
                         };
                         basketItemVM.Price = product.CampaignId == null ? product.Price : product.Price * (100 - product.Campaign.DiscountPercent) / 100;
                         basketData.BasketItems.Add(basketItemVM);

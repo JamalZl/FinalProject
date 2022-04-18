@@ -189,8 +189,11 @@ namespace FinalProjectBack_Front.Controllers
                 return View(userEdit);
             }
 
+            
+
             if (string.IsNullOrWhiteSpace(editedUser.CurrentPassword))
             {
+                
                 user.UserName = editedUser.Username;
                 user.Email = editedUser.Email;
                 user.Name = editedUser.Name;
@@ -202,6 +205,21 @@ namespace FinalProjectBack_Front.Controllers
             }
             else
             {
+                if (editedUser.Password != null && editedUser.ConfirmPassword == null)
+                {
+                    ModelState.AddModelError("ConfirmPassword", "Please confirm password");
+                    return View(editedUser);
+                }
+                if (editedUser.Password == null && editedUser.ConfirmPassword != null)
+                {
+                    ModelState.AddModelError("Password", "Please enter password");
+                    return View(editedUser);
+                }
+                if (editedUser.Password == null && editedUser.ConfirmPassword == null)
+                {
+                    ModelState.AddModelError("", "Please enter password and confirm it");
+                    return View(editedUser);
+                }
                 user.UserName = editedUser.Username;
                 user.Email = editedUser.Email;
                 user.Name = editedUser.Name;
@@ -223,6 +241,7 @@ namespace FinalProjectBack_Front.Controllers
 
                 await _signInManager.PasswordSignInAsync(user, editedUser.Password, true, true);
             }
+            
 
             return RedirectToAction("index", "home");
         }

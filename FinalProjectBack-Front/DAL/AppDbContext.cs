@@ -34,5 +34,7 @@ namespace FinalProjectBack_Front.DAL
         public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<WhishlistItem> WhishlistItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }

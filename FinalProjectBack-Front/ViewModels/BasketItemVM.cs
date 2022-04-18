@@ -11,5 +11,7 @@ namespace FinalProjectBack_Front.ViewModels
         public Product Product { get; set; }
         public double Price { get; set; }
         public int Count { get; set; }
+        public string Color { get; set; }
+        public string Size { get; set; }
     }
 }
