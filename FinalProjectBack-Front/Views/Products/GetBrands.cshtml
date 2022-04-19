@@ -14,7 +14,7 @@
                 }
                 else
                 {
-                    @Model.ProductByBrands.Where(p => p.Brand.Name == Model.ProductByBrands.FirstOrDefault().Brand.Name).FirstOrDefault().Brand.Name
+                <span> @Model.ProductByBrands.Where(p => p.Brand.Name == Model.ProductByBrands.FirstOrDefault().Brand.Name).FirstOrDefault().Brand.Name</span>
                     <span>
                         (@Model.ProductByBrands.Count)
                     </span>

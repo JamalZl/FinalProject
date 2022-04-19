@@ -45,7 +45,8 @@
                             <ul class="menuShopUl">
                                 @foreach (var item in Model.Brands)
                                 {
-                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>}
+                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
+}
                             </ul>
                         </li>
                         <li class="menuProductsLi">
@@ -54,13 +55,13 @@
                                 <li><a asp-controller="products" asp-action="index">All products</a></li>
                                 @foreach (var item in Model.Categories)
                                 {
-                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
+                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
+}
                             </ul>
                         </li>
                         @foreach (var tag in Model.Tags)
                         {
-            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
-}
+            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
                         <li><a asp-controller="contact" asp-action="index">Contact</a></li>
                         <li>
                             <a href="#" class="searchIcon">
@@ -118,7 +119,8 @@
                                     <ul class="shopElements">
                                         @foreach (var item in Model.Brands)
                                         {
-                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>}
+                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
+}
                                     </ul>
                                 </div>
                             </li>
@@ -129,15 +131,15 @@
                                         <li><a asp-controller="products" asp-action="index">All products</a></li>
                                         @foreach (var item in Model.Categories)
                                         {
-                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
-}
+                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
                                     </ul>
                                 </div>
                             </li>
 
                             @foreach (var tag in Model.Tags)
                             {
-                <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
+                <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
+}
                             <li><a asp-controller="contact" asp-action="index">Contact</a></li>
                         </ul>
                     </div>
@@ -209,22 +211,22 @@
     </header>
     <main>
         @*@if (TempData["Forgot"] != null)
-        {
-<input type="hidden" id="forgotJS" />}
-        @if (TempData["Reset"] != null)
-        {
-<input type="hidden" id="resetJS" />}
-        @if (TempData["Verify"] != null)
-        {
-<input type="hidden" id="verifyJS" />}
+                    {
+            <input type="hidden" id="forgotJS" />}
+                    @if (TempData["Reset"] != null)
+                    {
+            <input type="hidden" id="resetJS" />}
+                    @if (TempData["Verify"] != null)
+                    {
+            <input type="hidden" id="verifyJS" />}
 
 
-        @if (TempData["Verified"] != null)
-        {
-<input type="hidden" id="verifiedJS" />}
-        @if (TempData["Succeeded"] != null)
-        {
-<input type="hidden" id="toastrJs" data-succeed="@TempData["Succeeded"]" />}*@
+                    @if (TempData["Verified"] != null)
+                    {
+            <input type="hidden" id="verifiedJS" />}
+                    @if (TempData["Succeeded"] != null)
+                    {
+            <input type="hidden" id="toastrJs" data-succeed="@TempData["Succeeded"]" />}*@
 
         <section class="owl-carousel owl-theme myOwl">
             @foreach (var slider in Model.Sliders)
@@ -245,7 +247,7 @@
                 <p>@slider.Title</p>
             </div>
             <div class="mybtnDiv">
-                <a class="myButton" asp-controller="products" asp-action="getsale">
+                <a class="myButton" asp-controller="products" asp-action="index">
                     START SHOPPING
                 </a>
             </div>
@@ -291,7 +293,7 @@
             </div>
         </section>
         <section data-aos="fade-up"
-     data-aos-anchor-placement="top-center" id="newArrival">
+                 data-aos-anchor-placement="top-center" id="newArrival">
             <div class="row">
                 <div class="image-content">
                     <div class="image">
@@ -312,7 +314,7 @@
             </div>
         </section>
         <section data-aos="fade-up"
-     data-aos-anchor-placement="top-center" id="featuredProducts">
+                 data-aos-anchor-placement="top-center" id="featuredProducts">
             <div class="container">
                 <div class="row">
                     <div class="content-products">
@@ -332,7 +334,7 @@
             </div>
         </section>
         <section data-aos="fade-up"
-     data-aos-anchor-placement="top-center" id="shopBrands">
+                 data-aos-anchor-placement="top-center" id="shopBrands">
             <div class="container">
                 <div class="row brandTitleRow">
                     <div class="title col-lg-12 col-md-12 col-sm-12">
@@ -351,7 +353,7 @@
             </div>
         </section>
         <section data-aos="fade-up"
-     data-aos-anchor-placement="top-center" id="exploreMore">
+                 data-aos-anchor-placement="top-center" id="exploreMore">
             <div class="row">
                 <div class="image-content">
                     <div class="image"><a href=""><img alt="" src="~/assets/images/@Model.Setting.FunImage"></a></div>
@@ -368,7 +370,7 @@
             </div>
         </section>
         <section data-aos="fade-up"
-     data-aos-anchor-placement="top-center" id="bestSeller">
+                 data-aos-anchor-placement="top-center" id="bestSeller">
             <div class="container">
                 <div class="row bestSellerRow">
                     <div class="itemsTitle">
@@ -406,7 +408,7 @@
             </div>
         </section>
         <section data-aos="fade-up"
-     data-aos-anchor-placement="top-center" id="subscribe">
+                 data-aos-anchor-placement="top-center" id="subscribe">
             <div class="row">
                 <div class="image-content">
                     <div class="image"><img alt="" src="~/assets/images/@Model.Setting.SubscribeImage"></div>
@@ -416,8 +418,10 @@
                                 @Html.Raw(Model.Setting.SubscribeTitle)
                             </p>
                         </div>
-                        <form class="form" action="">
-                            <input type="email" placeholder="Your email address" required>
+                        <div style="color:white;list-style:none;" asp-validation-summary="ModelOnly"></div>
+                        <form asp-controller="home" asp-action="index" class="form" method="post">
+                            <input asp-for="@Model.SubscribeVM.Email" placeholder="Your email address" required>
+                            <span style="margin-bottom: 5px; display: inline-block" class="text text-danger" asp-validation-for="@Model.SubscribeVM.Email"></span><br />
                             <button class="myBtn" type="submit">Subscribe</button>
                         </form>
                     </div>
@@ -462,8 +466,7 @@
                                     <ul class="footerBrandScroll">
                                         @foreach (var item in Model.Brands)
                                         {
-                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
-}
+                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>}
                                     </ul>
                                 </li>
                                 <li class="footerProducts">
@@ -472,8 +475,7 @@
                                         <li><a href="">All products</a></li>
                                         @foreach (var item in Model.Categories)
                                         {
-                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
-}
+                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
                                     </ul>
                                 </li>
                                 <li class="footerInformaton">
@@ -481,7 +483,8 @@
                                     <ul>
                                         @foreach (var tag in Model.Tags)
                                         {
-                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
+                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
+}
                                     </ul>
                                 </li>
                             </ul>
@@ -531,7 +534,8 @@
                                     <ul>
                                         @foreach (var item in Model.Brands)
                                         {
-                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>}
+                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
+}
                                     </ul>
                                 </li>
                                 <li class="footerProducts">
@@ -541,7 +545,8 @@
                                         <li><a href="">All products</a></li>
                                         @foreach (var item in Model.Categories)
                                         {
-                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
+                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
+}
                                     </ul>
                                 </li>
                                 <li class="footerInformaton">
@@ -550,8 +555,7 @@
                                     <ul>
                                         @foreach (var tag in Model.Tags)
                                         {
-                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
-}
+                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
                                     </ul>
                                 </li>
                             </ul>
@@ -586,6 +590,8 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="~/assets/homeowlcarousel/owl.carousel.min.js"></script>
     <script>
         //$(document).ready(function () {
@@ -870,8 +876,8 @@
         });
     </script>
     <script>
-  AOS.init();
-</script>
+        AOS.init();
+    </script>
     <script src="~/assets/Js/main.js"></script>
     <script src="~/assets/Js/home.js"></script>
 </body>

@@ -696,6 +696,23 @@ namespace FinalProjectBack_Front.Migrations
                     b.ToTable("Sliders");
                 });
 
+            modelBuilder.Entity("FinalProjectBack_Front.Models.Subscribe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(60)")
+                        .HasMaxLength(60);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscribers");
+                });
+
             modelBuilder.Entity("FinalProjectBack_Front.Models.Tag", b =>
                 {
                     b.Property<int>("Id")

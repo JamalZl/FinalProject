@@ -20,5 +20,6 @@ namespace FinalProjectBack_Front.ViewModels
         public List<Product> BestSellerProducts { get; set; }
         public List<Tag> Tags { get; set; }
         public List<Slider> Sliders { get; set; }
+        public SubscribeVM SubscribeVM { get; set; }
     }
 }

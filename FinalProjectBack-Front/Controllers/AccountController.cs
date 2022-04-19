@@ -1,4 +1,5 @@
-﻿using FinalProjectBack_Front.Models;
+﻿using FinalProjectBack_Front.DAL;
+using FinalProjectBack_Front.Models;
 using FinalProjectBack_Front.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,12 +19,14 @@ namespace FinalProjectBack_Front.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly AppDbContext _context;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, AppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _context = context;
         }
 
         public IActionResult Register()
@@ -189,11 +192,11 @@ namespace FinalProjectBack_Front.Controllers
                 return View(userEdit);
             }
 
-            
+
 
             if (string.IsNullOrWhiteSpace(editedUser.CurrentPassword))
             {
-                
+
                 user.UserName = editedUser.Username;
                 user.Email = editedUser.Email;
                 user.Name = editedUser.Name;
@@ -241,7 +244,7 @@ namespace FinalProjectBack_Front.Controllers
 
                 await _signInManager.PasswordSignInAsync(user, editedUser.Password, true, true);
             }
-            
+
 
             return RedirectToAction("index", "home");
         }
@@ -323,6 +326,8 @@ namespace FinalProjectBack_Front.Controllers
             TempData["Reset"] = true;
             return RedirectToAction("index", "home");
         }
+
+        
     }
 
 

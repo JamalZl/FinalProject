@@ -37,5 +37,6 @@ namespace FinalProjectBack_Front.DAL
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Subscribe> Subscribers { get; set; }
     }
 }
