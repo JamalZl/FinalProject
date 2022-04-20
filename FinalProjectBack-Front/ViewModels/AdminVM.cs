@@ -13,5 +13,7 @@ namespace FinalProjectBack_Front.ViewModels
         public List<AppUser> Users { get; set; }
         public List<Order> Orders { get; set; }
         public List<ContactMessage> UserMessages { get; set; }
+        public List<Subscribe> Subscribes { get; set; }
+        public List<Brand> Brands { get; set; }
     }
 }

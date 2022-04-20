@@ -173,11 +173,9 @@
                         </div>
                         <a asp-controller="whishlist" asp-action="index" class="wishlist">
                             @Html.Raw(layoutService.GetSettingData().WhishlistIcon)
-                            <span class="wishlistCount fetchWhishlistCountTest">0</span>
                         </a>
                         <a href="#" class="basket">
                             @Html.Raw(layoutService.GetSettingData().BasketIcon)
-                            <span class="basketCount fetchBasketCountTest">0</span>
                         </a>
                     </div>
                 </div>
@@ -474,6 +472,8 @@
                 var base = window.location.origin
                 var url = `${base}${href}`
                 var urlToPartial = `${url}/Products/GetWhishlistPartial`
+
+                console.log($(".whishlistTotalCountFetch"))
 
                 fetch(url).then(res => res.text()).then(data => {
                     fetch(urlToPartial).then(res => res.text()).then(data => {

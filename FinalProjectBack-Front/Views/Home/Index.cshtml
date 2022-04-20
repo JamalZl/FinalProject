@@ -175,11 +175,9 @@
                         </div>
                         <a asp-controller="whishlist" asp-action="index" class="wishlist">
                             @Html.Raw(Model.Setting.WhishlistIcon)
-                            <span class="wishlistCount">0</span>
                         </a>
                         <a href="#" class="basket">
                             @Html.Raw(Model.Setting.BasketIcon)
-                            <span class="basketCount">@basket.BasketItems.Count</span>
                         </a>
                     </div>
                 </div>
@@ -752,7 +750,6 @@
             $(document).on("click", ".whishlistFetch", function (e) {
                 e.preventDefault()
                 var href = $(this).attr("href")
-                console.log(href)
                 var base = window.location.origin
                 var url = `${base}${href}`
                 var urlToPartial = `${url}/Products/GetWhishlistPartial`
@@ -780,7 +777,6 @@
 
                 e.preventDefault();
                 var href = $(this).attr("href");
-                console.log(href)
                 var base = window.location.origin;
                 var url = `${base}${href}`
                 var urlForPartial = `${base}/Products/GetWhishlistPartial`

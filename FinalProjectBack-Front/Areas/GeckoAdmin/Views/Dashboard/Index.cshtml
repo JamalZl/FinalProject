@@ -80,21 +80,18 @@
                                 <div class="pl-3">
                                     @foreach (var item in Model.UserMessages)
                                     {
-                                        <h6>@item.Fullname</h6>
-                                        if (item.Message.Length > 25)
-                                        {
-                                            <span>
-                                                @item.Message.Substring(0,25) <a asp-controller="contactmessage" asp-action="index" >...</a>
-                                            </span>
-                                        }
-                                        else
-                                        {
-                                            <span>
-                                                @item.Message
-                                            </span>
-                                        }
+                        <h6>@item.Fullname</h6> if (item.Message.Length > 25)
+                        {
+        <span>
+            @item.Message.Substring(0, 25) <a asp-controller="contactmessage" asp-action="index">...</a>
+        </span> }
+    else
+    {
+    <span>
+        @item.Message
+    </span>}
 
-                                    }
+}
 
                                 </div>
                             </div>
@@ -106,20 +103,40 @@
                             <div class="header-pretitle text-muted fs-11 font-weight-bold text-uppercase mb-2">Best selling product</div>
                             @foreach (var item in Model.Products)
                             {
-                                <img style="width:100px;height:100px;" src="~/assets/images/@item.ProductImages.FirstOrDefault().Image" alt="Alternate Text" />
+                <img style="width:100px;height:100px;" src="~/assets/images/@item.ProductImages.FirstOrDefault().Image" alt="Alternate Text" />
                                 <span style="margin-left:5px">@item.Name</span>
-                                <p style="margin-top:12px;display:inline-block;">This product has been sold <strong>@item.SellCount</strong>  times</p>
-                                <div class="header-pretitle text-muted fs-11 font-weight-bold text-uppercase mb-2">
-                                    We earn <strong>$@(item.SellCount*item.Price)</strong> from this product
-                                </div>
-                            }
+                                                <p style="margin-top:12px;display:inline-block;">This product has been sold <strong>@item.SellCount</strong>  times</p>
+                                                                <div class="header-pretitle text-muted fs-11 font-weight-bold text-uppercase mb-2">
+                                                                    We earn <strong>$@(item.SellCount*item.Price)</strong> from this product
+                                                                </div>}
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <!--Time on site indicator-->
                         <div class="d-flex flex-column p-3 mb-3 bg-white shadow-sm rounded">
+                            <div class="header-pretitle text-muted fs-11 font-weight-bold text-uppercase ">Our brands</div>
+                            <br />  @foreach (var item in Model.Brands)
+                            {
+                <ul style="list-style:none;margin:0;padding:0;">
+                    <li style="margin-top:3px;">
+                        <strong>@item.Name:</strong><span> @item.Products.Count</span>
+                    </li>
+                </ul>}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6">
+                        <!--Time on site indicator-->
+                        <div class="d-flex flex-column p-3 mb-3 bg-white shadow-sm rounded">
+                            <div class="header-pretitle text-muted fs-11 font-weight-bold text-uppercase mb-2">Subscribers</div>
+                            <p>We have <strong>@Model.Subscribes.Count</strong> subscribers</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <!--Time on site indicator-->
+                        <div style="height:100px" class="d-flex flex-column p-3 mb-3 bg-white shadow-sm rounded">
                             <div class="header-pretitle text-muted fs-11 font-weight-bold text-uppercase mb-2">Avarage age of users</div>
-                            <p>@avarageAge</p>
+                            <strong>@avarageAge</strong>
                         </div>
                     </div>
                 </div>
@@ -148,17 +165,65 @@
                                             <tbody>
                                                 @foreach (var item in Model.Orders)
                                                 {
-                                                     <tr role="row" class="odd">
+                                                    <tr role="row" class="odd">
+                                                        <td class="sorting_1">
+                                                            @item.Id
+                                                        </td>
+                                                        <td>@item.Country</td>
+                                                        <td>@item.State</td>
+                                                        <td>@item.Address</td>
+                                                        <td>
+                                                            @item.Date.ToString("dddd, dd MMMM yyyy")
+                                                        </td>
+                                                        <td>$@item.TotalPrice</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div><div class="row"><div class="col-sm-12 col-md-5"></div><div class="col-sm-12 col-md-7"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fs-17 font-weight-600 mb-0">Current users</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <!--<table class="table table-sm table-nowrap card-table">-->
+                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table display table-bordered table-striped table-hover bg-white m-0 card-table dataTable no-footer" id="DataTables_Table_0" role="grid">
+                                            <thead>
+                                                <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Image: activate to sort column descending" style="width: 111.575px;">Fullname</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 149.137px;">Username</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Phone: activate to sort column ascending" style="width: 121.1px;">Phone number</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Street Address: activate to sort column ascending" style="width: 217.887px;">Age</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="% Share: activate to sort column ascending" style="width: 98.2px;">Email</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="City: activate to sort column ascending" style="width: 87.3125px;">Orders count</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Users.Where(u=>u.IsAdmin==false))
+                                                {
+                                                <tr role="row" class="odd">
                                                     <td class="sorting_1">
-                                                       @item.Id
+                                                        @item.Name @item.Surname
                                                     </td>
-                                                    <td>@item.Country</td>
-                                                    <td>@item.State</td>
-                                                    <td>@item.Address</td>
                                                     <td>
-                                                        @item.Date.ToString("dddd, dd MMMM yyyy")
+                                                        @item.UserName
                                                     </td>
-                                                    <td>$@item.TotalPrice</td>
+                                                    <td>@item.PhoneNumber</td>
+                                                    <td>@item.Email</td>
+                                                    <td>@item.Age</td>
+                                                    <td>
+                                                        @item.Orders.Count
+                                                    </td>
                                                 </tr>
                                                 }
                                             </tbody>

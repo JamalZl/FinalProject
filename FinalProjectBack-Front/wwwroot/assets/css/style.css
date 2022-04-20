@@ -8339,6 +8339,17 @@ footer #bottomFooter .row .payment {
 }
 
 @media screen and (max-width: 419px) {
+  .myOwl .image-text .textDiv .text .discount {
+    font-size: 10px;
+  }
+  .myOwl .image-text .textDiv .text .title {
+    font-size: 15px !important;
+  }
+  .myOwl .image-text .textDiv .text .mybtnDiv .myButton {
+    width: 75px;
+    height: 20px;
+    font-size: 6px;
+  }
   #bestSeller .bestSellerRow {
     -webkit-box-pack: center !important;
         -ms-flex-pack: center !important;

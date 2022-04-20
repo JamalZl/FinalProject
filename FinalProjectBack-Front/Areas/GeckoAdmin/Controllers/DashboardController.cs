@@ -31,8 +31,10 @@ namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
             {
                 Products = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.ProductImages).OrderByDescending(p => p.SellCount).Take(1).ToList(),
                 UserMessages = _context.ContactMessages.OrderByDescending(cm => cm.SendDate).Take(1).ToList(),
-                Orders = _context.Orders.Where(o => o.Status == true).ToList(),
-                Users = _context.Users.ToList()
+                Orders = _context.Orders.Include(o=>o.AppUser).Where(o => o.Status == true).ToList(),
+                Users = _context.Users.Include(u=>u.Orders).ToList(),
+                Subscribes=_context.Subscribers.ToList(),
+                Brands=_context.Brands.Include(b=>b.Products).ToList()
             };
             return View(adminVM);
         }
