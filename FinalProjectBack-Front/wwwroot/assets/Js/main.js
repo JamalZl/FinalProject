@@ -61,12 +61,12 @@ $(document).ready(function () {
             alert("Number of the products can't be lower than 1")
         }
     })
-    //$(".productsLi a").click(function (e) {
-    //    e.preventDefault()
-    //})
-    //$(".shopLi a").click(function (e) {
-    //    e.preventDefault()
-    //})
+    $(".productsLi a").click(function (e) {
+        //e.preventDefault()
+    })
+    $(".shopLi a").click(function (e) {
+        //e.preventDefault()
+    })
 
     $(".searchIcon").click(function (e) {
         e.preventDefault()
@@ -86,8 +86,8 @@ $(document).ready(function () {
         $(".searchArea").removeClass("animate__slideInRight")
         $(".menu").addClass("animate__slideOutLeft")
         $(".menu").removeClass("animate__slideInLeft")
-        //$(".basketArea").addClass("animate__slideOutRight")
-        //$(".basketArea").removeClass("animate__slideInRight")
+        $(".basketArea").addClass("animate__slideOutRight")
+        $(".basketArea").removeClass("animate__slideInRight")
     })
 
     $(".basket").click(function (e) {
@@ -95,19 +95,19 @@ $(document).ready(function () {
         $(".basketArea").css("display", "block")
         $(".basketArea").addClass("animate__slideInRight")
         $(".basketArea").removeClass("animate__slideOutRight")
+        $(".basketTxt-closeIcon").css("display", "flex")
+        $(".basketTxt-closeIcon").addClass("animate__slideInRight")
+        $(".basketTxt-closeIcon").removeClass("animate__slideOutRight")
+
+
         $(".menu").addClass("animate__slideOutLeft")
         $(".menu").removeClass("animate__slideInLeft")
     })
-    $(".basketCloseIcon").click(function (e) {
+    $(".basketCloseIcon i").click(function (e) {
         e.preventDefault()
         $(".basketArea").addClass("animate__slideOutRight")
         $(".basketArea").removeClass("animate__slideInRight")
     })
-
-    function closeBasket() {
-        $(".basketArea").addClass("animate__slideOutRight")
-        $(".basketArea").removeClass("animate__slideInRight")
-    }
 
     // $(".generalNavBar").hide()
     $(window).scroll(function () {
@@ -118,13 +118,13 @@ $(document).ready(function () {
             $(".generalNavBar").css({
                 "position": "sticky",
                 "top": "0px",
-                "z-index": "1000000000",
+                "z-index": "9",
                 "background-color": "black"
             })
         }
         if (window.scrollY <= 100) {
             // $("#NavBar").css("display","none")
-            $(".generalNavBar").css("position","relative")
+            $(".generalNavBar").css("position", "relative")
         }
     })
 
@@ -136,16 +136,66 @@ $(document).ready(function () {
             $(".homeStickyNav").css({
                 "position": "sticky",
                 "top": "0px",
-                "z-index": "1000000000",
+                "z-index": "9",
                 "background-color": "black"
             })
         }
         if (window.scrollY <= 100) {
-            // $("#NavBar").css("display","none")
             $(".homeStickyNav").css({
-                "position":"relative",
-                 "background-color":"transparent"
+                "position": "relative",
+                "background-color": "transparent"
             })
+        }
+    })
+
+    $(".modalShowerAddToCard").click(function (e) {
+        e.preventDefault()
+        $(this).parent().parent().next().next().toggleClass("d-none")
+        $(this).parent().parent().next().next().toggleClass("d-block")
+        $(this).parent().parent().next().next().children().removeClass("d-none")
+        $(this).parent().parent().next().next().children().addClass("animate__zoomIn")
+    })
+    $(".modalClose").click(function (e) {
+        e.preventDefault();
+        $(this).parent().parent().toggleClass("d-block")
+        $(this).parent().parent().toggleClass("d-none")
+    })
+
+    $(".modalSizeLi").click(function () {
+
+        if (!$(this).hasClass("isSelectedSize")) {
+            $(this).toggleClass("isSelectedSize");
+        }
+        $(this).siblings().removeClass("isSelectedSize")
+        let sizeValue = $(this).attr("data-value")
+        $(this).parent().parent().parent().children().first().children().first().children().first().html(sizeValue)
+
+    })
+
+    $(".modalColorLi").click(function (e) {
+        e.preventDefault()
+        if (!$(this).hasClass("isSelectedColor")) {
+            $(this).toggleClass("isSelectedColor");
+        }
+
+        $(this).siblings().removeClass("isSelectedColor")
+        let colorValue = $(this).attr("data-value")
+        $(this).parent().parent().parent().children().first().children().first().children().first().html(colorValue)
+    });
+
+    $(".modalPlus").click(function (e) {
+        e.preventDefault()
+
+        $(this).siblings()[1].innerText++;
+
+
+    })
+    $(".modalMinus").click(function (e) {
+        e.preventDefault()
+        if ($(this).siblings()[0].innerText > 1) {
+            $(this).siblings()[0].innerText--;
+        } else {
+            alert("Number of the products can't be lower than 1")
         }
     })
 })

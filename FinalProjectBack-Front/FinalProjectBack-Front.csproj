@@ -48,7 +48,6 @@
     <None Include="wwwroot\assets\images\Logo-img_38c63be0-fb31-4328-b860-cedd88ea4232_225x.webp" />
     <None Include="wwwroot\assets\Js\details.js" />
     <None Include="wwwroot\assets\Js\home.js" />
-    <None Include="wwwroot\assets\Js\main.js" />
     <None Include="wwwroot\assets\Js\products.js" />
     <None Include="wwwroot\assets\Js\zoomsl.js" />
     <None Include="wwwroot\assets\scss\checkout.scss" />

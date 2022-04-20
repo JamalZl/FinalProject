@@ -30,36 +30,110 @@ else
 {
     @foreach (var product in whishlist.WhishlistItems)
     {
-        <div class="smallImage col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="image">
-                <a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="mainImage">
-                    <img src="~/assets/images/@product.Product.ProductImages.FirstOrDefault().Image"
-                         alt="">
+<div class="smallImage col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <div class="image">
+        <a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="mainImage">
+            <img src="~/assets/images/@product.Product.ProductImages.FirstOrDefault().Image"
+                 alt="">
+            <div class="icons">
+                <a asp-controller="products" asp-action="DeleteWhishListItem" asp-route-id="@product.Product.Id" class="bi bi-trash removeWhishlistItem whishlist"></a>
+            </div>
 
-                </a>
-                <a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="secondImage">
-                    <img src="~/assets/images/@product.Product.ProductImages.Skip(1).FirstOrDefault().Image"
-                         alt="">
-                </a>
-                <div class="addToCard">
-                    <a asp-controller="products" asp-action="addbasket" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="toCard fetchAddToCard">ADD TO CART</a>
+        </a>
+        <a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="secondImage">
+            <img src="~/assets/images/@product.Product.ProductImages.Skip(1).FirstOrDefault().Image"
+                 alt="">
+        </a>
+        <div class="addToCard">
+            <a asp-controller="products" asp-action="addbasket" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="toCard modalShowerAddToCard">QUICK SHOP</a>
+        </div>
+    </div>
+    <div class="name-price">
+        <div class="name"><a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId">@product.Product.Name</a></div>
+        @if (product.Product.CampaignId == null)
+        {
+            <div class="price">$ @product.Price</div>
+        }
+        else
+        {
+            <div class="price"> <del>$@product.Price</del> $@Math.Round((product.Price * (100 - product.Product.Campaign.DiscountPercent) / 100), 2)</div>
+        }
+    </div>
+    <div class="bg-modal d-none">
+        <div class="productModal animate__animated d-none">
+            <div class="image-name-price">
+                <div class="modalImage">
+                    <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_e195f63f-79e4-436a-a065-ee9fb5895c9d_360x.jpg?v=1604995044" alt="">
+                </div>
+                <div class="modalname-price">
+                    <div class="modalName">
+                        <a href="">Nikes Pegasus</a>
+                    </div>
+                    <div class="modalPrice">
+                        $350.00
+                    </div>
+                </div>
+
+            </div>
+            <div class="modalcolor-text">
+                <div class="modalText">
+                    <span class="modalColorVal">Color : <span>Grey</span> </span>
+                </div>
+                <div class="modalColor">
+                    <ul class="modalColorUl">
+                        <li class="modalColorLi" data-value="Blue">
+                            <a style="background-color: rgb(74,165,199);" href=""></a>
+                        </li>
+                        <li class="modalColorLi" data-value="Orange">
+                            <a style="background-color: rgb(255,122,1)"
+                               href=""></a>
+                        </li>
+                        <li class="modalColorLi" data-value="Yellow">
+                            <a style="background-color: rgb(225,235,121);"
+                               href=""></a>
+                        </li>
+                        <li class="modalColorLi" data-value="Grey">
+                            <a style="background-color: rgb(130,130,130)"
+                               href=""></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="name-price">
-                <div class="name"><a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId">@product.Product.Name</a></div>
-                @if (product.Product.CampaignId == null)
-                {
-                    <div class="price">$ @product.Price</div>
-                }
-                else
-                {
-                    <div class="price"> <del>$@product.Price</del> $@Math.Round((product.Price * (100 - product.Product.Campaign.DiscountPercent) / 100), 2)</div>
-                }
-                <div class="icons">
-                    <a asp-controller="products" asp-action="DeleteWhishListItem" asp-route-id="@product.Product.Id" style="color:black;" class="bi bi-trash removeWhishlistItem"></a>
+            <div class="modalsize-text">
+                <div class="modalText">
+                    <span class="modalSizeVal">Size: <span>40</span> </span>
                 </div>
+                <div class="modalSize">
+                    <ul class="modalSizeUl">
+                        <li class="modalSizeLi" data-value="40"><span>40</span></li>
+                        <li class="modalSizeLi" data-value="41"><span>41</span></li>
+                        <li class="modalSizeLi" data-value="42"><span>42</span></li>
+                        <li class="modalSizeLi" data-value="43"><span>43</span></li>
+                        <li class="modalSizeLi" data-value="44"><span>44</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modalcounter-button">
+                <div class="modalCounter">
+                    <button class="modalMinus"><i class="fa-solid fa-minus"></i></button>
+                    <span class="modalProductCounter">1</span>
+                    <button class="modalPlus"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <div class="modalButton">
+                    <button class="modalAddCard col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                        ADD TO CARD
+                    </button>
+                </div>
+            </div>
+            <div class="modalViewFullDetails">
+                <a href="">View full details <i class="las la-long-arrow-alt-right"></i></a>
+            </div>
+            <div class="modalClose">
+                <i class="las la-times"></i>
             </div>
         </div>
+    </div>
+</div>
     }
     <p id="whishlistTotalCountFetch" style="display:none">@whishlist.WhishlistItems.Count</p>
 
