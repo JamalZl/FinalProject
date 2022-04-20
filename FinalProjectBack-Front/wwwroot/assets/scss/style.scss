@@ -2178,8 +2178,8 @@ ul {
                         width: 100%;
                         .modalImage {
                             img {
-                                width: 80px;
-                                height: 80px;
+                                width: 90px;
+                                height: 90px;
                             }
                         }
     
@@ -2196,7 +2196,7 @@ ul {
                                     font-family: JostRegular;
                                     transition: 0.3s;
                                     letter-spacing: 1.3px;
-                                    font-size: 12px;
+                                    font-size: 14px;
     
                                     &:hover {
                                         color: rgb(186, 14, 28);
@@ -2207,7 +2207,7 @@ ul {
     
                             .modalPrice {
                                 color: rgb(186, 14, 28);
-                                    font-size: 12px;
+                                    font-size: 14px;
                                     font-family: JostRegular;
                             }
                         }
@@ -2225,7 +2225,7 @@ ul {
                             .modalColorVal {
                                 font-family: JostBold;
                                 letter-spacing: 1.2px;
-                                font-size: 10px;
+                                font-size: 14px;
                                 text-transform: uppercase;
                             }
                         }
@@ -2238,8 +2238,8 @@ ul {
                                 display: flex;
     
                                 .modalColorLi {
-                                    width: 20px;
-                                    height: 20px;
+                                    width: 30px;
+                                    height: 30px;
                                     border-radius: 50%;
                                     border: 2px solid rgb(218, 217, 217);
                                     color: grey;
@@ -2279,7 +2279,7 @@ ul {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        margin-top: 10px;
+                        margin-top: 14px;
                         font-size: 10px;
                         width: 100%;
     
@@ -2287,7 +2287,7 @@ ul {
                             .modalSizeVal {
                                 font-family: JostBold;
                                 letter-spacing: 1.2px;
-                                font-size: 10px;
+                                font-size: 14px;
                                 text-transform: uppercase;
                             }
                         }
@@ -2299,8 +2299,8 @@ ul {
                                 margin-top: 8px;
     
                                 .modalSizeLi {
-                                    width: 20px;
-                                    height: 20px;
+                                    width: 30px;
+                                    height: 30px;
                                     border-radius: 50%;
                                     border: 1px solid rgb(189, 186, 186);
                                     color: grey;
@@ -2310,7 +2310,7 @@ ul {
                                     transition: 0.3s;
                                     margin-left: 1%;
                                     cursor: pointer;
-                                    font-size: 10px;
+                                    font-size: 14px;
                                     font-family: JostRegular;
     
                                     &:hover {
@@ -2332,8 +2332,8 @@ ul {
                         width: 100%;
                         margin-top: 10px;
                         .modalCounter {
-                            width: 100px;
-                            height: 30px;
+                            width: 110px;
+                            height: 35px;
                             display: flex;
                             border: 1px solid black;
                             display: flex;
@@ -2366,7 +2366,7 @@ ul {
                         .modalButton {
                             margin-top: 20px;
                             .modalAddCard {
-                                width: 250px;
+                                width: 200px;
                                 min-height: 35px;
                                 display: flex;
                                 border: 1px solid black;
@@ -2392,7 +2392,7 @@ ul {
                         display: flex;
                         justify-content: center;
                         width: 100%;
-                        margin-top: 30px;
+                        margin-top: 12px;
                         a{
                             text-decoration: none;
                             transition: 0.3s;
@@ -4680,10 +4680,8 @@ footer {
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.6);
-            overflow-y: scroll;
 
             .productModal {
-                overflow-y: scroll;
                 position: absolute;
                 top: 50%;
                 left: 50%;
@@ -5837,8 +5835,8 @@ footer {
                         width: 100%;
                         .modalImage {
                             img {
-                                width: 80px;
-                                height: 80px;
+                                width: 90px;
+                                height: 90px;
                             }
                         }
     
@@ -5855,7 +5853,7 @@ footer {
                                     font-family: JostRegular;
                                     transition: 0.3s;
                                     letter-spacing: 1.3px;
-                                    font-size: 12px;
+                                    font-size: 14px;
     
                                     &:hover {
                                         color: rgb(186, 14, 28);
@@ -5866,7 +5864,7 @@ footer {
     
                             .modalPrice {
                                 color: rgb(186, 14, 28);
-                                    font-size: 12px;
+                                    font-size: 14px;
                                     font-family: JostRegular;
                             }
                         }
@@ -5884,7 +5882,7 @@ footer {
                             .modalColorVal {
                                 font-family: JostBold;
                                 letter-spacing: 1.2px;
-                                font-size: 10px;
+                                font-size: 14px;
                                 text-transform: uppercase;
                             }
                         }
@@ -5897,8 +5895,8 @@ footer {
                                 display: flex;
     
                                 .modalColorLi {
-                                    width: 20px;
-                                    height: 20px;
+                                    width: 30px;
+                                    height: 30px;
                                     border-radius: 50%;
                                     border: 2px solid rgb(218, 217, 217);
                                     color: grey;
@@ -5938,7 +5936,7 @@ footer {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        margin-top: 10px;
+                        margin-top: 14px;
                         font-size: 10px;
                         width: 100%;
     
@@ -5946,7 +5944,7 @@ footer {
                             .modalSizeVal {
                                 font-family: JostBold;
                                 letter-spacing: 1.2px;
-                                font-size: 10px;
+                                font-size: 14px;
                                 text-transform: uppercase;
                             }
                         }
@@ -5958,8 +5956,8 @@ footer {
                                 margin-top: 8px;
     
                                 .modalSizeLi {
-                                    width: 20px;
-                                    height: 20px;
+                                    width: 30px;
+                                    height: 30px;
                                     border-radius: 50%;
                                     border: 1px solid rgb(189, 186, 186);
                                     color: grey;
@@ -5969,7 +5967,7 @@ footer {
                                     transition: 0.3s;
                                     margin-left: 1%;
                                     cursor: pointer;
-                                    font-size: 10px;
+                                    font-size: 14px;
                                     font-family: JostRegular;
     
                                     &:hover {
@@ -5991,8 +5989,8 @@ footer {
                         width: 100%;
                         margin-top: 10px;
                         .modalCounter {
-                            width: 100px;
-                            height: 30px;
+                            width: 110px;
+                            height: 35px;
                             display: flex;
                             border: 1px solid black;
                             display: flex;
@@ -6025,7 +6023,7 @@ footer {
                         .modalButton {
                             margin-top: 20px;
                             .modalAddCard {
-                                width: 250px;
+                                width: 200px;
                                 min-height: 35px;
                                 display: flex;
                                 border: 1px solid black;
@@ -6051,7 +6049,7 @@ footer {
                         display: flex;
                         justify-content: center;
                         width: 100%;
-                        margin-top: 30px;
+                        margin-top: 12px;
                         a{
                             text-decoration: none;
                             transition: 0.3s;
@@ -6294,8 +6292,8 @@ footer {
                         width: 100%;
                         .modalImage {
                             img {
-                                width: 80px;
-                                height: 80px;
+                                width: 90px;
+                                height: 90px;
                             }
                         }
     
@@ -6312,7 +6310,7 @@ footer {
                                     font-family: JostRegular;
                                     transition: 0.3s;
                                     letter-spacing: 1.3px;
-                                    font-size: 12px;
+                                    font-size: 14px;
     
                                     &:hover {
                                         color: rgb(186, 14, 28);
@@ -6323,7 +6321,7 @@ footer {
     
                             .modalPrice {
                                 color: rgb(186, 14, 28);
-                                    font-size: 12px;
+                                    font-size: 14px;
                                     font-family: JostRegular;
                             }
                         }
@@ -6341,7 +6339,7 @@ footer {
                             .modalColorVal {
                                 font-family: JostBold;
                                 letter-spacing: 1.2px;
-                                font-size: 10px;
+                                font-size: 14px;
                                 text-transform: uppercase;
                             }
                         }
@@ -6354,8 +6352,8 @@ footer {
                                 display: flex;
     
                                 .modalColorLi {
-                                    width: 20px;
-                                    height: 20px;
+                                    width: 30px;
+                                    height: 30px;
                                     border-radius: 50%;
                                     border: 2px solid rgb(218, 217, 217);
                                     color: grey;
@@ -6395,7 +6393,7 @@ footer {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        margin-top: 10px;
+                        margin-top: 14px;
                         font-size: 10px;
                         width: 100%;
     
@@ -6403,7 +6401,7 @@ footer {
                             .modalSizeVal {
                                 font-family: JostBold;
                                 letter-spacing: 1.2px;
-                                font-size: 10px;
+                                font-size: 14px;
                                 text-transform: uppercase;
                             }
                         }
@@ -6415,8 +6413,8 @@ footer {
                                 margin-top: 8px;
     
                                 .modalSizeLi {
-                                    width: 20px;
-                                    height: 20px;
+                                    width: 30px;
+                                    height: 30px;
                                     border-radius: 50%;
                                     border: 1px solid rgb(189, 186, 186);
                                     color: grey;
@@ -6426,7 +6424,7 @@ footer {
                                     transition: 0.3s;
                                     margin-left: 1%;
                                     cursor: pointer;
-                                    font-size: 10px;
+                                    font-size: 14px;
                                     font-family: JostRegular;
     
                                     &:hover {
@@ -6448,8 +6446,8 @@ footer {
                         width: 100%;
                         margin-top: 10px;
                         .modalCounter {
-                            width: 100px;
-                            height: 30px;
+                            width: 110px;
+                            height: 35px;
                             display: flex;
                             border: 1px solid black;
                             display: flex;
@@ -6482,7 +6480,7 @@ footer {
                         .modalButton {
                             margin-top: 20px;
                             .modalAddCard {
-                                width: 250px;
+                                width: 200px;
                                 min-height: 35px;
                                 display: flex;
                                 border: 1px solid black;
@@ -6508,7 +6506,7 @@ footer {
                         display: flex;
                         justify-content: center;
                         width: 100%;
-                        margin-top: 30px;
+                        margin-top: 12px;
                         a{
                             text-decoration: none;
                             transition: 0.3s;
@@ -6539,7 +6537,7 @@ footer {
                     }
     
                 }
-            }
+            } 
         }
     }
 }
@@ -7327,16 +7325,20 @@ footer {
 
     #details {
         .info {
-            .addCard {
-                margin-top: 4%;
-                width: 95.7% !important;
+            .addToCardRow{
+                .addCard {
+                    margin-top: 4%;
+                    width: 95.7% !important;
+                }
+    
+                .whishList {
+                    width: 100px;
+                    position: relative;
+                    right: -2%;
+                }
             }
-
-            .whishList {
-                position: relative;
-                right: 18%;
             }
-        }
+            
     }
 
     #description {

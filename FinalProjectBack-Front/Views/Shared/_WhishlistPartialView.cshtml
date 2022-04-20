@@ -32,7 +32,7 @@ else
     {
 <div class="smallImage col-lg-3 col-md-4 col-sm-6 col-xs-12">
     <div class="image">
-        <a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="mainImage">
+        <a  class="mainImage">
             <img src="~/assets/images/@product.Product.ProductImages.FirstOrDefault().Image"
                  alt="">
             <div class="icons">
@@ -40,7 +40,7 @@ else
             </div>
 
         </a>
-        <a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="secondImage">
+        <a class="secondImage">
             <img src="~/assets/images/@product.Product.ProductImages.Skip(1).FirstOrDefault().Image"
                  alt="">
         </a>
@@ -119,11 +119,22 @@ else
                     <span class="modalProductCounter modalCountBasketFetch">1</span>
                     <button class="modalPlus"><i class="fa-solid fa-plus"></i></button>
                 </div>
-                <div class="modalButton">
-                    <a style="text-decoration:none;" asp-controller="products" asp-action="AddBasket" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="modalAddCard col-lg-4 col-md-12 col-sm-12 col-xs-12 fetchAddToCardModal">
-                        ADD TO CARD
-                    </a>
-                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="modalButton">
+                        <a style="text-decoration:none;" asp-controller="products" asp-action="AddBasket" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId" class="modalAddCard col-lg-4 col-md-12 col-sm-12 col-xs-12 fetchAddToCardModal">
+                            ADD TO CARD
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="modalButton">
+                        <a style="text-decoration:none;" asp-controller="account" asp-action="login" class="modalAddCard col-lg-4 col-md-12 col-sm-12 col-xs-12 fetchAddToCardModal">
+                            LOGIN
+                        </a>
+                    </div>
+                }
             </div>
             <div class="modalViewFullDetails">
                 <a asp-controller="products" asp-action="details" asp-route-id="@product.Product.Id" asp-route-categoryId="@product.Product.ProductCategories.FirstOrDefault().CategoryId">View full details <i class="las la-long-arrow-alt-right"></i></a>

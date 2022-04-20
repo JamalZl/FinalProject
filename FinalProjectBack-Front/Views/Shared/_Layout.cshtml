@@ -45,8 +45,7 @@
                             <ul class="menuShopUl">
                                 @foreach (var brand in layoutService.GetBrands())
                                 {
-                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>
-}
+                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
                             </ul>
                         </li>
                         <li class="menuProductsLi">
@@ -55,14 +54,12 @@
                                 <li><a asp-controller="products" asp-action="index">All products</a></li>
                                 @foreach (var item in layoutService.GetCategories())
                                 {
-                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
-}
+                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
                             </ul>
                         </li>
                         @foreach (var tag in layoutService.GetTags())
                         {
-            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
-}
+                    <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
                         <li><a asp-controller="contact" asp-action="index">Contact</a></li>
                         <li>
                             <a class="searchIcon" href="#">
@@ -71,7 +68,8 @@
                             </a>
                         </li>
                         <li class="userIconLi">
-                            <a class="userIcon" href="#">
+                            <div class="userIcon">
+                                @Html.Raw(layoutService.GetSettingData().UserIcon)
                                 <span>
                                     User
                                 </span>
@@ -86,13 +84,13 @@
                     </div> }
                 else
                 {
-    <div class="userIconMenuLoginStatus">
-        <ul class="userIconMenuLoginStatusUl">
-            <li><a asp-controller="account" asp-action="login">Login</a></li>
-            <li><a asp-controller="account" asp-action="register">Register</a></li>
-        </ul>
-    </div>}
-                            </a>
+                    <div class="userIconMenuLoginStatus">
+                        <ul class="userIconMenuLoginStatusUl">
+                            <li><a asp-controller="account" asp-action="login">Login</a></li>
+                            <li><a asp-controller="account" asp-action="register">Register</a></li>
+                        </ul>
+                    </div>}
+                            </div>
                         </li>
                         <li>
                             <a asp-controller="whishlist" asp-action="index" class="wishlist">
@@ -239,7 +237,7 @@
                             <div class="socials">
                                 @foreach (var social in layoutService.GetSocials())
                                 {
-                    <a href="@social.SocialUrl">@Html.Raw(social.SocialIcon)</a>}
+                    <a target="_blank" href="@social.SocialUrl">@Html.Raw(social.SocialIcon)</a>}
                             </div>
                         </div>
                         <div class="links col-lg-9 col-md-6 col-sm-12 ">
@@ -307,7 +305,7 @@
                             <div class="socials">
                                 @foreach (var social in layoutService.GetSocials())
                                 {
-                    <a href="@social.SocialUrl">@Html.Raw(social.SocialIcon)</a>}
+                    <a target="_blank" href="@social.SocialUrl">@Html.Raw(social.SocialIcon)</a>}
                             </div>
                         </div>
                         <div class="links col-lg-9 col-md-6 col-sm-12 ">
@@ -352,7 +350,7 @@
                 <div class="row">
                     <div class="copyright col-lg-6 col-md-6 col-sm-12">
                         Copyright © 2022 Gecko All Rights Reserved. Powered by
-                        <a href="https://github.com/JamalZl">
+                        <a target="_blank" href="https://github.com/JamalZl">
                             JamalZl
                         </a>
                     </div>
