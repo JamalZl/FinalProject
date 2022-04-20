@@ -38,7 +38,7 @@ namespace FinalProjectBack_Front.Services
         }
         public List<Product> GetProducts()
         {
-            List<Product> products = _context.Products.Include(p => p.ProductImages).ToList();
+            List<Product> products = _context.Products.Include(p=>p.ProductCategories).ThenInclude(pc=>pc.Category).Include(p => p.ProductImages).ToList();
             return products;
         }
 
@@ -138,7 +138,7 @@ namespace FinalProjectBack_Front.Services
             if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
                 AppUser user = await _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name);
-                List<WhishlistItem> whishlistItems = _context.WhishlistItems.Include(b => b.AppUser).Where(b => b.AppUserId == user.Id).ToList();
+                List<WhishlistItem> whishlistItems = _context.WhishlistItems.Include(w=>w.Product).ThenInclude(p=>p.ProductSizes).ThenInclude(ps=>ps.Size).Include(w=>w.Product).ThenInclude(p=>p.ProductColors).ThenInclude(pc=>pc.Color).Include(b => b.AppUser).Where(b => b.AppUserId == user.Id).ToList();
                 foreach (WhishlistItem item in whishlistItems)
                 {
                     Product product = _context.Products.Include(p => p.ProductImages).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).FirstOrDefault(f => f.Id == item.ProductId);
@@ -163,12 +163,12 @@ namespace FinalProjectBack_Front.Services
 
                     foreach (WhislistCookieItemVM item in whislistCookieItems)
                     {
-                        Product product = _context.Products.Include(p=>p.ProductImages).Include(p=>p.ProductCategories).ThenInclude(pc=>pc.Category).FirstOrDefault(p => p.Id == item.Id);
+                        Product product = _context.Products.Include(p=>p.ProductImages).Include(p=>p.ProductSizes).ThenInclude(ps=>ps.Size).Include(p=>p.ProductColors).ThenInclude(pc=>pc.Color).Include(p=>p.ProductCategories).ThenInclude(pc=>pc.Category).FirstOrDefault(p => p.Id == item.Id);
                         if (product != null)
                         {
                             WhishlistItemVM whishlistItem = new WhishlistItemVM
                             {
-                                Product = _context.Products.Include(p => p.Campaign).Include(p => p.ProductImages).FirstOrDefault(p => p.Id == item.Id),
+                                Product = _context.Products.Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.Campaign).Include(p => p.ProductImages).FirstOrDefault(p => p.Id == item.Id),
                                 Count = item.Count
                             };
 

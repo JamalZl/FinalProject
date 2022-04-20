@@ -88,8 +88,8 @@ $(document).ready(function () {
     }
     $(".whishListIcon").click(function (e) {
         e.preventDefault()
-        $(this).toggleClass("bi-heart-fill whishListBackground")
-        $(this).toggleClass("bi-heart")
+        //$(this).toggleClass("bi-heart-fill whishListBackground")
+        //$(this).toggleClass("bi-heart")
 
     })
     let plMinus = document.querySelector(".minus")

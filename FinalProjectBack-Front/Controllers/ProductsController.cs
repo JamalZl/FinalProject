@@ -28,7 +28,7 @@ namespace FinalProjectBack_Front.Controllers
             ViewBag.Sizes = _context.Sizes.Include(s => s.ProductSizes).ThenInclude(ps => ps.Product).ToList();
             ProductVM productVM = new ProductVM
             {
-                Products = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => p.IsDeleted == false).ToList()
+                Products = _context.Products.Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => p.IsDeleted == false).ToList()
             };
             return View(productVM);
         }
@@ -37,10 +37,10 @@ namespace FinalProjectBack_Front.Controllers
             ProductVM productVM = new ProductVM
             {
                 Product = _context.Products.Include(p => p.Campaign).Include(p => p.ProductImages).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.Brand).Include(p => p.Tag).Include(p => p.ProductCategories).ThenInclude(p => p.Category).Include(p => p.DescriptionImages).Where(p => p.IsDeleted == false).FirstOrDefault(p => p.Id == id),
-                Products = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).ToList(),
-                RelatedProducts = _context.Products.Include(p => p.ProductImages).Include(p => p.Campaign).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Where(p => p.ProductCategories.Any(pc => pc.CategoryId == categoryId && p.Id != id)).Where(p => p.IsDeleted == false).Take(8).ToList(),
+                Products = _context.Products.Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).ToList(),
+                RelatedProducts = _context.Products.Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductImages).Include(p => p.Campaign).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Where(p => p.ProductCategories.Any(pc => pc.CategoryId == categoryId && p.Id != id)).Where(p => p.IsDeleted == false).Take(8).ToList(),
                 Comments = _context.Comments.Include(c => c.Product).Include(c => c.AppUser).Where(c => c.ProductId == id).ToList(),
-                CheapProducts = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).OrderBy(p => (p.CampaignId != null ? (p.Price - (p.Price * p.Campaign.DiscountPercent) / 100) : p.Price)).Take(8).ToList(),
+                CheapProducts = _context.Products.Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).OrderBy(p => (p.CampaignId != null ? (p.Price - (p.Price * p.Campaign.DiscountPercent) / 100) : p.Price)).Take(8).ToList(),
             };
             if (productVM.Product == null) return NotFound();
             return View(productVM);
@@ -144,7 +144,7 @@ namespace FinalProjectBack_Front.Controllers
         {
             ProductVM productVM = new ProductVM
             {
-                ProductByBrands = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Include(p => p.Brand).Where(p => p.BrandId == id && p.IsDeleted == false).ToList()
+                ProductByBrands = _context.Products.Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Include(p => p.Brand).Where(p => p.BrandId == id && p.IsDeleted == false).ToList()
             };
             return View(productVM);
         }
@@ -153,7 +153,7 @@ namespace FinalProjectBack_Front.Controllers
             ViewBag.Categories = _context.ProductCategories.Include(pc => pc.Category).FirstOrDefault(pc => pc.CategoryId == id);
             ProductVM productVM = new ProductVM
             {
-                ProductByCategories = _context.Products.Include(p => p.Campaign).Include(p => p.ProductImages).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Where(p => p.ProductCategories.Any(pc => pc.CategoryId == id)).Where(p => p.IsDeleted == false).ToList()
+                ProductByCategories = _context.Products.Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.Campaign).Include(p => p.ProductImages).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Where(p => p.ProductCategories.Any(pc => pc.CategoryId == id)).Where(p => p.IsDeleted == false).ToList()
             };
             return View(productVM);
         }
@@ -162,7 +162,7 @@ namespace FinalProjectBack_Front.Controllers
         {
             ProductVM productVM = new ProductVM
             {
-                ProductByTags = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Include(p => p.Tag).Where(p => p.TagId == id).Where(p => p.IsDeleted == false).ToList()
+                ProductByTags = _context.Products.Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Include(p => p.Tag).Where(p => p.TagId == id).Where(p => p.IsDeleted == false).ToList()
             };
             return View(productVM);
         }
@@ -171,7 +171,7 @@ namespace FinalProjectBack_Front.Controllers
         {
             ProductVM productVM = new ProductVM
             {
-                ProductBySale = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => p.CampaignId != null).Where(p => p.IsDeleted == false).ToList()
+                ProductBySale = _context.Products.Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => p.CampaignId != null).Where(p => p.IsDeleted == false).ToList()
             };
             return View(productVM);
         }
@@ -180,7 +180,7 @@ namespace FinalProjectBack_Front.Controllers
         {
             ProductVM productVM = new ProductVM
             {
-                ProductByNewArrival = _context.Products.Include(p => p.ProductCategories).ThenInclude(p => p.Category).Include(p => p.Campaign).Include(p => p.ProductImages).OrderByDescending(p => p.Id).Where(p => p.IsDeleted == false).Take(12).ToList()
+                ProductByNewArrival = _context.Products.Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductCategories).ThenInclude(p => p.Category).Include(p => p.Campaign).Include(p => p.ProductImages).OrderByDescending(p => p.Id).Where(p => p.IsDeleted == false).Take(12).ToList()
             };
             return View(productVM);
         }
@@ -192,7 +192,7 @@ namespace FinalProjectBack_Front.Controllers
 
         public async Task<IActionResult> AddWhishlist(int id)
         {
-            Product product = _context.Products.Include(p => p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
+            Product product = _context.Products.Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
 
             if (User.Identity.IsAuthenticated && User.IsInRole("Member"))
             {

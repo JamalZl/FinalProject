@@ -55,7 +55,7 @@ namespace FinalProjectBack_Front.Areas.GeckoAdmin.Controllers
                 return View();
             }
 
-            return RedirectToAction("index", "dashboard");
+            return RedirectToAction("index", "product");
         }
 
         //public async Task CreateAdmin()

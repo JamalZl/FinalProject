@@ -24,11 +24,11 @@ $(document).ready(function () {
         $(".menu").addClass("animate__slideOutLeft")
         $(".menu").removeClass("animate__slideInLeft")
     })
-    $(".menuShopLi").click(function (e) {
+    $(".menuShopLi .responsiveMenuProductA").click(function (e) {
         e.preventDefault()
         $(".menuShopUl").slideToggle()
     })
-    $(".menuProductsLi").click(function (e) {
+    $(".menuProductsLi .responsiveMenuCategoryA").click(function (e) {
         e.preventDefault()
         $(".menuProductsUl").slideToggle()
     })
@@ -86,8 +86,6 @@ $(document).ready(function () {
         $(".searchArea").removeClass("animate__slideInRight")
         $(".menu").addClass("animate__slideOutLeft")
         $(".menu").removeClass("animate__slideInLeft")
-        $(".basketArea").addClass("animate__slideOutRight")
-        $(".basketArea").removeClass("animate__slideInRight")
     })
 
     $(".basket").click(function (e) {

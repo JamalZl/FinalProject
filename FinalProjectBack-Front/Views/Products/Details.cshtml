@@ -199,13 +199,13 @@
                     </div>
                     <div asp-validation-summary="@ValidationSummary.ModelOnly"></div>
                     <div class="whishList col-lg-2 col-md-3 col-sm-6 col-xs-2">
-                        <a class="whishlistFetch" asp-controller="products" asp-action="AddWhishlist" asp-route-id="@Model.Product.Id" asp-route-categoryId="@Model.Product.ProductCategories.FirstOrDefault().Id">
+                        <a class="whishlistFetch" asp-controller="products" asp-action="AddWhishlist" asp-route-id="@Model.Product.Id" asp-route-categoryId="@Model.Product.ProductCategories.FirstOrDefault().CategoryId">
                             <i class="bi bi-heart whishListIcon"></i>
                         </a>
                     </div>
                     @if (User.Identity.IsAuthenticated)
                     {
-        <a style="text-decoration:none;" asp-controller="products" asp-action="AddBasket" asp-route-id="@Model.Product.Id" asp-route-categoryId="@Model.Product.ProductCategories.FirstOrDefault().Id" class="addCard col-lg-4 col-md-12 col-sm-12 col-xs-12  fetchAddToCard">
+        <a style="text-decoration:none;" asp-controller="products" asp-action="AddBasket" asp-route-id="@Model.Product.Id" asp-route-categoryId="@Model.Product.ProductCategories.FirstOrDefault().CategoryId" class="addCard col-lg-4 col-md-12 col-sm-12 col-xs-12  fetchAddToCard">
             ADD TO CARD
         </a> }
                     else

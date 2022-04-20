@@ -41,22 +41,22 @@
                     <ul class="menuLinks">
                         <li><a asp-controller="home" asp-action="index">Home</a></li>
                         <li class="menuShopLi">
-                            <a class="menuShopLiA">Shop</a>
+                            <a class="menuShopLiA responsiveMenuProductA">Shop</a>
                             <ul class="menuShopUl">
                                 @foreach (var item in Model.Brands)
                                 {
-                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
+                                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
 }
                             </ul>
                         </li>
                         <li class="menuProductsLi">
-                            <a class="menuProductsLiA">Products</a>
+                            <a class="menuProductsLiA responsiveMenuCategoryA">Products</a>
                             <ul class="menuProductsUl">
                                 <li><a asp-controller="products" asp-action="index">All products</a></li>
                                 @foreach (var item in Model.Categories)
                                 {
-                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
-}
+                                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
+                                }
                             </ul>
                         </li>
                         @foreach (var tag in Model.Tags)
@@ -297,7 +297,7 @@
             <div class="row">
                 <div class="image-content">
                     <div class="image">
-                        <a href="">
+                        <a asp-controller="products" asp-action="GetNewArrival" >
                             <img alt="" src="~/assets/images/@Model.Setting.NewArrivalImage">
                         </a>
                     </div>
@@ -327,7 +327,7 @@
                     </div>
                     <div class="slider">
                         <div class="featured owl-carousel owl-theme">
-                            @await Html.PartialAsync("_ProductPartialView", Model.Products)
+                            @await Html.PartialAsync("_ProductPartialView", Model.FeaturedProducts)
                         </div>
                     </div>
                 </div>
@@ -356,7 +356,7 @@
                  data-aos-anchor-placement="top-center" id="exploreMore">
             <div class="row">
                 <div class="image-content">
-                    <div class="image"><a href=""><img alt="" src="~/assets/images/@Model.Setting.FunImage"></a></div>
+                    <div class="image"><a asp-controller="products" asp-action="index"><img alt="" src="~/assets/images/@Model.Setting.FunImage"></a></div>
                     <div class="content">
                         <div class="productExplain">
                             <p>No Fun Standing Still</p>
@@ -380,7 +380,7 @@
                                     <p>Best Seller Items</p>
                                 </div>
                                 <div class="allproductsText">
-                                    <a href="">
+                                    <a asp-controller="products" asp-action="index" >
                                         VIEW ALL PRODUCTS
                                     </a>
                                 </div>
@@ -398,7 +398,7 @@
                                     <div class="content">
                                         <div class="discount">Lighter, Bouncier, Asic</div>
                                         <div class="saleStatus">UPLIFTED</div>
-                                        <a class="goToProducts" href="">DISCOVER ITEMS</a>
+                                        <a class="goToProducts" asp-controller="products" asp-action="index">DISCOVER ITEMS</a>
                                     </div>
                                 </div>
                             </div>
@@ -814,19 +814,20 @@
 
         $(document).ready(function () {
 
-            $(document).on("click", ".fetchAddToCard", function (e) {
+            $(document).on("click", ".fetchAddToCardModal", function (e) {
                 e.preventDefault()
+                var colorval = $(this).parent().parent().prev().prev().children().first().children().last().children().first().html()
+                var sizeval = $(this).parent().parent().prev().children().first().children().last().children().first().html()
+                var count = $(this).parent().parent().children().first().children().next().html()
                 var href = $(this).attr("href")
-                console.log(href)
                 var base = window.location.origin
-                var url = `${base}${href}`
+                var url = `${base}${href}&colorval=${colorval}&sizeval=${sizeval}&count=${count}`
                 var urlToPartial = `${url}/Products/GetPartial`
 
                 fetch(url).then(res => res.text()).then(data => {
                     fetch(urlToPartial).then(res => res.text()).then(data => {
 
                         $(".basketArea .basketProductsArea").empty();
-                        var basket = document.querySelector(".basketArea")
                         $(".basketArea .basketProductsArea").append(data);
                     });
                 })

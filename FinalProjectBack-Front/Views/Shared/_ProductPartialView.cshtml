@@ -10,7 +10,7 @@
                 <a asp-controller="products" asp-action="AddWhishlist" asp-route-id="@product.Id" class="whishlist whishlistFetch"><i class="fa-regular fa-heart"></i></a>
             </div>
         </a>
-        <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="secondImage">
+        <a style="cursor:pointer;" asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="secondImage">
             <img src="~/assets/images/@product.ProductImages.Skip(1).FirstOrDefault().Image"
                  alt="">
         </a>
@@ -34,70 +34,71 @@
         <div class="productModal animate__animated d-none">
             <div class="image-name-price">
                 <div class="modalImage">
-                    <img src="https://cdn.shopify.com/s/files/1/1385/4931/products/2_e195f63f-79e4-436a-a065-ee9fb5895c9d_360x.jpg?v=1604995044" alt="">
+                    <img src="~/assets/images/@product.ProductImages.FirstOrDefault().Image" alt="">
                 </div>
                 <div class="modalname-price">
                     <div class="modalName">
-                        <a href="">Nikes Pegasus</a>
+                        <a href="">@product.Name</a>
                     </div>
-                    <div class="modalPrice">
-                        $350.00
-                    </div>
+                    @if (product.CampaignId == null)
+                    {
+                        <div class="modalPrice">
+                            $@product.Price
+                        </div>
+                    }
+                    else
+                    {
+                <div class="modalPrice">
+                    <del>$@product.Price</del> $@Math.Round((product.Price * (100 - product.Campaign.DiscountPercent) / 100), 2)
+                </div>
+                    }
+
                 </div>
 
             </div>
             <div class="modalcolor-text">
                 <div class="modalText">
-                    <span class="modalColorVal">Color : <span>Grey</span> </span>
+                    <span class="modalColorVal">Color : <span class="modalColorBasketFetch">@Model.FirstOrDefault().ProductColors.FirstOrDefault().Color.Name</span> </span>
                 </div>
                 <div class="modalColor">
                     <ul class="modalColorUl">
-                        <li class="modalColorLi" data-value="Blue">
-                            <a style="background-color: rgb(74,165,199);" href=""></a>
+                        @foreach (var color in product.ProductColors)
+                        {
+                        <li class="modalColorLi" data-value="@color.Color.Name">
+                            <a style="background-color: @color.Color.Value;" href=""></a>
                         </li>
-                        <li class="modalColorLi" data-value="Orange">
-                            <a style="background-color: rgb(255,122,1)"
-                               href=""></a>
-                        </li>
-                        <li class="modalColorLi" data-value="Yellow">
-                            <a style="background-color: rgb(225,235,121);"
-                               href=""></a>
-                        </li>
-                        <li class="modalColorLi" data-value="Grey">
-                            <a style="background-color: rgb(130,130,130)"
-                               href=""></a>
-                        </li>
+
+                        }
                     </ul>
                 </div>
             </div>
             <div class="modalsize-text">
                 <div class="modalText">
-                    <span class="modalSizeVal">Size: <span>40</span> </span>
+                    <span class="modalSizeVal">Size: <span class="modalSizeBasketFetch">@Model.FirstOrDefault().ProductSizes.FirstOrDefault().Size.Value</span> </span>
                 </div>
                 <div class="modalSize">
                     <ul class="modalSizeUl">
-                        <li class="modalSizeLi" data-value="40"><span>40</span></li>
-                        <li class="modalSizeLi" data-value="41"><span>41</span></li>
-                        <li class="modalSizeLi" data-value="42"><span>42</span></li>
-                        <li class="modalSizeLi" data-value="43"><span>43</span></li>
-                        <li class="modalSizeLi" data-value="44"><span>44</span></li>
+                        @foreach (var size in product.ProductSizes.OrderBy(ps=>ps.Size.Value))
+                        {
+                            <li class="modalSizeLi" data-value="@size.Size.Value"><span>@size.Size.Value</span></li>
+                        }
                     </ul>
                 </div>
             </div>
             <div class="modalcounter-button">
                 <div class="modalCounter">
                     <button class="modalMinus"><i class="fa-solid fa-minus"></i></button>
-                    <span class="modalProductCounter">1</span>
+                    <span class="modalProductCounter modalCountBasketFetch">1</span>
                     <button class="modalPlus"><i class="fa-solid fa-plus"></i></button>
                 </div>
                 <div class="modalButton">
-                    <button class="modalAddCard col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                    <a style="text-decoration:none;" asp-controller="products" asp-action="AddBasket" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="modalAddCard col-lg-4 col-md-12 col-sm-12 col-xs-12 fetchAddToCardModal">
                         ADD TO CARD
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="modalViewFullDetails">
-                <a href="">View full details <i class="las la-long-arrow-alt-right"></i></a>
+                <a  asp-controller="products" asp-action="details" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId">View full details <i class="las la-long-arrow-alt-right"></i></a>
             </div>
             <div class="modalClose">
                 <i class="las la-times"></i>
