@@ -155,7 +155,7 @@
                             <i class="bi bi-person nav-user"></i>
                             @if (User.Identity.IsAuthenticated)
                             {
-                <div class="userLoginStatus">
+                <div style="right:76px;" class="userLoginStatus">
                     <ul class="userLoginStatusUl">
                         <li><a href="">@User.Identity.Name</a></li>
                         <li><a asp-controller="account" asp-action="Edit">Edit your profile</a></li>
@@ -164,7 +164,7 @@
                 </div> }
             else
             {
-<div class="userLoginStatus">
+<div style="right:76px;" class="userLoginStatus">
     <ul class="userLoginStatusUl">
         <li><a asp-controller="account" asp-action="login">Login</a></li>
         <li><a asp-controller="account" asp-action="register">Register</a></li>
