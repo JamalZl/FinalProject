@@ -40,7 +40,7 @@ else
                             $ @item.Price <span class="basketX">x</span> <span class="basketProductCount">@item.Count</span>
                         </span>
                         <div class="removeItem">
-                            <a asp-controller="products" asp-action="DeleteBasketItem" asp-route-id="@item.Product.Id" style="color:black;" class="bi bi-trash removeBasketItemFetch"></a>
+                            <a asp-controller="products" asp-action="DeleteBasketItem" asp-route-id="@item.Product.BasketItems.FirstOrDefault().Id" style="color:black;" class="bi bi-trash removeBasketItemFetch"></a>
                         </div>
                     </div>
 

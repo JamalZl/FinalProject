@@ -274,7 +274,7 @@ namespace FinalProjectBack_Front.Controllers
                 body = reader.ReadToEnd();
             }
 
-            string aboutText = $"Welcome <strong>{appUser.Name + " " + appUser.Surname}</strong> to our website ,please click the link down below to verify your account";
+            string aboutText = $"Hello <strong>{appUser.Name + " " + appUser.Surname}</strong>,please click the link down below to reset your password";
             body = body.Replace("{{link}}", link);
             mail.Body = body.Replace("{{aboutText}}", aboutText);
             mail.IsBodyHtml = true;

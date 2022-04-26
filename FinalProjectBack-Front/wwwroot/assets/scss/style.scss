@@ -6793,6 +6793,29 @@ footer {
 }
 
 
+//loaderStart
+
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10000;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        height: 12rem;
+    }
+}
+
+.loader-container.active {
+    display: none;
+}
+//loaderEnd
 //WhishlistEnd
 @keyframes fade-In {
     0% {

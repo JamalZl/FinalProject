@@ -145,6 +145,7 @@ $(document).ready(function () {
             })
         }
     })
+    fadeOut();
 
     $(".modalShowerAddToCard").click(function (e) {
         e.preventDefault()
@@ -196,4 +197,11 @@ $(document).ready(function () {
             alert("Number of the products can't be lower than 1")
         }
     })
+    function loader() {
+        document.querySelector('.loader-container').classList.add('active');
+    }
+
+    function fadeOut() {
+        setTimeout(loader, 1500);
+    }
 })

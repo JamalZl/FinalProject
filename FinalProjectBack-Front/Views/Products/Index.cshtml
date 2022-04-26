@@ -12,7 +12,8 @@
 </section>
 <section id="filter">
     <div class="container">
-        <a id="filterIcon" href=""><i class="fa-solid fa-filter"></i>Filter</a>
+        <a id="filterIcon" href=""><i class="fa-solid fa-filter"></i>Filter by price</a>
+        <a asp-controller="products" asp-action="pricesearch" style="cursor:pointer;text-decoration:none;color:darkgrey;margin-left:30px;position:relative;bottom:24px;left:105px;" class="ResetFilter d-none">&times;  Reset filter</a>
         <div class="row myRow">
             <form id="filterForm" method="get">
                 <div class="byPrice col-lg-4 col-md-6 col-sm-12">
@@ -28,7 +29,7 @@
                                 <input type="range" min="0" max="999" value="0" id="slider-1" oninput="slideOne()">
                                 <input type="range" min="0" max="999" value="999" id="slider-2"
                                        oninput="slideTwo()">
-                                <p style="cursor:pointer;" class="priceSubmitBtn">FILTER</p>
+                                <a asp-controller="products" asp-action="pricesearch" style="cursor:pointer;text-decoration:none;" class="priceSubmitBtn">FILTER</a>
                                 <input id="rangeInput1" type="hidden">
                                 <input id="rangeInput2" type="hidden">
                             </div>
@@ -49,30 +50,30 @@
 
                 </div>
                 @*<div class="bySize col-lg-4 col-md-6 col-sm-12">
-                        <div class="titleSize">
-                            <span>
-                                By Size
-                            </span>
-                        </div>
-                        <div class="sizeDiv">
-                            @foreach (var size in sizes)
-                            {
-                            <input class="sizeValueInput" id="@size.Id" value="@size.Value" name="size" type="checkbox">
-                            <label for="@size.Id">@size.Value <span>(@size.ProductSizes.Count)</span></label><br>
+                    <div class="titleSize">
+                        <span>
+                            By Size
+                        </span>
+                    </div>
+                    <div class="sizeDiv">
+                        @foreach (var size in sizes)
+                        {
+                        <input class="sizeValueInput" id="@size.Id" value="@size.Value" name="size" type="checkbox">
+                        <label for="@size.Id">@size.Value <span>(@size.ProductSizes.Count)</span></label><br>
 
-                            }
-                        </div>
-                    </div>*@
+                        }
+                    </div>
+                </div>*@
             </form>
         </div>
     </div>
 </section>
 <section id="products">
     <div class="container">
-        <div class="row" id="Old-Products">
+        <div class="row" id="Old-ProductsFilter">
             @await Html.PartialAsync("_ProductPartialView", Model.Products)
         </div>
-        <div class="row" id="New-Products">
+        <div class="row" id="New-ProductsFilter">
         </div>
     </div>
 </section>
@@ -80,25 +81,48 @@
 @section Scripts{
     <script src="~/assets/Js/products.js"></script>
     <script>
-        $(document).on('click', `.priceSubmitBtn`, function () {
-            //$("#searchResultsAjax").empty()
-            if ($(this).prev().prev().val() >= 0 && $(this).prev().val() > 0) {
-                $.ajax({
-                    url: `/Products/PriceSearch`,
-                    data: {
-                        "minPrice": $("#slider-1").val(),
-                        "maxPrice": $("#slider-2").val(),
-                    },
-                    type: "Get",
-                    success: function (res) {
-                        $("#Old-Products").css("display", "none")
-                        $("#New-Products").html(res);
-                    }
+
+        $(document).on("click", ".priceSubmitBtn", function (e) {
+
+            e.preventDefault();
+            var href = $(this).attr("href");
+            console.log(href)
+            var minprice = $(this).prev().prev().val()
+            var maxprice = $(this).prev().val()
+            var base = window.location.origin;
+            var url = `${base}${href}`
+            var urlToSearchpartial = `${base}/products/pricesearch?minprice=${minprice}&maxprice=${maxprice}`
+            $(".ResetFilter").removeClass("d-none");
+            $(".ResetFilter").addClass("d-flex");
+            fetch(url).then(res => res.text()).then(data => {
+
+                fetch(urlToSearchpartial).then(res => res.text()).then(data => {
+
+                    $("#Old-ProductsFilter").empty();
+                    $("#Old-ProductsFilter").append(data);
                 })
-            }
-            else {
-                $("#Old-Products").css("display", "flex")
-            }
+            })
+        })
+
+        $(document).on("click", ".ResetFilter", function (e) {
+
+            e.preventDefault();
+            var href = $(this).attr("href");
+            console.log(href)
+            var minprice = 0;
+            var maxprice = 999;
+            var base = window.location.origin;
+            var url = `${base}${href}`
+            var urlToSearchpartial = `${base}/products/pricesearch?minprice=${minprice}&maxprice=${maxprice}`
+            $(".ResetFilter").addClass("d-none");
+            fetch(url).then(res => res.text()).then(data => {
+
+                fetch(urlToSearchpartial).then(res => res.text()).then(data => {
+
+                    $("#Old-ProductsFilter").empty();
+                    $("#Old-ProductsFilter").append(data);
+                })
+            })
         })
     </script>
 }

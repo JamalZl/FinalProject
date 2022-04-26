@@ -126,7 +126,7 @@ $(document).ready(function () {
         $(".colorVal").children().first().html(colorValue)
     })
 
-    // $(".bigImage img").imagezoomsl({
-    //     zoomrange: [3, 3]
-    // })
+     //$(".bigImage img").imagezoomsl({
+     //    zoomrange: [3, 3]
+     //})
 })

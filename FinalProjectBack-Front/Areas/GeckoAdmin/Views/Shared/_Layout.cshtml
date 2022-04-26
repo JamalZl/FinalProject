@@ -51,7 +51,14 @@
             </div><!--/.sidebar header-->
             <div class="profile-element d-flex align-items-center flex-shrink-0">
                 <div class="profile-text">
-                    <h6 class="mx-0">Admin: @User.Identity.Name</h6>
+                    @if (User.Identity.Name == "Camal123")
+                    {
+                        <h6 class="mx-0">Super Admin: @User.Identity.Name</h6>
+                    }
+                    else
+                    {
+                        <h6 class="mx-0">Admin: @User.Identity.Name</h6>
+                    }
                 </div>
             </div>
             <div class="sidebar-body">

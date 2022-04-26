@@ -1,9 +1,7 @@
 ﻿@model HomeVM
 @inject FinalProjectBack_Front.Services.LayoutServices layoutService
-@{ 
-    Layout = null;
-    BasketVM basket = await layoutService.ShowBasket();
-}
+@{ Layout = null;
+                BasketVM basket = await layoutService.ShowBasket(); }
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +43,7 @@
                             <ul class="menuShopUl">
                                 @foreach (var item in Model.Brands)
                                 {
-                                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
+                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@item.Id">@item.Name</a></li>
 }
                             </ul>
                         </li>
@@ -55,8 +53,8 @@
                                 <li><a asp-controller="products" asp-action="index">All products</a></li>
                                 @foreach (var item in Model.Categories)
                                 {
-                                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
-                                }
+                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
+}
                             </ul>
                         </li>
                         @foreach (var tag in Model.Tags)
@@ -154,24 +152,25 @@
                             @Html.Raw(Model.Setting.SearchIcon)
                         </a>
                         <div class="userIcon" href="#">
-                            <i class="bi bi-person nav-user"></i>
                             @if (User.Identity.IsAuthenticated)
                             {
-                <div style="right:76px;" class="userLoginStatus">
-                    <ul class="userLoginStatusUl">
-                        <li><a href="">@User.Identity.Name</a></li>
-                        <li><a asp-controller="account" asp-action="Edit">Edit your profile</a></li>
-                        <li><a asp-controller="account" asp-action="logout">Logout</a></li>
-                    </ul>
-                </div> }
-            else
-            {
-<div style="right:76px;" class="userLoginStatus">
-    <ul class="userLoginStatusUl">
-        <li><a asp-controller="account" asp-action="login">Login</a></li>
-        <li><a asp-controller="account" asp-action="register">Register</a></li>
-    </ul>
-</div>}
+                <i style="color: rgb(186,5,26);" class="bi bi-person nav-user"></i>
+                                <div style="right:76px;" class="userLoginStatus">
+                                    <ul class="userLoginStatusUl">
+                                        <li><a href="">@User.Identity.Name</a></li>
+                                        <li><a asp-controller="account" asp-action="Edit">Edit your profile</a></li>
+                                        <li><a asp-controller="account" asp-action="logout">Logout</a></li>
+                                    </ul>
+                                </div> }
+                            else
+                            {
+                <i class="bi bi-person nav-user"></i>
+                                <div style="right:76px;" class="userLoginStatus">
+                                    <ul class="userLoginStatusUl">
+                                        <li><a asp-controller="account" asp-action="login">Login</a></li>
+                                        <li><a asp-controller="account" asp-action="register">Register</a></li>
+                                    </ul>
+                                </div>}
                         </div>
                         <a asp-controller="whishlist" asp-action="index" class="wishlist">
                             @Html.Raw(Model.Setting.WhishlistIcon)
@@ -295,7 +294,7 @@
             <div class="row">
                 <div class="image-content">
                     <div class="image">
-                        <a asp-controller="products" asp-action="GetNewArrival" >
+                        <a asp-controller="products" asp-action="GetNewArrival">
                             <img alt="" src="~/assets/images/@Model.Setting.NewArrivalImage">
                         </a>
                     </div>
@@ -378,7 +377,7 @@
                                     <p>Best Seller Items</p>
                                 </div>
                                 <div class="allproductsText">
-                                    <a asp-controller="products" asp-action="index" >
+                                    <a asp-controller="products" asp-action="index">
                                         VIEW ALL PRODUCTS
                                     </a>
                                 </div>
@@ -418,8 +417,8 @@
                         </div>
                         <div style="color:white;list-style:none;" asp-validation-summary="ModelOnly"></div>
                         <form asp-controller="home" asp-action="index" class="form" method="post">
+                            <span style="margin-bottom: 5px; font-size:20px; display: inline-block" class="text text-danger" asp-validation-for="@Model.SubscribeVM.Email"></span><br />
                             <input asp-for="@Model.SubscribeVM.Email" placeholder="Your email address" required>
-                            <span style="margin-bottom: 5px; display: inline-block" class="text text-danger" asp-validation-for="@Model.SubscribeVM.Email"></span><br />
                             <button class="myBtn" type="submit">Subscribe</button>
                         </form>
                     </div>
@@ -582,6 +581,9 @@
     <div class="d-none goUp">
         <i class="fas fa-chevron-up icon icon1"></i>
         <i class="fas fa-chevron-up icon icon2"></i>
+    </div>
+    <div class="loader-container">
+        <img src="https://i.pinimg.com/originals/ba/5d/d4/ba5dd445504b80df283e90ebadb57d0b.gif" alt="">
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
             integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
@@ -761,16 +763,6 @@
                         $("#products .whishCont .whishRow").append(data);
                     });
                 })
-
-                //setTimeout(function () {
-
-                //    var totalCount = document.getElementById("basketTotalCountFetch")
-
-                //    var count = totalCount.innerHTML
-                //    var navBasketCount = document.getElementsByClassName("fetchBasketCountTest")
-                //    navBasketCount.innerHTML = count;
-                //    console.log(navBasketCount.innerHTML)
-                //}, 100);
             });
 
             $(document).on("click", ".removeWhishlistItem", function (e) {

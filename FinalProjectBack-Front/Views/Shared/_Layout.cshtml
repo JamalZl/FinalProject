@@ -45,7 +45,8 @@
                             <ul class="menuShopUl">
                                 @foreach (var brand in layoutService.GetBrands())
                                 {
-                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
+                    <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>
+}
                             </ul>
                         </li>
                         <li class="menuProductsLi">
@@ -54,12 +55,14 @@
                                 <li><a asp-controller="products" asp-action="index">All products</a></li>
                                 @foreach (var item in layoutService.GetCategories())
                                 {
-                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
+                    <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
+}
                             </ul>
                         </li>
                         @foreach (var tag in layoutService.GetTags())
                         {
-                    <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
+            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
+}
                         <li><a asp-controller="contact" asp-action="index">Contact</a></li>
                         <li>
                             <a class="searchIcon" href="#">
@@ -84,12 +87,12 @@
                     </div> }
                 else
                 {
-                    <div class="userIconMenuLoginStatus">
-                        <ul class="userIconMenuLoginStatusUl">
-                            <li><a asp-controller="account" asp-action="login">Login</a></li>
-                            <li><a asp-controller="account" asp-action="register">Register</a></li>
-                        </ul>
-                    </div>}
+    <div class="userIconMenuLoginStatus">
+        <ul class="userIconMenuLoginStatusUl">
+            <li><a asp-controller="account" asp-action="login">Login</a></li>
+            <li><a asp-controller="account" asp-action="register">Register</a></li>
+        </ul>
+    </div>}
                             </div>
                         </li>
                         <li>
@@ -117,8 +120,7 @@
                                     <ul class="shopElements">
                                         @foreach (var brand in layoutService.GetBrands())
                                         {
-                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>
-}
+                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
                                     </ul>
                                 </div>
                             </li>
@@ -129,15 +131,15 @@
                                         <li><a asp-controller="products" asp-action="index">All products</a></li>
                                         @foreach (var category in layoutService.GetCategories())
                                         {
-                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@category.Id">@category.Name</a></li>
-}
+                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@category.Id">@category.Name</a></li>}
                                     </ul>
                                 </div>
                             </li>
 
                             @foreach (var item in layoutService.GetTags())
                             {
-                <li><a asp-controller="products" asp-action="gettags" asp-route-id="@item.Id">@item.Name</a></li>}
+                <li><a asp-controller="products" asp-action="gettags" asp-route-id="@item.Id">@item.Name</a></li>
+}
                             <li><a asp-controller="contact" asp-action="index">Contact</a></li>
                         </ul>
                     </div>
@@ -152,24 +154,25 @@
                             @Html.Raw(layoutService.GetSettingData().SearchIcon)
                         </a>
                         <div class="userIcon" href="#">
-                            <i class="bi bi-person nav-user"></i>
                             @if (User.Identity.IsAuthenticated)
                             {
-                <div style="right:76px;" class="userLoginStatus">
-                    <ul class="userLoginStatusUl">
-                        <li><a href="">@User.Identity.Name</a></li>
-                        <li><a asp-controller="account" asp-action="Edit">Edit your profile</a></li>
-                        <li><a asp-controller="account" asp-action="logout">Logout</a></li>
-                    </ul>
-                </div> }
-            else
-            {
-<div style="right:76px;" class="userLoginStatus">
-    <ul class="userLoginStatusUl">
-        <li><a asp-controller="account" asp-action="login">Login</a></li>
-        <li><a asp-controller="account" asp-action="register">Register</a></li>
-    </ul>
-</div>}
+                <i style="color: rgb(186,5,26);" class="bi bi-person nav-user"></i>
+                                <div style="right:76px;" class="userLoginStatus">
+                                    <ul class="userLoginStatusUl">
+                                        <li><a href="">@User.Identity.Name</a></li>
+                                        <li><a asp-controller="account" asp-action="Edit">Edit your profile</a></li>
+                                        <li><a asp-controller="account" asp-action="logout">Logout</a></li>
+                                    </ul>
+                                </div> }
+                            else
+                            {
+                <i class="bi bi-person nav-user"></i>
+                                <div style="right:76px;" class="userLoginStatus">
+                                    <ul class="userLoginStatusUl">
+                                        <li><a asp-controller="account" asp-action="login">Login</a></li>
+                                        <li><a asp-controller="account" asp-action="register">Register</a></li>
+                                    </ul>
+                                </div>}
                         </div>
                         <a asp-controller="whishlist" asp-action="index" class="wishlist">
                             @Html.Raw(layoutService.GetSettingData().WhishlistIcon)
@@ -245,8 +248,7 @@
                                     <ul class="fullWidthBrand">
                                         @foreach (var brand in layoutService.GetBrands())
                                         {
-                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>
-}
+                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
                                     </ul>
                                 </li>
                                 <li class="footerProducts">
@@ -255,8 +257,7 @@
                                         <li><a href="">All products</a></li>
                                         @foreach (var item in layoutService.GetCategories())
                                         {
-                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
-}
+                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
                                     </ul>
                                 </li>
                                 <li class="footerInformaton">
@@ -264,7 +265,8 @@
                                     <ul>
                                         @foreach (var tag in layoutService.GetTags())
                                         {
-                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
+                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
+}
                                     </ul>
                                 </li>
                             </ul>
@@ -314,7 +316,8 @@
                                     <ul class="footerBrandScroll">
                                         @foreach (var brand in layoutService.GetBrands())
                                         {
-                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>}
+                            <li><a asp-controller="products" asp-action="getbrands" asp-route-id="@brand.Id">@brand.Name</a></li>
+}
                                     </ul>
                                 </li>
                                 <li class="footerProducts">
@@ -324,7 +327,8 @@
                                         <li><a href="">All products</a></li>
                                         @foreach (var item in layoutService.GetCategories())
                                         {
-                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>}
+                            <li><a asp-controller="products" asp-action="getcategories" asp-route-id="@item.Id">@item.Name</a></li>
+}
                                     </ul>
                                 </li>
                                 <li class="footerInformaton">
@@ -333,8 +337,7 @@
                                     <ul>
                                         @foreach (var tag in layoutService.GetTags())
                                         {
-                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>
-}
+                            <li><a asp-controller="products" asp-action="gettags" asp-route-id="@tag.Id">@tag.Name</a></li>}
                                     </ul>
                                 </li>
                             </ul>
@@ -363,6 +366,10 @@
     <div class="d-none goUp">
         <i class="fas fa-chevron-up icon icon1"></i>
         <i class="fas fa-chevron-up icon icon2"></i>
+    </div>
+
+    <div class="loader-container">
+        <img src="https://i.pinimg.com/originals/ba/5d/d4/ba5dd445504b80df283e90ebadb57d0b.gif" alt="">
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
             integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
@@ -468,10 +475,10 @@
             $(document).on("click", ".whishlistFetch", function (e) {
                 e.preventDefault()
                 var href = $(this).attr("href")
-                console.log(href)
                 var base = window.location.origin
                 var url = `${base}${href}`
                 var urlToPartial = `${url}/Products/GetWhishlistPartial`
+                console.log(urlToPartial)
 
                 console.log($(".whishlistTotalCountFetch"))
 
@@ -482,17 +489,6 @@
                         $("#products .whishCont .whishRow").append(data);
                     });
                 })
-
-                //setTimeout(function () {
-
-                //    var totalCount = $("#whishlistTotalCountFetch").html();
-
-
-                //    var count = totalCount;
-                //    var navWhishlistCount = $(".fetchWhishlistCountTest").html();
-                //    //navWhishlistCount.append(count)
-                //    console.log(count)
-                //}, 100);
             });
 
             $(document).on("click", ".removeWhishlistItem", function (e) {

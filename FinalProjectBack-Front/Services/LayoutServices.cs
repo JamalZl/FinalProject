@@ -78,7 +78,7 @@ namespace FinalProjectBack_Front.Services
                 List<BasketItem> basketItems = _context.BasketItems.Include(b => b.AppUser).Where(b => b.AppUserId == user.Id).ToList();
                 foreach (BasketItem item in basketItems)
                 {
-                    Product product = _context.Products.Include(p=>p.ProductImages).Include(p=>p.ProductCategories).ThenInclude(pc=>pc.Category).Include(p => p.Campaign).FirstOrDefault(f => f.Id == item.ProductId);
+                    Product product = _context.Products.Include(b=>b.BasketItems).Include(p=>p.ProductImages).Include(p=>p.ProductCategories).ThenInclude(pc=>pc.Category).Include(p => p.Campaign).FirstOrDefault(f => f.Id == item.ProductId);
                     if (product != null)
                     {
                         BasketItemVM basketItemVM = new BasketItemVM
@@ -108,7 +108,7 @@ namespace FinalProjectBack_Front.Services
                         {
                             BasketItemVM basketItem = new BasketItemVM
                             {
-                                Product = _context.Products.Include(p => p.Campaign).Include(p => p.ProductImages).FirstOrDefault(p => p.Id == item.Id),
+                                Product = _context.Products.Include(b=>b.BasketItems).ThenInclude(bi=>bi.Product).Include(p => p.Campaign).Include(p => p.ProductImages).FirstOrDefault(p => p.Id == item.Id),
                                 Count = item.Count
                             };
 

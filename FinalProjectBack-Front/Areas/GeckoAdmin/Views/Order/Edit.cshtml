@@ -25,7 +25,7 @@
                         <address>
                             <strong>Country:@Model.Country</strong><br>
                             <strong>State:@Model.State</strong><br />
-                            <strong>Address:@Model.Address</strong>
+                            <strong>Address:@Model.Address</strong><br />  
                             <strong>Order time:@Model.Date.ToString("dddd, dd MMMM yyyy HH:mm")</strong>
                         </address>
                         <a style="text-decoration:none;" href="mailto:@Model.AppUser.Email">Email:@Model.AppUser.Email</a>
@@ -122,6 +122,19 @@
             {
                 <div class="container mx-1">
                     <div class="card-footer">
+                        <a asp-controller="order" asp-action="index" class="btn btn-labeled btn-dark mb-2 mr-1">
+                            <span class="btn-label"><i class="fas fa-redo-alt"></i></span>Go Back
+                        </a>
+                    </div>
+                </div>
+            }
+            else if (Model.Status == false)
+            {
+                <div class="container mx-1">
+                    <div class="card-footer">
+                        <a asp-controller="order" asp-action="Accept" asp-route-id="@Model.Id" class="btn btn-labeled btn-success mb-2 mr-1 orderAccept">
+                            <span class="btn-label"><i class="fas fa-check"></i></span>Accept
+                        </a>
                         <a asp-controller="order" asp-action="index" class="btn btn-labeled btn-dark mb-2 mr-1">
                             <span class="btn-label"><i class="fas fa-redo-alt"></i></span>Go Back
                         </a>

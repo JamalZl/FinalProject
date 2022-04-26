@@ -7,7 +7,7 @@
             <img src="~/assets/images/@product.ProductImages.FirstOrDefault().Image"
                  alt="">
             <div class="icons">
-                <a asp-controller="products" asp-action="AddWhishlist" asp-route-id="@product.Id" class="whishlist whishlistFetch"><i class="fa-regular fa-heart"></i></a>
+                <a asp-controller="products" asp-action="AddWhishlist" asp-route-id="@product.Id" asp-route-categoryId="@product.ProductCategories.FirstOrDefault().CategoryId" class="whishlist whishlistFetch"><i class="fa-regular fa-heart"></i></a>
             </div>
         </a>
         <a class="secondImage">

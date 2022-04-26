@@ -50,7 +50,7 @@ namespace FinalProjectBack_Front.Controllers
         {
             //var min = int.Parse(minPrice);
             //var max = int.Parse(maxPrice);
-            List<Product> products = _context.Products.Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => (p.CampaignId != null && minPrice <= (p.Price - (p.Price * p.Campaign.DiscountPercent) / 100) && (p.Price - (p.Price * p.Campaign.DiscountPercent) / 100 <= maxPrice)) || (p.CampaignId == null && p.Price >= minPrice && p.Price <= maxPrice)).ToList();
+            List<Product> products = _context.Products.Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.Campaign).Include(p => p.ProductImages).Where(p => (p.CampaignId != null && minPrice <= (p.Price - (p.Price * p.Campaign.DiscountPercent) / 100) && (p.Price - (p.Price * p.Campaign.DiscountPercent) / 100 <= maxPrice)) || (p.CampaignId == null && p.Price >= minPrice && p.Price <= maxPrice)).ToList();
             return PartialView("_ProductPartialView", products);
 
 
@@ -88,6 +88,87 @@ namespace FinalProjectBack_Front.Controllers
                 }
                 _context.SaveChanges();
                 return PartialView("_BasketPartialView");
+
+                //AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+                ////((b.Size == sizeval && b.Color != colorval) || (b.Size != sizeval && b.Color == colorval) || (b.Size != sizeval && b.Color != colorval))
+                //BasketItem basketItem = _context.BasketItems.FirstOrDefault(b => b.ProductId == product.Id && b.AppUserId == user.Id);
+                //if (basketItem == null)
+                //{
+                //    basketItem = new BasketItem
+                //    {
+                //        AppUserId = user.Id,
+                //        ProductId = product.Id,
+                //        Count = count,
+                //        Color = colorval,
+                //        Size = sizeval
+                //    };
+                //    _context.BasketItems.Add(basketItem);
+                //}
+                //else if (basketItem.Size != sizeval && basketItem.Color == colorval)
+                //{
+                //    if (basketItem.Id != id)
+                //    {
+                //        basketItem.Count += count;
+                //    }
+                //    else
+                //    {
+                //        basketItem = new BasketItem
+                //        {
+                //            AppUserId = user.Id,
+                //            ProductId = product.Id,
+                //            Count = count,
+                //            Size = sizeval,
+                //            Color = colorval
+                //        };
+
+                //    }
+                //    _context.BasketItems.Add(basketItem);
+                //}
+                //else if (basketItem.Size == sizeval && basketItem.Color != colorval)
+                //{
+                //    if (basketItem.Id != id)
+                //    {
+                //        basketItem = new BasketItem
+                //        {
+                //            AppUserId = user.Id,
+                //            ProductId = product.Id,
+                //            Count = count,
+                //            Color = colorval,
+                //            Size = sizeval
+                //        };
+
+                //    }
+                //    else
+                //    {
+                //        basketItem.Count += count;
+                //    }
+                //    _context.BasketItems.Add(basketItem);
+                //}
+                //else if (basketItem.Size != sizeval && basketItem.Color != colorval)
+                //{
+                //    if (basketItem.Id != id)
+                //    {
+                //        basketItem = new BasketItem
+                //        {
+                //            AppUserId = user.Id,
+                //            ProductId = product.Id,
+                //            Count = count,
+                //            Color = colorval,
+                //            Size = sizeval
+                //        };
+                //    }
+                //    else
+                //    {
+                //        basketItem.Count += count;
+                //    }
+                //    _context.BasketItems.Add(basketItem);
+                //}
+                //else if (basketItem.Size == sizeval && basketItem.Color == colorval)
+                //{
+                //    basketItem.Count += count;
+                //}
+                //_context.SaveChanges();
+                //return PartialView("_BasketPartialView");
             }
             else
             {
@@ -192,13 +273,13 @@ namespace FinalProjectBack_Front.Controllers
 
         public async Task<IActionResult> AddWhishlist(int id)
         {
-            Product product = _context.Products.Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
+            Product product = _context.Products.Include(p => p.Brand).Include(p => p.ProductCategories).ThenInclude(pc => pc.Category).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductImages).Include(p => p.Campaign).FirstOrDefault(p => p.Id == id);
 
             if (User.Identity.IsAuthenticated && User.IsInRole("Member"))
             {
                 AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-                WhishlistItem whishlistItem = _context.WhishlistItems.FirstOrDefault(b => b.ProductId == product.Id && b.AppUserId == user.Id);
+                WhishlistItem whishlistItem = _context.WhishlistItems.Include(wi => wi.Product).ThenInclude(p => p.ProductCategories).ThenInclude(pc => pc.Category).FirstOrDefault(b => b.ProductId == product.Id && b.AppUserId == user.Id);
                 if (whishlistItem == null)
                 {
                     whishlistItem = new WhishlistItem
@@ -306,7 +387,7 @@ namespace FinalProjectBack_Front.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-                List<BasketItem> basketItems = _context.BasketItems.Where(b => b.ProductId == id && b.AppUserId == user.Id).ToList();
+                List<BasketItem> basketItems = _context.BasketItems.Where(b => b.Id == id && b.AppUserId == user.Id).ToList();
                 foreach (var item in basketItems)
                 {
                     _context.BasketItems.Remove(item);
